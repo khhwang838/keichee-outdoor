@@ -1,2 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1"/>
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="UID" physicalName="UID" physicalDescription="UID"/>
+  <term name="방" physicalName="ROOM" physicalDescription="방"/>
+  <term name="타입" physicalName="TYPE" physicalDescription="타입"/>
+  <term name="이미지" physicalName="IMG" physicalDescription="이미지"/>
+  <term name="명" physicalName="NAME" physicalDescription="명"/>
+  <term name="코드" physicalName="CD" physicalDescription="코드"/>
+  <term name="일자" physicalName="DATE" physicalDescription="일자"/>
+  <term name="일시" physicalName="DTTM" physicalDescription="일시"/>
+  <term name="시작" physicalName="START" physicalDescription="시작"/>
+  <term name="종료" physicalName="END" physicalDescription="종료"/>
+  <term name="할인" physicalName="DISCOUNT" physicalDescription="할인"/>
+  <term name="률" physicalName="RATE" physicalDescription="률"/>
+  <term name="가격" physicalName="PRICE" physicalDescription="가격"/>
+  <term name="월요일" physicalName="MON" physicalDescription="월요일"/>
+  <term name="화요일" physicalName="TUE" physicalDescription="화요일"/>
+  <term name="수요일" physicalName="WED" physicalDescription="수요일"/>
+  <term name="목요일" physicalName="THU" physicalDescription="목요일"/>
+  <term name="금요일" physicalName="FRI" physicalDescription="금요일"/>
+  <term name="토요일" physicalName="SAT" physicalDescription="토요일"/>
+  <term name="일요일" physicalName="SUN" physicalDescription="일요일"/>
+  <term name="구분" physicalName="CAT" physicalDescription="구분"/>
+  <term name="개수" physicalName="CNT" physicalDescription="개수"/>
+  <term name="인원" physicalName="PPL" physicalDescription="인원"/>
+  <term name="수" physicalName="CNT" physicalDescription="수"/>
+  <term name="일수" physicalName="DAYS" physicalDescription="일수"/>
+  <term name="추가" physicalName="EXTRA" physicalDescription="추가"/>
+  <term name="사이즈" physicalName="SIZE" physicalDescription="사이즈"/>
+  <term name="침대" physicalName="BED" physicalDescription="침대"/>
+  <term name="설명" physicalName="DESC" physicalDescription="설명"/>
+  <term name="제목" physicalName="TITLE" physicalDescription="제목"/>
+  <term name="URL" physicalName="URL" physicalDescription="URL"/>
+  <term name="편의시설" physicalName="AMNY" physicalDescription="편의시설"/>
+  <term name="특수" physicalName="SPECIAL" physicalDescription="특수"/>
+  <term name="정책" physicalName="PLCY" physicalDescription="정책"/>
+  <term name="숙박" physicalName="ACMD" physicalDescription="숙박"/>
+  <term name="결제" physicalName="PAY" physicalDescription="결제"/>
+  <term name="여부" physicalName="YN" physicalDescription="여부"/>
+  <term name="옵션" physicalName="OPT" physicalDescription="옵션"/>
+  <term name="추천" physicalName="RCMD" physicalDescription="추천"/>
+  <term name="통화" physicalName="CRC" physicalDescription="통화"/>
+  <term name="국가" physicalName="NTL" physicalDescription="국가"/>
+  <term name="단위" physicalName="UNIT" physicalDescription="단위"/>
+  <term name="도시" physicalName="CITY" physicalDescription="도시"/>
+  <term name="테마" physicalName="THEME" physicalDescription="테마"/>
+  <term name="숙박시설" physicalName="FCLT" physicalDescription="숙박시설"/>
+  <term name="위치" physicalName="LOC" physicalDescription="위치"/>
+  <term name="평균" physicalName="AVG" physicalDescription="평점"/>
+  <term name="취소" physicalName="CANCEL" physicalDescription="취소"/>
+  <term name="주소" physicalName="ADDR" physicalDescription="주소"/>
+  <term name="위도" physicalName="ALTD" physicalDescription="위도"/>
+  <term name="경도" physicalName="LGTD" physicalDescription="경도"/>
+  <term name="리뷰" physicalName="REVIEW"/>
+  <term name="작성" physicalName="WRITE"/>
+  <term name="내용" physicalName="CTNT"/>
+  <term name="ID" physicalName="ID"/>
+  <term name="사용자" physicalName="USER"/>
+  <term name="점수" physicalName="SCORE"/>
+  <term name="연락처" physicalName="CONTACT"/>
+  <term name="이메일" physicalName="EMAIL"/>
+  <term name="오는길" physicalName="DIRECTION"/>
+  <term name="장소" physicalName="PLACE"/>
+  <term name="시즌" physicalName="SEASON"/>
+  <term name="최대" physicalName="MAX"/>
+  <term name="최소" physicalName="MIN"/>
+  <term name="선택" physicalName="CHOICE"/>
+  <term name="방문" physicalName="VISIT"/>
+  <term name="체크인" physicalName="CHKIN"/>
+  <term name="시간" physicalName="TIME"/>
+  <term name="체크아웃" physicalName="CHKOUT"/>
+  <term name="즉석" physicalName="IMMDT"/>
+  <term name="확인" physicalName="CFRM"/>
+  <term name="필요" physicalName="REQ"/>
+  <term name="메시지" physicalName="MSG"/>
+  <term name="예약" physicalName="RSRV"/>
+  <term name="가능" physicalName="ABLE"/>
+  <term name="일수" physicalName="DAYS"/>
+  <term name="성인" physicalName="ADULT"/>
+  <term name="아동" physicalName="CHILD"/>
+  <term name="유아" physicalName="INFANT"/>
+  <term name="사이트" physicalName="SITE"/>
+</tm:TermDictionary>
