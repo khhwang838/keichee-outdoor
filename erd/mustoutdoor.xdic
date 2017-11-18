@@ -40,7 +40,7 @@
   <term name="옵션" physicalName="OPT" physicalDescription="옵션"/>
   <term name="추천" physicalName="RCMD" physicalDescription="추천"/>
   <term name="통화" physicalName="CRC" physicalDescription="통화"/>
-  <term name="국가" physicalName="NTL" physicalDescription="국가"/>
+  <term name="국가" physicalName="NATION" physicalDescription="국가"/>
   <term name="단위" physicalName="UNIT" physicalDescription="단위"/>
   <term name="도시" physicalName="CITY" physicalDescription="도시"/>
   <term name="테마" physicalName="THEME" physicalDescription="테마"/>
@@ -80,4 +80,13 @@
   <term name="아동" physicalName="CHILD"/>
   <term name="유아" physicalName="INFANT"/>
   <term name="사이트" physicalName="SITE"/>
+  <term name="액티비티" physicalName="ACTV"/>
+  <term name="비디오" physicalName="VIDEO"/>
+  <term name="소요시간" physicalName="DURATION"/>
+  <term name="예약" physicalName="RSV"/>
+  <term name="상태" physicalName="STATUS"/>
+  <term name="핫딜" physicalName="HOTDEAL"/>
+  <term name="메모" physicalName="MEMO"/>
+  <term name="순서" physicalName="ORDER"/>
+  <term name="번호" physicalName="NO"/>
 </tm:TermDictionary>
