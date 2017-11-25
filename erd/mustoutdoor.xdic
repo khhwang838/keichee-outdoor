@@ -89,4 +89,15 @@
   <term name="메모" physicalName="MEMO"/>
   <term name="순서" physicalName="ORDER"/>
   <term name="번호" physicalName="NO"/>
+  <term name="패키지" physicalName="PACKAGE"/>
+  <term name="운영" physicalName="OP"/>
+  <term name="요일" physicalName="WEEK_DAY"/>
+  <term name="수량" physicalName="QUANTITY"/>
+  <term name="적용" physicalName="APPLY"/>
+  <term name="포함" physicalName="INCLUDE"/>
+  <term name="제외" physicalName="EXCLUDE"/>
+  <term name="항목" physicalName="ITEM"/>
+  <term name="영업시간" physicalName="BUSINESS_HOUR"/>
+  <term name="스케쥴" physicalName="SCHEDULE"/>
+  <term name="리마인더" physicalName="REMINDER"/>
 </tm:TermDictionary>
