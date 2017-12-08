@@ -19,6 +19,7 @@ public interface IConstants {
 		String USER_ID = "userId";
 		String ROLE_ID = "roleId";
 		String LOCALE = "locale";
+		String PASSWORD = "password";
 	}
 	
 	interface MDC_INFO {

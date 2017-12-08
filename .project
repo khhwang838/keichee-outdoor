@@ -3,6 +3,7 @@
 	<name>keichee-mustoutdoor</name>
 	<comment></comment>
 	<projects>
+		<project>keichee-utils</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -75,7 +75,6 @@
   <term name="메시지" physicalName="MSG"/>
   <term name="예약" physicalName="RSRV"/>
   <term name="가능" physicalName="ABLE"/>
-  <term name="일수" physicalName="DAYS"/>
   <term name="성인" physicalName="ADULT"/>
   <term name="아동" physicalName="CHILD"/>
   <term name="유아" physicalName="INFANT"/>
@@ -83,7 +82,6 @@
   <term name="액티비티" physicalName="ACTV"/>
   <term name="비디오" physicalName="VIDEO"/>
   <term name="소요시간" physicalName="DURATION"/>
-  <term name="예약" physicalName="RSV"/>
   <term name="상태" physicalName="STATUS"/>
   <term name="핫딜" physicalName="HOTDEAL"/>
   <term name="메모" physicalName="MEMO"/>
@@ -100,4 +98,11 @@
   <term name="영업시간" physicalName="BUSINESS_HOUR"/>
   <term name="스케쥴" physicalName="SCHEDULE"/>
   <term name="리마인더" physicalName="REMINDER"/>
+  <term name="비밀번호" physicalName="PASSWORD"/>
+  <term name="오류" physicalName="ERROR"/>
+  <term name="횟수" physicalName="COUNT"/>
+  <term name="마지막" physicalName="LAST"/>
+  <term name="로그인" physicalName="LOGIN"/>
+  <term name="잠금" physicalName="LOCK"/>
+  <term name="프로필" physicalName="PROFILE"/>
 </tm:TermDictionary>

@@ -47,13 +47,19 @@ public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
 				guid = GuidUtils.instance().createGuid();
 			}
 			String userId = (String) session.getAttribute(IConstants.SESSION_INFO.USER_ID);
-			String roleId = (String) session.getAttribute(IConstants.SESSION_INFO.ROLE_ID);
+			logger.debug("User {} is still in session.", userId);
+
+			String passwd = (String) session.getAttribute(IConstants.SESSION_INFO.PASSWORD);
 			Locale locale = (Locale) session.getAttribute(IConstants.SESSION_INFO.LOCALE);
-			sessionInfo.setInfo(guid, userId, roleId, locale);
+			sessionInfo.setInfo(guid, userId, passwd, locale);
+			logger.debug("SessionInfo: {}", sessionInfo);
+			return true;
+		} else {
+			
+			logger.debug("No session info exist.");
+			return false;
 		}
 
-		logger.debug("SessionInfo: {}", sessionInfo);
-		return true;
 	}
 
 	@Override

@@ -13,11 +13,11 @@ public class TestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	@ResponseBody
 	public String test() {
 		
-		return "home";
+		return "test";
 	}
 	
 }
