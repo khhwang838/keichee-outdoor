@@ -41,7 +41,7 @@
 	</bean>
 	<bean id="cookieResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="en"/>
-        <property name="cookieName" value="my-locale-cookie"/>
+        <property name="cookieName" value="mustoutdoor_locale"/>
         <property name="cookieMaxAge" value="3600"/>
     </bean>
 
@@ -77,25 +77,40 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
 
+	<context:property-placeholder location="file:\kihyun\git\keichee-outdoor\src\main\resources\mustoutdoor.config" />
 	<!-- 데이터 소스 설정 시작 -->
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://paper245.cafe24.com:3306/paper245" />
-		<property name="url" value="jdbc:mysql://localhost:3306/paper245" />
-		<property name="username" value="paper245" />
-		<property name="password" value="matsuta001!!" />
+	<!-- 암복화 모듈 -->
+    <bean id="jdbcConfig" class="com.keichee.mustoutdoor.component.JdbcConfig">
+    	<property name="useCrypt"      value="${mustoutdoor.postgresql.jdbc.crypt}" />
+        <property name="decUrl"        value="${mustoutdoor.postgresql.jdbc.url}" />
+        <property name="decUsername"   value="${mustoutdoor.postgresql.jdbc.username}" />
+        <property name="decPassword"   value="${mustoutdoor.postgresql.jdbc.password}" />
+    </bean>
+    
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="#{jdbcConfig.decUrl}"/>
+        <property name="username" value="#{jdbcConfig.decUsername}"/>
+        <property name="password" value="#{jdbcConfig.decPassword}"/>
+		<property name="initialSize" value="${mustoutdoor.postgresql.jdbc.initialSize}" />
+		<property name="maxActive"   value="${mustoutdoor.postgresql.jdbc.maxActive}" />
+		<property name="maxIdle"     value="${mustoutdoor.postgresql.jdbc.maxIdle}" />
+		<property name="minIdle"     value="${mustoutdoor.postgresql.jdbc.minIdle}" />
+		<property name="testWhileIdle"     value="${mustoutdoor.postgresql.testWhileIdle}" />
+		<property name="validationQuery"     value="${mustoutdoor.postgresql.validationQuery}" />
+		<property name="timeBetweenEvictionRunsMillis"     value="${mustoutdoor.postgresql.timeBetweenEvictionRunsMillis}" />
+	</bean>
+
+	<!-- mybatis setting -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.keichee.mustoutdoor" />
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:com/keichee/mustoutdoor/**/dao/xml/*.xml" />
 	</bean>
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:com/keichee/flowers/**/dao/xml/*.xml" />
-		<property name="configLocation" value="/WEB-INF/config/mybatis-config.xml" />
-	</bean> -->
-	<!-- mybatis configuration  -->
-	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.keichee.flowers" />
-	</bean> -->
 	
 </beans>

@@ -1,4 +1,4 @@
-package com.keichee.mustoutdoor.controller;
+package com.keichee.mustoutdoor.web.controller;
 
 import java.util.Locale;
 

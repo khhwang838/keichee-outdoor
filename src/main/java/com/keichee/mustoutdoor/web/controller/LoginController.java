@@ -1,4 +1,4 @@
-package com.keichee.mustoutdoor.controller;
+package com.keichee.mustoutdoor.web.controller;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -22,7 +22,7 @@ import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.constants.IConstants;
 import com.keichee.mustoutdoor.domain.User;
 import com.keichee.mustoutdoor.exception.LoginException;
-import com.keichee.mustoutdoor.service.UserService;
+import com.keichee.mustoutdoor.web.service.UserService;
 
 @Controller
 @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})

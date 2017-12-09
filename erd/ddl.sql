@@ -1,2409 +1,1061 @@
--- Accommodation
-CREATE TABLE "Accommodation" (
-	"ACMD_UID"        VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"ACMD_NAME"       VARCHAR(100)  NULL,     -- ¼÷¹Ú¸í
-	"ACMD_DESC"       VARCHAR(1000) NULL,     -- ¼÷¹Ú¼³¸í
-	"EMAIL"           VARCHAR(100)  NULL,     -- ÀÌ¸ÞÀÏ
-	"CONTACT"         VARCHAR(20)   NULL,     -- ¿¬¶ôÃ³
-	"IMG_URL"         VARCHAR(255)  NULL,     -- ÀÌ¹ÌÁöURL
-	"ACMD_ADDR"       VARCHAR(255)  NULL,     -- ¼÷¹ÚÁÖ¼Ò
-	"ACMD_ALTD"       VARCHAR(255)  NULL,     -- ¼÷¹ÚÀ§µµ
-	"ACMD_LGTD"       VARCHAR(255)  NULL,     -- ¼÷¹Ú°æµµ
-	"DIRECTION"       VARCHAR(1000) NULL,     -- ¿À´Â±æ
-	"ACMD_AVG_SCORE"  VARCHAR(3)    NULL,     -- ¼÷¹ÚÆò±ÕÁ¡¼ö
-	"CITY_UID"        VARCHAR(32)   NULL,     -- µµ½ÃUID
-	"CRC_NATION_CD"   VARCHAR(2)    NULL,     -- ÅëÈ­±¹°¡ÄÚµå
-	"CANCEL_PLCY_UID" VARCHAR(32)   NULL      -- Ãë¼ÒÁ¤Ã¥UID
+ï»¿-- Accommodation
+CREATE TABLE MO_Accommodation (
+	ACMD_UID        VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	ACMD_NAME       VARCHAR(100)  NULL,     -- ìˆ™ë°•ëª…
+	ACMD_DESC       VARCHAR(1000) NULL,     -- ìˆ™ë°•ì„¤ëª…
+	EMAIL           VARCHAR(100)  NULL,     -- ì´ë©”ì¼
+	CONTACT         VARCHAR(20)   NULL,     -- ì—°ë½ì²˜
+	IMG_URL         VARCHAR(255)  NULL,     -- ì´ë¯¸ì§€URL
+	ACMD_ADDR       VARCHAR(255)  NULL,     -- ìˆ™ë°•ì£¼ì†Œ
+	ACMD_ALTD       VARCHAR(255)  NULL,     -- ìˆ™ë°•ìœ„ë„
+	ACMD_LGTD       VARCHAR(255)  NULL,     -- ìˆ™ë°•ê²½ë„
+	DIRECTION       VARCHAR(1000) NULL,     -- ì˜¤ëŠ”ê¸¸
+	ACMD_AVG_SCORE  VARCHAR(3)    NULL,     -- ìˆ™ë°•í‰ê· ì ìˆ˜
+	CITY_UID        VARCHAR(32)   NULL,     -- ë„ì‹œUID
+	CRC_NATION_CD   VARCHAR(2)    NULL,     -- í†µí™”êµ­ê°€ì½”ë“œ
+	CANCEL_PLCY_UID VARCHAR(32)   NULL      -- ì·¨ì†Œì •ì±…UID
 );
 
--- Accommodation ±âº»Å°
-CREATE UNIQUE INDEX "PK_Accommodation"
-	ON "Accommodation" ( -- Accommodation
-		"ACMD_UID" ASC -- ¼÷¹ÚUID
-	);
-
 -- Accommodation
-ALTER TABLE "Accommodation"
+ALTER TABLE MO_Accommodation
 	ADD
-		CONSTRAINT "PK_Accommodation" -- Accommodation ±âº»Å°
+		CONSTRAINT PK_MO_Accommodation -- Accommodation ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
-		);
-
--- Accommodation
-COMMENT ON TABLE "Accommodation" IS 'Accommodation';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Accommodation"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ¼÷¹Ú¸í
-COMMENT ON COLUMN "Accommodation"."ACMD_NAME" IS '¼÷¹Ú¸í';
-
--- ¼÷¹Ú¼³¸í
-COMMENT ON COLUMN "Accommodation"."ACMD_DESC" IS '¼÷¹Ú¼³¸í';
-
--- ÀÌ¸ÞÀÏ
-COMMENT ON COLUMN "Accommodation"."EMAIL" IS 'ÀÌ¸ÞÀÏ';
-
--- ¿¬¶ôÃ³
-COMMENT ON COLUMN "Accommodation"."CONTACT" IS '¿¬¶ôÃ³';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "Accommodation"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- ¼÷¹ÚÁÖ¼Ò
-COMMENT ON COLUMN "Accommodation"."ACMD_ADDR" IS '¼÷¹ÚÁÖ¼Ò';
-
--- ¼÷¹ÚÀ§µµ
-COMMENT ON COLUMN "Accommodation"."ACMD_ALTD" IS '¼÷¹ÚÀ§µµ';
-
--- ¼÷¹Ú°æµµ
-COMMENT ON COLUMN "Accommodation"."ACMD_LGTD" IS '¼÷¹Ú°æµµ';
-
--- ¿À´Â±æ
-COMMENT ON COLUMN "Accommodation"."DIRECTION" IS '¿À´Â±æ';
-
--- ¼÷¹ÚÆò±ÕÁ¡¼ö
-COMMENT ON COLUMN "Accommodation"."ACMD_AVG_SCORE" IS '¼÷¹ÚÆò±ÕÁ¡¼ö';
-
--- µµ½ÃUID
-COMMENT ON COLUMN "Accommodation"."CITY_UID" IS 'µµ½ÃUID';
-
--- ÅëÈ­±¹°¡ÄÚµå
-COMMENT ON COLUMN "Accommodation"."CRC_NATION_CD" IS 'ÅëÈ­±¹°¡ÄÚµå';
-
--- Ãë¼ÒÁ¤Ã¥UID
-COMMENT ON COLUMN "Accommodation"."CANCEL_PLCY_UID" IS 'Ãë¼ÒÁ¤Ã¥UID';
-
--- Accommodation ±âº»Å°
-COMMENT ON INDEX "PK_Accommodation" IS 'Accommodation ±âº»Å°';
-
--- Accommodation ±âº»Å°
-COMMENT ON CONSTRAINT "Accommodation"."PK_Accommodation" IS 'Accommodation ±âº»Å°';
-
--- Currency
-CREATE TABLE "Currency" (
-	"CRC_NTL_CD"      VARCHAR(2)   NOT NULL, -- ÅëÈ­±¹°¡ÄÚµå
-	"CRC_NATION_NAME" VARCHAR(100) NULL,     -- ÅëÈ­±¹°¡¸í
-	"CRC_NAME"        VARCHAR(100) NULL,     -- ÅëÈ­¸í
-	"CRC_UNIT"        VARCHAR(3)   NULL      -- ÅëÈ­´ÜÀ§
-);
-
--- Currency ±âº»Å°
-CREATE UNIQUE INDEX "PK_Currency"
-	ON "Currency" ( -- Currency
-		"CRC_NTL_CD" ASC -- ÅëÈ­±¹°¡ÄÚµå
-	);
-
--- Currency
-ALTER TABLE "Currency"
-	ADD
-		CONSTRAINT "PK_Currency" -- Currency ±âº»Å°
-		PRIMARY KEY (
-			"CRC_NTL_CD" -- ÅëÈ­±¹°¡ÄÚµå
+			ACMD_UID -- ìˆ™ë°•UID
 		);
 
 -- Currency
-COMMENT ON TABLE "Currency" IS 'Currency';
-
--- ÅëÈ­±¹°¡ÄÚµå
-COMMENT ON COLUMN "Currency"."CRC_NTL_CD" IS 'ÅëÈ­±¹°¡ÄÚµå';
-
--- ÅëÈ­±¹°¡¸í
-COMMENT ON COLUMN "Currency"."CRC_NATION_NAME" IS 'ÅëÈ­±¹°¡¸í';
-
--- ÅëÈ­¸í
-COMMENT ON COLUMN "Currency"."CRC_NAME" IS 'ÅëÈ­¸í';
-
--- ÅëÈ­´ÜÀ§
-COMMENT ON COLUMN "Currency"."CRC_UNIT" IS 'ÅëÈ­´ÜÀ§';
-
--- Currency ±âº»Å°
-COMMENT ON INDEX "PK_Currency" IS 'Currency ±âº»Å°';
-
--- Currency ±âº»Å°
-COMMENT ON CONSTRAINT "Currency"."PK_Currency" IS 'Currency ±âº»Å°';
-
--- NationCity
-CREATE TABLE "NationCity" (
-	"CITY_UID"    VARCHAR(32)  NOT NULL, -- µµ½ÃUID
-	"NATION_CD"   VARCHAR(2)   NULL,     -- ±¹°¡ÄÚµå
-	"NATION_NAME" VARCHAR(100) NULL,     -- ±¹°¡¸í
-	"CITY_CD"     VARCHAR(2)   NULL,     -- µµ½ÃÄÚµå
-	"CITY_NAME"   VARCHAR(100) NULL      -- µµ½Ã¸í
+CREATE TABLE MO_Currency (
+	CRC_NTL_CD      VARCHAR(2)   NOT NULL, -- í†µí™”êµ­ê°€ì½”ë“œ
+	CRC_NATION_NAME VARCHAR(100) NULL,     -- í†µí™”êµ­ê°€ëª…
+	CRC_NAME        VARCHAR(100) NULL,     -- í†µí™”ëª…
+	CRC_UNIT        VARCHAR(3)   NULL      -- í†µí™”ë‹¨ìœ„
 );
 
--- NationCity ±âº»Å°
-CREATE UNIQUE INDEX "PK_NationCity"
-	ON "NationCity" ( -- NationCity
-		"CITY_UID" ASC -- µµ½ÃUID
-	);
-
--- NationCity
-ALTER TABLE "NationCity"
+-- Currency
+ALTER TABLE MO_Currency
 	ADD
-		CONSTRAINT "PK_NationCity" -- NationCity ±âº»Å°
+		CONSTRAINT PK_MO_Currency -- Currency ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"CITY_UID" -- µµ½ÃUID
+			CRC_NTL_CD -- í†µí™”êµ­ê°€ì½”ë“œ
 		);
 
 -- NationCity
-COMMENT ON TABLE "NationCity" IS 'NationCity';
-
--- µµ½ÃUID
-COMMENT ON COLUMN "NationCity"."CITY_UID" IS 'µµ½ÃUID';
-
--- ±¹°¡ÄÚµå
-COMMENT ON COLUMN "NationCity"."NATION_CD" IS '±¹°¡ÄÚµå';
-
--- ±¹°¡¸í
-COMMENT ON COLUMN "NationCity"."NATION_NAME" IS '±¹°¡¸í';
-
--- µµ½ÃÄÚµå
-COMMENT ON COLUMN "NationCity"."CITY_CD" IS 'µµ½ÃÄÚµå';
-
--- µµ½Ã¸í
-COMMENT ON COLUMN "NationCity"."CITY_NAME" IS 'µµ½Ã¸í';
-
--- NationCity ±âº»Å°
-COMMENT ON INDEX "PK_NationCity" IS 'NationCity ±âº»Å°';
-
--- NationCity ±âº»Å°
-COMMENT ON CONSTRAINT "NationCity"."PK_NationCity" IS 'NationCity ±âº»Å°';
-
--- Recommend Spots
-CREATE TABLE "RecommendSpots" (
-	"ACMD_UID"           VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"RCMD_PLACE_UID"     VARCHAR(32)   NULL,     -- ÃßÃµÀå¼ÒUID
-	"RCMD_PLACE_NAME"    VARCHAR(100)  NULL,     -- ÃßÃµÀå¼Ò¸í
-	"RCMD_PLACE_DESC"    VARCHAR(1000) NULL,     -- ÃßÃµÀå¼Ò¼³¸í
-	"RCMD_PLACE_IMG_URL" VARCHAR(255)  NULL      -- ÃßÃµÀå¼ÒÀÌ¹ÌÁöURL
+CREATE TABLE MO_NationCity (
+	CITY_UID    VARCHAR(32)  NOT NULL, -- ë„ì‹œUID
+	NATION_CD   VARCHAR(2)   NULL,     -- êµ­ê°€ì½”ë“œ
+	NATION_NAME VARCHAR(100) NULL,     -- êµ­ê°€ëª…
+	CITY_CD     VARCHAR(2)   NULL,     -- ë„ì‹œì½”ë“œ
+	CITY_NAME   VARCHAR(100) NULL      -- ë„ì‹œëª…
 );
 
--- Recommend Spots ±âº»Å°
-CREATE UNIQUE INDEX "PK_RecommendSpots"
-	ON "RecommendSpots" ( -- Recommend Spots
-		"ACMD_UID" ASC -- ¼÷¹ÚUID
-	);
-
--- Recommend Spots
-ALTER TABLE "RecommendSpots"
+-- NationCity
+ALTER TABLE MO_NationCity
 	ADD
-		CONSTRAINT "PK_RecommendSpots" -- Recommend Spots ±âº»Å°
+		CONSTRAINT PK_MO_NationCity -- NationCity ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			CITY_UID -- ë„ì‹œUID
 		);
 
 -- Recommend Spots
-COMMENT ON TABLE "RecommendSpots" IS 'Recommend Spots';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "RecommendSpots"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ÃßÃµÀå¼ÒUID
-COMMENT ON COLUMN "RecommendSpots"."RCMD_PLACE_UID" IS 'ÃßÃµÀå¼ÒUID';
-
--- ÃßÃµÀå¼Ò¸í
-COMMENT ON COLUMN "RecommendSpots"."RCMD_PLACE_NAME" IS 'ÃßÃµÀå¼Ò¸í';
-
--- ÃßÃµÀå¼Ò¼³¸í
-COMMENT ON COLUMN "RecommendSpots"."RCMD_PLACE_DESC" IS 'ÃßÃµÀå¼Ò¼³¸í';
-
--- ÃßÃµÀå¼ÒÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "RecommendSpots"."RCMD_PLACE_IMG_URL" IS 'ÃßÃµÀå¼ÒÀÌ¹ÌÁöURL';
-
--- Recommend Spots ±âº»Å°
-COMMENT ON INDEX "PK_RecommendSpots" IS 'Recommend Spots ±âº»Å°';
-
--- Recommend Spots ±âº»Å°
-COMMENT ON CONSTRAINT "RecommendSpots"."PK_RecommendSpots" IS 'Recommend Spots ±âº»Å°';
-
--- Room Types
-CREATE TABLE "RoomTypes" (
-	"ROOM_TYPE_UID"  VARCHAR(32)        NOT NULL, -- ¹æÅ¸ÀÔUID
-	"ROOM_TYPE_NAME" VARCHAR(100)       NULL,     -- ¹æÅ¸ÀÔ¸í
-	"ROOM_TYPE_IMG"  <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL      -- ¹æÅ¸ÀÔÀÌ¹ÌÁö
+CREATE TABLE MO_RecommendSpots (
+	ACMD_UID           VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	RCMD_PLACE_UID     VARCHAR(32)   NULL,     -- ì¶”ì²œìž¥ì†ŒUID
+	RCMD_PLACE_NAME    VARCHAR(100)  NULL,     -- ì¶”ì²œìž¥ì†Œëª…
+	RCMD_PLACE_DESC    VARCHAR(1000) NULL,     -- ì¶”ì²œìž¥ì†Œì„¤ëª…
+	RCMD_PLACE_IMG_URL VARCHAR(255)  NULL      -- ì¶”ì²œìž¥ì†Œì´ë¯¸ì§€URL
 );
 
--- Room Types ±âº»Å°
-CREATE UNIQUE INDEX "PK_RoomTypes"
-	ON "RoomTypes" ( -- Room Types
-		"ROOM_TYPE_UID" ASC -- ¹æÅ¸ÀÔUID
-	);
-
--- Room Types
-ALTER TABLE "RoomTypes"
+-- Recommend Spots
+ALTER TABLE MO_RecommendSpots
 	ADD
-		CONSTRAINT "PK_RoomTypes" -- Room Types ±âº»Å°
+		CONSTRAINT PK_MO_RecommendSpots -- Recommend Spots ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_TYPE_UID" -- ¹æÅ¸ÀÔUID
+			ACMD_UID -- ìˆ™ë°•UID
 		);
 
 -- Room Types
-COMMENT ON TABLE "RoomTypes" IS 'Room Types';
-
--- ¹æÅ¸ÀÔUID
-COMMENT ON COLUMN "RoomTypes"."ROOM_TYPE_UID" IS '¹æÅ¸ÀÔUID';
-
--- ¹æÅ¸ÀÔ¸í
-COMMENT ON COLUMN "RoomTypes"."ROOM_TYPE_NAME" IS '¹æÅ¸ÀÔ¸í';
-
--- ¹æÅ¸ÀÔÀÌ¹ÌÁö
-COMMENT ON COLUMN "RoomTypes"."ROOM_TYPE_IMG" IS '¹æÅ¸ÀÔÀÌ¹ÌÁö';
-
--- Room Types ±âº»Å°
-COMMENT ON INDEX "PK_RoomTypes" IS 'Room Types ±âº»Å°';
-
--- Room Types ±âº»Å°
-COMMENT ON CONSTRAINT "RoomTypes"."PK_RoomTypes" IS 'Room Types ±âº»Å°';
-
--- Facilities
-CREATE TABLE "Facilities" (
-	"FCLT_UID"  VARCHAR(32)  NOT NULL, -- ¼÷¹Ú½Ã¼³UID
-	"FCLT_NAME" VARCHAR(100) NULL,     -- ¼÷¹Ú½Ã¼³¸í
-	"FCLT_IMG"  VARCHAR(255) NULL      -- ¼÷¹Ú½Ã¼³ÀÌ¹ÌÁö
+CREATE TABLE MO_RoomTypes (
+	ROOM_TYPE_UID  VARCHAR(32)  NOT NULL, -- ë°©íƒ€ìž…UID
+	ROOM_TYPE_NAME VARCHAR(100) NULL,     -- ë°©íƒ€ìž…ëª…
+	ROOM_TYPE_IMG  VARCHAR(255) NULL      -- ë°©íƒ€ìž…ì´ë¯¸ì§€
 );
 
--- Facilities ±âº»Å°
-CREATE UNIQUE INDEX "PK_Facilities"
-	ON "Facilities" ( -- Facilities
-		"FCLT_UID" ASC -- ¼÷¹Ú½Ã¼³UID
-	);
-
--- Facilities
-ALTER TABLE "Facilities"
+-- Room Types
+ALTER TABLE MO_RoomTypes
 	ADD
-		CONSTRAINT "PK_Facilities" -- Facilities ±âº»Å°
+		CONSTRAINT PK_MO_RoomTypes -- Room Types ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"FCLT_UID" -- ¼÷¹Ú½Ã¼³UID
+			ROOM_TYPE_UID -- ë°©íƒ€ìž…UID
 		);
 
 -- Facilities
-COMMENT ON TABLE "Facilities" IS 'Facilities';
-
--- ¼÷¹Ú½Ã¼³UID
-COMMENT ON COLUMN "Facilities"."FCLT_UID" IS '¼÷¹Ú½Ã¼³UID';
-
--- ¼÷¹Ú½Ã¼³¸í
-COMMENT ON COLUMN "Facilities"."FCLT_NAME" IS '¼÷¹Ú½Ã¼³¸í';
-
--- ¼÷¹Ú½Ã¼³ÀÌ¹ÌÁö
-COMMENT ON COLUMN "Facilities"."FCLT_IMG" IS '¼÷¹Ú½Ã¼³ÀÌ¹ÌÁö';
-
--- Facilities ±âº»Å°
-COMMENT ON INDEX "PK_Facilities" IS 'Facilities ±âº»Å°';
-
--- Facilities ±âº»Å°
-COMMENT ON CONSTRAINT "Facilities"."PK_Facilities" IS 'Facilities ±âº»Å°';
-
--- Themes
-CREATE TABLE "Themes" (
-	"ACMD_THEME_UID"  VARCHAR(32)  NOT NULL, -- ¼÷¹ÚÅ×¸¶UID
-	"ACMD_UID"        VARCHAR(32)  NOT NULL, -- ¼÷¹ÚUID
-	"ACMD_THEME_NAME" VARCHAR(100) NULL,     -- ¼÷¹ÚÅ×¸¶¸í
-	"ACMD_THEME_IMG"  VARCHAR(255) NULL      -- ¼÷¹ÚÅ×¸¶ÀÌ¹ÌÁö
+CREATE TABLE MO_Facilities (
+	FCLT_UID  VARCHAR(32)  NOT NULL, -- ìˆ™ë°•ì‹œì„¤UID
+	FCLT_NAME VARCHAR(100) NULL,     -- ìˆ™ë°•ì‹œì„¤ëª…
+	FCLT_IMG  VARCHAR(255) NULL      -- ìˆ™ë°•ì‹œì„¤ì´ë¯¸ì§€
 );
 
--- Themes ±âº»Å°
-CREATE UNIQUE INDEX "PK_Themes"
-	ON "Themes" ( -- Themes
-		"ACMD_THEME_UID" ASC, -- ¼÷¹ÚÅ×¸¶UID
-		"ACMD_UID"       ASC  -- ¼÷¹ÚUID
-	);
-
--- Themes
-ALTER TABLE "Themes"
+-- Facilities
+ALTER TABLE MO_Facilities
 	ADD
-		CONSTRAINT "PK_Themes" -- Themes ±âº»Å°
+		CONSTRAINT PK_MO_Facilities -- Facilities ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_THEME_UID", -- ¼÷¹ÚÅ×¸¶UID
-			"ACMD_UID"        -- ¼÷¹ÚUID
+			FCLT_UID -- ìˆ™ë°•ì‹œì„¤UID
 		);
 
 -- Themes
-COMMENT ON TABLE "Themes" IS 'Themes';
-
--- ¼÷¹ÚÅ×¸¶UID
-COMMENT ON COLUMN "Themes"."ACMD_THEME_UID" IS '¼÷¹ÚÅ×¸¶UID';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Themes"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ¼÷¹ÚÅ×¸¶¸í
-COMMENT ON COLUMN "Themes"."ACMD_THEME_NAME" IS '¼÷¹ÚÅ×¸¶¸í';
-
--- ¼÷¹ÚÅ×¸¶ÀÌ¹ÌÁö
-COMMENT ON COLUMN "Themes"."ACMD_THEME_IMG" IS '¼÷¹ÚÅ×¸¶ÀÌ¹ÌÁö';
-
--- Themes ±âº»Å°
-COMMENT ON INDEX "PK_Themes" IS 'Themes ±âº»Å°';
-
--- Themes ±âº»Å°
-COMMENT ON CONSTRAINT "Themes"."PK_Themes" IS 'Themes ±âº»Å°';
-
--- Special Facilities
-CREATE TABLE "SpecialFacilities" (
-	"ACMD_UID"          VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"SPECIAL_FCLT_NAME" VARCHAR(100)  NULL,     -- Æ¯¼ö¼÷¹Ú½Ã¼³¸í
-	"SPECIAL_FCLT_DESC" VARCHAR(1000) NULL      -- Æ¯¼ö¼÷¹Ú½Ã¼³¼³¸í
+CREATE TABLE MO_Themes (
+	ACMD_THEME_UID  VARCHAR(32)  NOT NULL, -- ìˆ™ë°•í…Œë§ˆUID
+	ACMD_UID        VARCHAR(32)  NOT NULL, -- ìˆ™ë°•UID
+	ACMD_THEME_NAME VARCHAR(100) NULL,     -- ìˆ™ë°•í…Œë§ˆëª…
+	ACMD_THEME_IMG  VARCHAR(255) NULL      -- ìˆ™ë°•í…Œë§ˆì´ë¯¸ì§€
 );
 
--- Special Facilities ±âº»Å°
-CREATE UNIQUE INDEX "PK_SpecialFacilities"
-	ON "SpecialFacilities" ( -- Special Facilities
-		"ACMD_UID" ASC -- ¼÷¹ÚUID
-	);
-
--- Special Facilities
-ALTER TABLE "SpecialFacilities"
+-- Themes
+ALTER TABLE MO_Themes
 	ADD
-		CONSTRAINT "PK_SpecialFacilities" -- Special Facilities ±âº»Å°
+		CONSTRAINT PK_MO_Themes -- Themes ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_THEME_UID, -- ìˆ™ë°•í…Œë§ˆUID
+			ACMD_UID        -- ìˆ™ë°•UID
 		);
 
 -- Special Facilities
-COMMENT ON TABLE "SpecialFacilities" IS 'Special Facilities';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "SpecialFacilities"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- Æ¯¼ö¼÷¹Ú½Ã¼³¸í
-COMMENT ON COLUMN "SpecialFacilities"."SPECIAL_FCLT_NAME" IS 'Æ¯¼ö¼÷¹Ú½Ã¼³¸í';
-
--- Æ¯¼ö¼÷¹Ú½Ã¼³¼³¸í
-COMMENT ON COLUMN "SpecialFacilities"."SPECIAL_FCLT_DESC" IS 'Æ¯¼ö¼÷¹Ú½Ã¼³¼³¸í';
-
--- Special Facilities ±âº»Å°
-COMMENT ON INDEX "PK_SpecialFacilities" IS 'Special Facilities ±âº»Å°';
-
--- Special Facilities ±âº»Å°
-COMMENT ON CONSTRAINT "SpecialFacilities"."PK_SpecialFacilities" IS 'Special Facilities ±âº»Å°';
-
--- Accommodation Images
-CREATE TABLE "AccommodationImages" (
-	"ACMD_UID"  VARCHAR(32)  NOT NULL, -- ¼÷¹ÚUID
-	"IMG_URL"   VARCHAR(255) NULL,     -- ÀÌ¹ÌÁöURL
-	"IMG_TITLE" VARCHAR(100) NULL,     -- ÀÌ¹ÌÁöÁ¦¸ñ
-	"IMG_NO"    INTEGER      NULL      -- ÀÌ¹ÌÁö¹øÈ£
+CREATE TABLE MO_SpecialFacilities (
+	ACMD_UID          VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	SPECIAL_FCLT_NAME VARCHAR(100)  NULL,     -- íŠ¹ìˆ˜ìˆ™ë°•ì‹œì„¤ëª…
+	SPECIAL_FCLT_DESC VARCHAR(1000) NULL      -- íŠ¹ìˆ˜ìˆ™ë°•ì‹œì„¤ì„¤ëª…
 );
 
--- Accommodation Images ±âº»Å°
-CREATE UNIQUE INDEX "PK_AccommodationImages"
-	ON "AccommodationImages" ( -- Accommodation Images
-		"ACMD_UID" ASC -- ¼÷¹ÚUID
-	);
-
--- Accommodation Images
-ALTER TABLE "AccommodationImages"
+-- Special Facilities
+ALTER TABLE MO_SpecialFacilities
 	ADD
-		CONSTRAINT "PK_AccommodationImages" -- Accommodation Images ±âº»Å°
+		CONSTRAINT PK_MO_SpecialFacilities -- Special Facilities ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		);
 
 -- Accommodation Images
-COMMENT ON TABLE "AccommodationImages" IS 'Accommodation Images';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "AccommodationImages"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "AccommodationImages"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- ÀÌ¹ÌÁöÁ¦¸ñ
-COMMENT ON COLUMN "AccommodationImages"."IMG_TITLE" IS 'ÀÌ¹ÌÁöÁ¦¸ñ';
-
--- ÀÌ¹ÌÁö¹øÈ£
-COMMENT ON COLUMN "AccommodationImages"."IMG_NO" IS 'ÀÌ¹ÌÁö¹øÈ£';
-
--- Accommodation Images ±âº»Å°
-COMMENT ON INDEX "PK_AccommodationImages" IS 'Accommodation Images ±âº»Å°';
-
--- Accommodation Images ±âº»Å°
-COMMENT ON CONSTRAINT "AccommodationImages"."PK_AccommodationImages" IS 'Accommodation Images ±âº»Å°';
-
--- Extra Options
-CREATE TABLE "ExtraOptions" (
-	"ACMD_UID"        VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"EXTRA_OPT_UID"   VARCHAR(32)   NOT NULL, -- Ãß°¡¿É¼ÇUID
-	"EXTRA_OPT_NAME"  VARCHAR(100)  NULL,     -- Ãß°¡¿É¼Ç¸í
-	"EXTRA_OPT_DESC"  VARCHAR(1000) NULL,     -- Ãß°¡¿É¼Ç¼³¸í
-	"EXTRA_OPT_PRICE" VARCHAR(10)   NULL,     -- Ãß°¡¿É¼Ç°¡°Ý
-	"CHOICE_MAX_CNT"  VARCHAR(10)   NULL,     -- ¼±ÅÃÃÖ´ë°³¼ö
-	"VISIT_PAY_YN"    VARCHAR(1)    NULL      -- ¹æ¹®°áÁ¦¿©ºÎ
+CREATE TABLE MO_AccommodationImages (
+	ACMD_UID  VARCHAR(32)  NOT NULL, -- ìˆ™ë°•UID
+	IMG_URL   VARCHAR(255) NULL,     -- ì´ë¯¸ì§€URL
+	IMG_TITLE VARCHAR(100) NULL,     -- ì´ë¯¸ì§€ì œëª©
+	IMG_NO    INTEGER      NULL      -- ì´ë¯¸ì§€ë²ˆí˜¸
 );
 
--- Extra Options ±âº»Å°
-CREATE UNIQUE INDEX "PK_ExtraOptions"
-	ON "ExtraOptions" ( -- Extra Options
-		"ACMD_UID"      ASC, -- ¼÷¹ÚUID
-		"EXTRA_OPT_UID" ASC  -- Ãß°¡¿É¼ÇUID
-	);
-
--- Extra Options
-ALTER TABLE "ExtraOptions"
+-- Accommodation Images
+ALTER TABLE MO_AccommodationImages
 	ADD
-		CONSTRAINT "PK_ExtraOptions" -- Extra Options ±âº»Å°
+		CONSTRAINT PK_MO_AccommodationImages -- Accommodation Images ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID",      -- ¼÷¹ÚUID
-			"EXTRA_OPT_UID"  -- Ãß°¡¿É¼ÇUID
+			ACMD_UID -- ìˆ™ë°•UID
 		);
 
 -- Extra Options
-COMMENT ON TABLE "ExtraOptions" IS 'Extra Options';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "ExtraOptions"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- Ãß°¡¿É¼ÇUID
-COMMENT ON COLUMN "ExtraOptions"."EXTRA_OPT_UID" IS 'Ãß°¡¿É¼ÇUID';
-
--- Ãß°¡¿É¼Ç¸í
-COMMENT ON COLUMN "ExtraOptions"."EXTRA_OPT_NAME" IS 'Ãß°¡¿É¼Ç¸í';
-
--- Ãß°¡¿É¼Ç¼³¸í
-COMMENT ON COLUMN "ExtraOptions"."EXTRA_OPT_DESC" IS 'Ãß°¡¿É¼Ç¼³¸í';
-
--- Ãß°¡¿É¼Ç°¡°Ý
-COMMENT ON COLUMN "ExtraOptions"."EXTRA_OPT_PRICE" IS 'Ãß°¡¿É¼Ç°¡°Ý';
-
--- ¼±ÅÃÃÖ´ë°³¼ö
-COMMENT ON COLUMN "ExtraOptions"."CHOICE_MAX_CNT" IS '¼±ÅÃÃÖ´ë°³¼ö';
-
--- ¹æ¹®°áÁ¦¿©ºÎ
-COMMENT ON COLUMN "ExtraOptions"."VISIT_PAY_YN" IS '¹æ¹®°áÁ¦¿©ºÎ';
-
--- Extra Options ±âº»Å°
-COMMENT ON INDEX "PK_ExtraOptions" IS 'Extra Options ±âº»Å°';
-
--- Extra Options ±âº»Å°
-COMMENT ON CONSTRAINT "ExtraOptions"."PK_ExtraOptions" IS 'Extra Options ±âº»Å°';
-
--- Policies
-CREATE TABLE "Policies" (
-	"ACMD_UID"           VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"CHKIN_TIME"         VARCHAR(5)    NULL,     -- Ã¼Å©ÀÎ½Ã°£
-	"CHKOUT_TIME"        VARCHAR(5)    NULL,     -- Ã¼Å©¾Æ¿ô½Ã°£
-	"IMMDT_CFRM_YN"      VARCHAR(1)    NULL,     -- Áï¼®È®ÀÎ¿©ºÎ
-	"CFRM_REQ_TIME"      VARCHAR(5)    NULL,     -- È®ÀÎÇÊ¿ä½Ã°£
-	"CFRM_REQ_TIME_MSG"  VARCHAR(1000) NULL,     -- È®ÀÎÇÊ¿ä½Ã°£¸Þ½ÃÁö
-	"RSRV_ABLE_DAYS"     VARCHAR(10)   NULL,     -- ¿¹¾à°¡´ÉÀÏ¼ö
-	"RSRV_ABLE_DAYS_MSG" VARCHAR(1000) NULL      -- ¿¹¾à°¡´ÉÀÏ¼ö¸Þ½ÃÁö
+CREATE TABLE MO_ExtraOptions (
+	ACMD_UID        VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	EXTRA_OPT_UID   VARCHAR(32)   NOT NULL, -- ì¶”ê°€ì˜µì…˜UID
+	EXTRA_OPT_NAME  VARCHAR(100)  NULL,     -- ì¶”ê°€ì˜µì…˜ëª…
+	EXTRA_OPT_DESC  VARCHAR(1000) NULL,     -- ì¶”ê°€ì˜µì…˜ì„¤ëª…
+	EXTRA_OPT_PRICE VARCHAR(10)   NULL,     -- ì¶”ê°€ì˜µì…˜ê°€ê²©
+	CHOICE_MAX_CNT  VARCHAR(10)   NULL,     -- ì„ íƒìµœëŒ€ê°œìˆ˜
+	VISIT_PAY_YN    VARCHAR(1)    NULL      -- ë°©ë¬¸ê²°ì œì—¬ë¶€
 );
 
--- Policies ±âº»Å°
-CREATE UNIQUE INDEX "PK_Policies"
-	ON "Policies" ( -- Policies
-		"ACMD_UID" ASC -- ¼÷¹ÚUID
-	);
-
--- Policies
-ALTER TABLE "Policies"
+-- Extra Options
+ALTER TABLE MO_ExtraOptions
 	ADD
-		CONSTRAINT "PK_Policies" -- Policies ±âº»Å°
+		CONSTRAINT PK_MO_ExtraOptions -- Extra Options ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID,      -- ìˆ™ë°•UID
+			EXTRA_OPT_UID  -- ì¶”ê°€ì˜µì…˜UID
 		);
 
 -- Policies
-COMMENT ON TABLE "Policies" IS 'Policies';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Policies"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- Ã¼Å©ÀÎ½Ã°£
-COMMENT ON COLUMN "Policies"."CHKIN_TIME" IS 'Ã¼Å©ÀÎ½Ã°£';
-
--- Ã¼Å©¾Æ¿ô½Ã°£
-COMMENT ON COLUMN "Policies"."CHKOUT_TIME" IS 'Ã¼Å©¾Æ¿ô½Ã°£';
-
--- Áï¼®È®ÀÎ¿©ºÎ
-COMMENT ON COLUMN "Policies"."IMMDT_CFRM_YN" IS 'Áï¼®È®ÀÎ¿©ºÎ';
-
--- È®ÀÎÇÊ¿ä½Ã°£
-COMMENT ON COLUMN "Policies"."CFRM_REQ_TIME" IS 'È®ÀÎÇÊ¿ä½Ã°£';
-
--- È®ÀÎÇÊ¿ä½Ã°£¸Þ½ÃÁö
-COMMENT ON COLUMN "Policies"."CFRM_REQ_TIME_MSG" IS 'È®ÀÎÇÊ¿ä½Ã°£¸Þ½ÃÁö';
-
--- ¿¹¾à°¡´ÉÀÏ¼ö
-COMMENT ON COLUMN "Policies"."RSRV_ABLE_DAYS" IS '¿¹¾à°¡´ÉÀÏ¼ö';
-
--- ¿¹¾à°¡´ÉÀÏ¼ö¸Þ½ÃÁö
-COMMENT ON COLUMN "Policies"."RSRV_ABLE_DAYS_MSG" IS '¿¹¾à°¡´ÉÀÏ¼ö¸Þ½ÃÁö';
-
--- Policies ±âº»Å°
-COMMENT ON INDEX "PK_Policies" IS 'Policies ±âº»Å°';
-
--- Policies ±âº»Å°
-COMMENT ON CONSTRAINT "Policies"."PK_Policies" IS 'Policies ±âº»Å°';
-
--- Cancel Policy
-CREATE TABLE "CancelPolicy" (
-	"COL"              VARCHAR(32)   NOT NULL, -- Ãë¼ÒÁ¤Ã¥UID
-	"CANCEL_PLCY_NAME" VARCHAR(100)  NULL,     -- Ãë¼ÒÁ¤Ã¥¸í
-	"CANCEL_PLCY_DESC" VARCHAR(1000) NULL      -- Ãë¼ÒÁ¤Ã¥¼³¸í
+CREATE TABLE MO_Policies (
+	ACMD_UID           VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	CHKIN_TIME         VARCHAR(5)    NULL,     -- ì²´í¬ì¸ì‹œê°„
+	CHKOUT_TIME        VARCHAR(5)    NULL,     -- ì²´í¬ì•„ì›ƒì‹œê°„
+	IMMDT_CFRM_YN      VARCHAR(1)    NULL,     -- ì¦‰ì„í™•ì¸ì—¬ë¶€
+	CFRM_REQ_TIME      VARCHAR(5)    NULL,     -- í™•ì¸í•„ìš”ì‹œê°„
+	CFRM_REQ_TIME_MSG  VARCHAR(1000) NULL,     -- í™•ì¸í•„ìš”ì‹œê°„ë©”ì‹œì§€
+	RSRV_ABLE_DAYS     VARCHAR(10)   NULL,     -- ì˜ˆì•½ê°€ëŠ¥ì¼ìˆ˜
+	RSRV_ABLE_DAYS_MSG VARCHAR(1000) NULL      -- ì˜ˆì•½ê°€ëŠ¥ì¼ìˆ˜ë©”ì‹œì§€
 );
 
--- Cancel Policy ±âº»Å°
-CREATE UNIQUE INDEX "PK_CancelPolicy"
-	ON "CancelPolicy" ( -- Cancel Policy
-		"COL" ASC -- Ãë¼ÒÁ¤Ã¥UID
-	);
-
--- Cancel Policy
-ALTER TABLE "CancelPolicy"
+-- Policies
+ALTER TABLE MO_Policies
 	ADD
-		CONSTRAINT "PK_CancelPolicy" -- Cancel Policy ±âº»Å°
+		CONSTRAINT PK_MO_Policies -- Policies ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"COL" -- Ãë¼ÒÁ¤Ã¥UID
+			ACMD_UID -- ìˆ™ë°•UID
 		);
 
 -- Cancel Policy
-COMMENT ON TABLE "CancelPolicy" IS 'Cancel Policy';
-
--- Ãë¼ÒÁ¤Ã¥UID
-COMMENT ON COLUMN "CancelPolicy"."COL" IS 'Ãë¼ÒÁ¤Ã¥UID';
-
--- Ãë¼ÒÁ¤Ã¥¸í
-COMMENT ON COLUMN "CancelPolicy"."CANCEL_PLCY_NAME" IS 'Ãë¼ÒÁ¤Ã¥¸í';
-
--- Ãë¼ÒÁ¤Ã¥¼³¸í
-COMMENT ON COLUMN "CancelPolicy"."CANCEL_PLCY_DESC" IS 'Ãë¼ÒÁ¤Ã¥¼³¸í';
-
--- Cancel Policy ±âº»Å°
-COMMENT ON INDEX "PK_CancelPolicy" IS 'Cancel Policy ±âº»Å°';
-
--- Cancel Policy ±âº»Å°
-COMMENT ON CONSTRAINT "CancelPolicy"."PK_CancelPolicy" IS 'Cancel Policy ±âº»Å°';
-
--- Policy Options
-CREATE TABLE "PolicyOptions" (
-	"COL3"          VARCHAR(32)   NOT NULL, -- Á¤Ã¥¿É¼ÇUID
-	"PLCY_OPT_NAME" VARCHAR(100)  NULL,     -- Á¤Ã¥¿É¼Ç¸í
-	"PLCY_OPT_DESC" VARCHAR(1000) NULL      -- Á¤Ã¥¿É¼Ç¼³¸í
+CREATE TABLE MO_CancelPolicy (
+	COL              VARCHAR(32)   NOT NULL, -- ì·¨ì†Œì •ì±…UID
+	CANCEL_PLCY_NAME VARCHAR(100)  NULL,     -- ì·¨ì†Œì •ì±…ëª…
+	CANCEL_PLCY_DESC VARCHAR(1000) NULL      -- ì·¨ì†Œì •ì±…ì„¤ëª…
 );
 
--- Policy Options ±âº»Å°
-CREATE UNIQUE INDEX "PK_PolicyOptions"
-	ON "PolicyOptions" ( -- Policy Options
-		"COL3" ASC -- Á¤Ã¥¿É¼ÇUID
-	);
-
--- Policy Options
-ALTER TABLE "PolicyOptions"
+-- Cancel Policy
+ALTER TABLE MO_CancelPolicy
 	ADD
-		CONSTRAINT "PK_PolicyOptions" -- Policy Options ±âº»Å°
+		CONSTRAINT PK_MO_CancelPolicy -- Cancel Policy ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"COL3" -- Á¤Ã¥¿É¼ÇUID
+			COL -- ì·¨ì†Œì •ì±…UID
 		);
 
 -- Policy Options
-COMMENT ON TABLE "PolicyOptions" IS 'Policy Options';
-
--- Á¤Ã¥¿É¼ÇUID
-COMMENT ON COLUMN "PolicyOptions"."COL3" IS 'Á¤Ã¥¿É¼ÇUID';
-
--- Á¤Ã¥¿É¼Ç¸í
-COMMENT ON COLUMN "PolicyOptions"."PLCY_OPT_NAME" IS 'Á¤Ã¥¿É¼Ç¸í';
-
--- Á¤Ã¥¿É¼Ç¼³¸í
-COMMENT ON COLUMN "PolicyOptions"."PLCY_OPT_DESC" IS 'Á¤Ã¥¿É¼Ç¼³¸í';
-
--- Policy Options ±âº»Å°
-COMMENT ON INDEX "PK_PolicyOptions" IS 'Policy Options ±âº»Å°';
-
--- Policy Options ±âº»Å°
-COMMENT ON CONSTRAINT "PolicyOptions"."PK_PolicyOptions" IS 'Policy Options ±âº»Å°';
-
--- Reviews
-CREATE TABLE "Reviews" (
-	"REVIEW_UID"   VARCHAR(32)   NOT NULL, -- ¸®ºäUID
-	"ACMD_UID"     VARCHAR(32)   NOT NULL, -- ¼÷¹ÚUID
-	"REVIEW_CTNT"  VARCHAR(1000) NULL,     -- ¸®ºä³»¿ë
-	"USER_ID"      VARCHAR(40)   NULL,     -- »ç¿ëÀÚID
-	"WRITE_DTTM"   VARCHAR(20)   NULL,     -- ÀÛ¼ºÀÏ½Ã
-	"REVIEW_SCORE" VARCHAR(3)    NULL      -- ¸®ºäÁ¡¼ö
+CREATE TABLE MO_PolicyOptions (
+	COL3          VARCHAR(32)   NOT NULL, -- ì •ì±…ì˜µì…˜UID
+	PLCY_OPT_NAME VARCHAR(100)  NULL,     -- ì •ì±…ì˜µì…˜ëª…
+	PLCY_OPT_DESC VARCHAR(1000) NULL      -- ì •ì±…ì˜µì…˜ì„¤ëª…
 );
 
--- Reviews ±âº»Å°
-CREATE UNIQUE INDEX "PK_Reviews"
-	ON "Reviews" ( -- Reviews
-		"REVIEW_UID" ASC, -- ¸®ºäUID
-		"ACMD_UID"   ASC  -- ¼÷¹ÚUID
-	);
-
--- Reviews
-ALTER TABLE "Reviews"
+-- Policy Options
+ALTER TABLE MO_PolicyOptions
 	ADD
-		CONSTRAINT "PK_Reviews" -- Reviews ±âº»Å°
+		CONSTRAINT PK_MO_PolicyOptions -- Policy Options ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"REVIEW_UID", -- ¸®ºäUID
-			"ACMD_UID"    -- ¼÷¹ÚUID
+			COL3 -- ì •ì±…ì˜µì…˜UID
 		);
 
 -- Reviews
-COMMENT ON TABLE "Reviews" IS 'Reviews';
-
--- ¸®ºäUID
-COMMENT ON COLUMN "Reviews"."REVIEW_UID" IS '¸®ºäUID';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Reviews"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ¸®ºä³»¿ë
-COMMENT ON COLUMN "Reviews"."REVIEW_CTNT" IS '¸®ºä³»¿ë';
-
--- »ç¿ëÀÚID
-COMMENT ON COLUMN "Reviews"."USER_ID" IS '»ç¿ëÀÚID';
-
--- ÀÛ¼ºÀÏ½Ã
-COMMENT ON COLUMN "Reviews"."WRITE_DTTM" IS 'ÀÛ¼ºÀÏ½Ã';
-
--- ¸®ºäÁ¡¼ö
-COMMENT ON COLUMN "Reviews"."REVIEW_SCORE" IS '¸®ºäÁ¡¼ö';
-
--- Reviews ±âº»Å°
-COMMENT ON INDEX "PK_Reviews" IS 'Reviews ±âº»Å°';
-
--- Reviews ±âº»Å°
-COMMENT ON CONSTRAINT "Reviews"."PK_Reviews" IS 'Reviews ±âº»Å°';
-
--- Rooms
-CREATE TABLE "Rooms" (
-	"ROOM_UID"           VARCHAR(32)   NOT NULL, -- ¹æUID
-	"ROOM_NAME"          VARCHAR(100)  NULL,     -- ¹æ¸í
-	"ROOM_DESC"          VARCHAR(1000) NULL,     -- ¹æ¼³¸í
-	"IMG_URL"            VARCHAR(255)  NULL,     -- ÀÌ¹ÌÁöURL
-	"SITE_TYPE_UID"      VARCHAR(32)   NULL,     -- »çÀÌÆ®Å¸ÀÔUID
-	"ROOM_CNT"           VARCHAR(10)   NULL,     -- ¹æ°³¼ö
-	"MAX_PPL_CNT"        VARCHAR(10)   NULL,     -- ÃÖ´ëÀÎ¿ø¼ö
-	"EXTRA_PPL_CNT"      VARCHAR(10)   NULL,     -- Ãß°¡ÀÎ¿ø¼ö
-	"ADULT_EXTRA_PRICE"  VARCHAR(10)   NULL,     -- ¼ºÀÎÃß°¡°¡°Ý
-	"CHILD_EXTRA_PRICE"  VARCHAR(10)   NULL,     -- ¾Æµ¿Ãß°¡°¡°Ý
-	"INFANT_EXTRA_PRICE" VARCHAR(10)   NULL,     -- À¯¾ÆÃß°¡°¡°Ý
-	"MIN_ACMD_DAYS"      VARCHAR(10)   NULL,     -- ÃÖ¼Ò¼÷¹ÚÀÏ¼ö
-	"BED_CNT"            VARCHAR(10)   NULL,     -- Ä§´ë°³¼ö
-	"ROOM_SIZE"          INTEGER       NULL,     -- ¹æ»çÀÌÁî
-	"ACMD_UID"           VARCHAR(32)   NULL,     -- ¼÷¹ÚUID
-	"ROOM_TYPE_UID"      VARCHAR(32)   NULL      -- ¹æÅ¸ÀÔUID
+CREATE TABLE MO_Reviews (
+	REVIEW_UID   VARCHAR(32)   NOT NULL, -- ë¦¬ë·°UID
+	ACMD_UID     VARCHAR(32)   NOT NULL, -- ìˆ™ë°•UID
+	REVIEW_CTNT  VARCHAR(1000) NULL,     -- ë¦¬ë·°ë‚´ìš©
+	USER_ID      VARCHAR(40)   NULL,     -- ì‚¬ìš©ìžID
+	WRITE_DTTM   VARCHAR(20)   NULL,     -- ìž‘ì„±ì¼ì‹œ
+	REVIEW_SCORE VARCHAR(3)    NULL      -- ë¦¬ë·°ì ìˆ˜
 );
 
--- Rooms ±âº»Å°
-CREATE UNIQUE INDEX "PK_Rooms"
-	ON "Rooms" ( -- Rooms
-		"ROOM_UID" ASC -- ¹æUID
-	);
-
--- Rooms
-ALTER TABLE "Rooms"
+-- Reviews
+ALTER TABLE MO_Reviews
 	ADD
-		CONSTRAINT "PK_Rooms" -- Rooms ±âº»Å°
+		CONSTRAINT PK_MO_Reviews -- Reviews ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID" -- ¹æUID
+			REVIEW_UID, -- ë¦¬ë·°UID
+			ACMD_UID    -- ìˆ™ë°•UID
 		);
 
 -- Rooms
-COMMENT ON TABLE "Rooms" IS 'Rooms';
-
--- ¹æUID
-COMMENT ON COLUMN "Rooms"."ROOM_UID" IS '¹æUID';
-
--- ¹æ¸í
-COMMENT ON COLUMN "Rooms"."ROOM_NAME" IS '¹æ¸í';
-
--- ¹æ¼³¸í
-COMMENT ON COLUMN "Rooms"."ROOM_DESC" IS '¹æ¼³¸í';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "Rooms"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- »çÀÌÆ®Å¸ÀÔUID
-COMMENT ON COLUMN "Rooms"."SITE_TYPE_UID" IS '»çÀÌÆ®Å¸ÀÔUID';
-
--- ¹æ°³¼ö
-COMMENT ON COLUMN "Rooms"."ROOM_CNT" IS '¹æ°³¼ö';
-
--- ÃÖ´ëÀÎ¿ø¼ö
-COMMENT ON COLUMN "Rooms"."MAX_PPL_CNT" IS 'ÃÖ´ëÀÎ¿ø¼ö';
-
--- Ãß°¡ÀÎ¿ø¼ö
-COMMENT ON COLUMN "Rooms"."EXTRA_PPL_CNT" IS 'Ãß°¡ÀÎ¿ø¼ö';
-
--- ¼ºÀÎÃß°¡°¡°Ý
-COMMENT ON COLUMN "Rooms"."ADULT_EXTRA_PRICE" IS '¼ºÀÎÃß°¡°¡°Ý';
-
--- ¾Æµ¿Ãß°¡°¡°Ý
-COMMENT ON COLUMN "Rooms"."CHILD_EXTRA_PRICE" IS '¾Æµ¿Ãß°¡°¡°Ý';
-
--- À¯¾ÆÃß°¡°¡°Ý
-COMMENT ON COLUMN "Rooms"."INFANT_EXTRA_PRICE" IS 'À¯¾ÆÃß°¡°¡°Ý';
-
--- ÃÖ¼Ò¼÷¹ÚÀÏ¼ö
-COMMENT ON COLUMN "Rooms"."MIN_ACMD_DAYS" IS 'ÃÖ¼Ò¼÷¹ÚÀÏ¼ö';
-
--- Ä§´ë°³¼ö
-COMMENT ON COLUMN "Rooms"."BED_CNT" IS 'Ä§´ë°³¼ö';
-
--- ¹æ»çÀÌÁî
-COMMENT ON COLUMN "Rooms"."ROOM_SIZE" IS 'UNIT = SQUARE METER';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Rooms"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ¹æÅ¸ÀÔUID
-COMMENT ON COLUMN "Rooms"."ROOM_TYPE_UID" IS '¹æÅ¸ÀÔUID';
-
--- Rooms ±âº»Å°
-COMMENT ON INDEX "PK_Rooms" IS 'Rooms ±âº»Å°';
-
--- Rooms ±âº»Å°
-COMMENT ON CONSTRAINT "Rooms"."PK_Rooms" IS 'Rooms ±âº»Å°';
-
--- Room Images
-CREATE TABLE "RoomImages" (
-	"IMG_UID"   VARCHAR(32)  NOT NULL, -- ÀÌ¹ÌÁöUID
-	"ROOM_UID"  VARCHAR(32)  NOT NULL, -- ¹æUID
-	"IMG_URL"   VARCHAR(255) NULL,     -- ÀÌ¹ÌÁöURL
-	"IMG_TITLE" VARCHAR(100) NULL      -- ÀÌ¹ÌÁöÁ¦¸ñ
+CREATE TABLE MO_Rooms (
+	ROOM_UID           VARCHAR(32)   NOT NULL, -- ë°©UID
+	ROOM_NAME          VARCHAR(100)  NULL,     -- ë°©ëª…
+	ROOM_DESC          VARCHAR(1000) NULL,     -- ë°©ì„¤ëª…
+	IMG_URL            VARCHAR(255)  NULL,     -- ì´ë¯¸ì§€URL
+	SITE_TYPE_UID      VARCHAR(32)   NULL,     -- ì‚¬ì´íŠ¸íƒ€ìž…UID
+	ROOM_CNT           VARCHAR(10)   NULL,     -- ë°©ê°œìˆ˜
+	MAX_PPL_CNT        VARCHAR(10)   NULL,     -- ìµœëŒ€ì¸ì›ìˆ˜
+	EXTRA_PPL_CNT      VARCHAR(10)   NULL,     -- ì¶”ê°€ì¸ì›ìˆ˜
+	ADULT_EXTRA_PRICE  VARCHAR(10)   NULL,     -- ì„±ì¸ì¶”ê°€ê°€ê²©
+	CHILD_EXTRA_PRICE  VARCHAR(10)   NULL,     -- ì•„ë™ì¶”ê°€ê°€ê²©
+	INFANT_EXTRA_PRICE VARCHAR(10)   NULL,     -- ìœ ì•„ì¶”ê°€ê°€ê²©
+	MIN_ACMD_DAYS      VARCHAR(10)   NULL,     -- ìµœì†Œìˆ™ë°•ì¼ìˆ˜
+	BED_CNT            VARCHAR(10)   NULL,     -- ì¹¨ëŒ€ê°œìˆ˜
+	ROOM_SIZE          INTEGER       NULL,     -- ë°©ì‚¬ì´ì¦ˆ
+	ACMD_UID           VARCHAR(32)   NULL,     -- ìˆ™ë°•UID
+	ROOM_TYPE_UID      VARCHAR(32)   NULL      -- ë°©íƒ€ìž…UID
 );
 
--- Room Images ±âº»Å°
-CREATE UNIQUE INDEX "PK_RoomImages"
-	ON "RoomImages" ( -- Room Images
-		"IMG_UID"  ASC, -- ÀÌ¹ÌÁöUID
-		"ROOM_UID" ASC  -- ¹æUID
-	);
-
--- Room Images
-ALTER TABLE "RoomImages"
+-- Rooms
+ALTER TABLE MO_Rooms
 	ADD
-		CONSTRAINT "PK_RoomImages" -- Room Images ±âº»Å°
+		CONSTRAINT PK_MO_Rooms -- Rooms ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"IMG_UID",  -- ÀÌ¹ÌÁöUID
-			"ROOM_UID"  -- ¹æUID
+			ROOM_UID -- ë°©UID
 		);
 
 -- Room Images
-COMMENT ON TABLE "RoomImages" IS 'Room Images';
-
--- ÀÌ¹ÌÁöUID
-COMMENT ON COLUMN "RoomImages"."IMG_UID" IS 'ÀÌ¹ÌÁöUID';
-
--- ¹æUID
-COMMENT ON COLUMN "RoomImages"."ROOM_UID" IS '¹æUID';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "RoomImages"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- ÀÌ¹ÌÁöÁ¦¸ñ
-COMMENT ON COLUMN "RoomImages"."IMG_TITLE" IS 'ÀÌ¹ÌÁöÁ¦¸ñ';
-
--- Room Images ±âº»Å°
-COMMENT ON INDEX "PK_RoomImages" IS 'Room Images ±âº»Å°';
-
--- Room Images ±âº»Å°
-COMMENT ON CONSTRAINT "RoomImages"."PK_RoomImages" IS 'Room Images ±âº»Å°';
-
--- Amenities
-CREATE TABLE "Amenities" (
-	"AMNY_UID"  VARCHAR(32)        NOT NULL, -- ÆíÀÇ½Ã¼³UID
-	"AMNY_NAME" VARCHAR(100)       NOT NULL, -- ÆíÀÇ½Ã¼³¸í
-	"AMNY_IMG"  <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL      -- ÆíÀÇ½Ã¼³ÀÌ¹ÌÁö
+CREATE TABLE MO_RoomImages (
+	IMG_UID   VARCHAR(32)  NOT NULL, -- ì´ë¯¸ì§€UID
+	ROOM_UID  VARCHAR(32)  NOT NULL, -- ë°©UID
+	IMG_URL   VARCHAR(255) NULL,     -- ì´ë¯¸ì§€URL
+	IMG_TITLE VARCHAR(100) NULL      -- ì´ë¯¸ì§€ì œëª©
 );
 
--- Amenities ±âº»Å°
-CREATE UNIQUE INDEX "PK_Amenities"
-	ON "Amenities" ( -- Amenities
-		"AMNY_UID" ASC -- ÆíÀÇ½Ã¼³UID
-	);
-
--- Amenities
-ALTER TABLE "Amenities"
+-- Room Images
+ALTER TABLE MO_RoomImages
 	ADD
-		CONSTRAINT "PK_Amenities" -- Amenities ±âº»Å°
+		CONSTRAINT PK_MO_RoomImages -- Room Images ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"AMNY_UID" -- ÆíÀÇ½Ã¼³UID
+			IMG_UID,  -- ì´ë¯¸ì§€UID
+			ROOM_UID  -- ë°©UID
 		);
 
 -- Amenities
-COMMENT ON TABLE "Amenities" IS 'Amenities';
-
--- ÆíÀÇ½Ã¼³UID
-COMMENT ON COLUMN "Amenities"."AMNY_UID" IS 'ÆíÀÇ½Ã¼³UID';
-
--- ÆíÀÇ½Ã¼³¸í
-COMMENT ON COLUMN "Amenities"."AMNY_NAME" IS 'ÆíÀÇ½Ã¼³¸í';
-
--- ÆíÀÇ½Ã¼³ÀÌ¹ÌÁö
-COMMENT ON COLUMN "Amenities"."AMNY_IMG" IS 'ÆíÀÇ½Ã¼³ÀÌ¹ÌÁö';
-
--- Amenities ±âº»Å°
-COMMENT ON INDEX "PK_Amenities" IS 'Amenities ±âº»Å°';
-
--- Amenities ±âº»Å°
-COMMENT ON CONSTRAINT "Amenities"."PK_Amenities" IS 'Amenities ±âº»Å°';
-
--- Accommodation Facilities Relation
-CREATE TABLE "AccommodationFacilitiesRel" (
-	"ACMD_UID" VARCHAR(32) NOT NULL, -- ¼÷¹ÚUID
-	"FCLT_UID" VARCHAR(32) NOT NULL  -- ¼÷¹Ú½Ã¼³UID
+CREATE TABLE MO_Amenities (
+	AMNY_UID  VARCHAR(32)  NOT NULL, -- íŽ¸ì˜ì‹œì„¤UID
+	AMNY_NAME VARCHAR(100) NOT NULL, -- íŽ¸ì˜ì‹œì„¤ëª…
+	AMNY_IMG  VARCHAR(255) NULL      -- íŽ¸ì˜ì‹œì„¤ì´ë¯¸ì§€
 );
 
--- Accommodation Facilities Relation ±âº»Å°
-CREATE UNIQUE INDEX "PK_AccommodationFacilitiesRel"
-	ON "AccommodationFacilitiesRel" ( -- Accommodation Facilities Relation
-		"ACMD_UID" ASC, -- ¼÷¹ÚUID
-		"FCLT_UID" ASC  -- ¼÷¹Ú½Ã¼³UID
-	);
-
--- Accommodation Facilities Relation
-ALTER TABLE "AccommodationFacilitiesRel"
+-- Amenities
+ALTER TABLE MO_Amenities
 	ADD
-		CONSTRAINT "PK_AccommodationFacilitiesRel" -- Accommodation Facilities Relation ±âº»Å°
+		CONSTRAINT PK_MO_Amenities -- Amenities ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID", -- ¼÷¹ÚUID
-			"FCLT_UID"  -- ¼÷¹Ú½Ã¼³UID
+			AMNY_UID -- íŽ¸ì˜ì‹œì„¤UID
 		);
 
 -- Accommodation Facilities Relation
-COMMENT ON TABLE "AccommodationFacilitiesRel" IS 'Accommodation Facilities Relation';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "AccommodationFacilitiesRel"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ¼÷¹Ú½Ã¼³UID
-COMMENT ON COLUMN "AccommodationFacilitiesRel"."FCLT_UID" IS '¼÷¹Ú½Ã¼³UID';
-
--- Accommodation Facilities Relation ±âº»Å°
-COMMENT ON INDEX "PK_AccommodationFacilitiesRel" IS 'Accommodation Facilities Relation ±âº»Å°';
-
--- Accommodation Facilities Relation ±âº»Å°
-COMMENT ON CONSTRAINT "AccommodationFacilitiesRel"."PK_AccommodationFacilitiesRel" IS 'Accommodation Facilities Relation ±âº»Å°';
-
--- Room Amenities
-CREATE TABLE "RoomAmenities" (
-	"ROOM_UID" VARCHAR(32) NOT NULL, -- ¹æUID
-	"AMNY_UID" VARCHAR(32) NOT NULL  -- ÆíÀÇ½Ã¼³UID
+CREATE TABLE MO_AccommodationFacilitiesRel (
+	ACMD_UID VARCHAR(32) NOT NULL, -- ìˆ™ë°•UID
+	FCLT_UID VARCHAR(32) NOT NULL  -- ìˆ™ë°•ì‹œì„¤UID
 );
 
--- Room Amenities ±âº»Å°
-CREATE UNIQUE INDEX "PK_RoomAmenities"
-	ON "RoomAmenities" ( -- Room Amenities
-		"ROOM_UID" ASC, -- ¹æUID
-		"AMNY_UID" ASC  -- ÆíÀÇ½Ã¼³UID
-	);
-
--- Room Amenities
-ALTER TABLE "RoomAmenities"
+-- Accommodation Facilities Relation
+ALTER TABLE MO_AccommodationFacilitiesRel
 	ADD
-		CONSTRAINT "PK_RoomAmenities" -- Room Amenities ±âº»Å°
+		CONSTRAINT PK_MO_AccommodationFacilitiesRel -- Accommodation Facilities Relation ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID", -- ¹æUID
-			"AMNY_UID"  -- ÆíÀÇ½Ã¼³UID
+			ACMD_UID, -- ìˆ™ë°•UID
+			FCLT_UID  -- ìˆ™ë°•ì‹œì„¤UID
 		);
 
 -- Room Amenities
-COMMENT ON TABLE "RoomAmenities" IS 'Room Amenities';
-
--- ¹æUID
-COMMENT ON COLUMN "RoomAmenities"."ROOM_UID" IS '¹æUID';
-
--- ÆíÀÇ½Ã¼³UID
-COMMENT ON COLUMN "RoomAmenities"."AMNY_UID" IS 'ÆíÀÇ½Ã¼³UID';
-
--- Room Amenities ±âº»Å°
-COMMENT ON INDEX "PK_RoomAmenities" IS 'Room Amenities ±âº»Å°';
-
--- Room Amenities ±âº»Å°
-COMMENT ON CONSTRAINT "RoomAmenities"."PK_RoomAmenities" IS 'Room Amenities ±âº»Å°';
-
--- Special Amenities
-CREATE TABLE "SpecialAmenities" (
-	"ROOM_UID"          VARCHAR(32)   NOT NULL, -- ¹æUID
-	"SPECIAL_AMNY_NAME" VARCHAR(100)  NULL,     -- Æ¯¼öÆíÀÇ½Ã¼³¸í
-	"SPECIAL_AMNY_DESC" VARCHAR(1000) NULL      -- Æ¯¼öÆíÀÇ½Ã¼³¼³¸í
+CREATE TABLE MO_RoomAmenities (
+	ROOM_UID VARCHAR(32) NOT NULL, -- ë°©UID
+	AMNY_UID VARCHAR(32) NOT NULL  -- íŽ¸ì˜ì‹œì„¤UID
 );
 
--- Special Amenities ±âº»Å°
-CREATE UNIQUE INDEX "PK_SpecialAmenities"
-	ON "SpecialAmenities" ( -- Special Amenities
-		"ROOM_UID" ASC -- ¹æUID
-	);
-
--- Special Amenities
-ALTER TABLE "SpecialAmenities"
+-- Room Amenities
+ALTER TABLE MO_RoomAmenities
 	ADD
-		CONSTRAINT "PK_SpecialAmenities" -- Special Amenities ±âº»Å°
+		CONSTRAINT PK_MO_RoomAmenities -- Room Amenities ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID, -- ë°©UID
+			AMNY_UID  -- íŽ¸ì˜ì‹œì„¤UID
 		);
 
 -- Special Amenities
-COMMENT ON TABLE "SpecialAmenities" IS 'Special Amenities';
-
--- ¹æUID
-COMMENT ON COLUMN "SpecialAmenities"."ROOM_UID" IS '¹æUID';
-
--- Æ¯¼öÆíÀÇ½Ã¼³¸í
-COMMENT ON COLUMN "SpecialAmenities"."SPECIAL_AMNY_NAME" IS 'Æ¯¼öÆíÀÇ½Ã¼³¸í';
-
--- Æ¯¼öÆíÀÇ½Ã¼³¼³¸í
-COMMENT ON COLUMN "SpecialAmenities"."SPECIAL_AMNY_DESC" IS 'Æ¯¼öÆíÀÇ½Ã¼³¼³¸í';
-
--- Special Amenities ±âº»Å°
-COMMENT ON INDEX "PK_SpecialAmenities" IS 'Special Amenities ±âº»Å°';
-
--- Special Amenities ±âº»Å°
-COMMENT ON CONSTRAINT "SpecialAmenities"."PK_SpecialAmenities" IS 'Special Amenities ±âº»Å°';
-
--- Default Room Price
-CREATE TABLE "DfltRoomPrice" (
-	"ROOM_UID"      VARCHAR(32) NOT NULL, -- ¹æUID
-	"SEASON_CAT_CD" VARCHAR(2)  NOT NULL, -- ½ÃÁð±¸ºÐÄÚµå
-	"SUN_PRICE"     VARCHAR(10) NULL,     -- ÀÏ¿äÀÏ°¡°Ý
-	"MON_PRICE"     VARCHAR(10) NULL,     -- ¿ù¿äÀÏ°¡°Ý
-	"TUE_PRICE"     VARCHAR(10) NULL,     -- È­¿äÀÏ°¡°Ý
-	"WED_PRICE"     VARCHAR(10) NULL,     -- ¼ö¿äÀÏ°¡°Ý
-	"THU_PRICE"     VARCHAR(10) NULL,     -- ¸ñ¿äÀÏ°¡°Ý
-	"FRI_PRICE"     VARCHAR(10) NULL,     -- ±Ý¿äÀÏ°¡°Ý
-	"SAT_PRICE"     VARCHAR(10) NULL      -- Åä¿äÀÏ°¡°Ý
+CREATE TABLE MO_SpecialAmenities (
+	ROOM_UID          VARCHAR(32)   NOT NULL, -- ë°©UID
+	SPECIAL_AMNY_NAME VARCHAR(100)  NULL,     -- íŠ¹ìˆ˜íŽ¸ì˜ì‹œì„¤ëª…
+	SPECIAL_AMNY_DESC VARCHAR(1000) NULL      -- íŠ¹ìˆ˜íŽ¸ì˜ì‹œì„¤ì„¤ëª…
 );
 
--- Default Room Price ±âº»Å°
-CREATE UNIQUE INDEX "PK_DfltRoomPrice"
-	ON "DfltRoomPrice" ( -- Default Room Price
-		"ROOM_UID"      ASC, -- ¹æUID
-		"SEASON_CAT_CD" ASC  -- ½ÃÁð±¸ºÐÄÚµå
-	);
-
--- Default Room Price
-ALTER TABLE "DfltRoomPrice"
+-- Special Amenities
+ALTER TABLE MO_SpecialAmenities
 	ADD
-		CONSTRAINT "PK_DfltRoomPrice" -- Default Room Price ±âº»Å°
+		CONSTRAINT PK_MO_SpecialAmenities -- Special Amenities ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID",      -- ¹æUID
-			"SEASON_CAT_CD"  -- ½ÃÁð±¸ºÐÄÚµå
+			ROOM_UID -- ë°©UID
 		);
 
 -- Default Room Price
-COMMENT ON TABLE "DfltRoomPrice" IS 'Default Room Price';
-
--- ¹æUID
-COMMENT ON COLUMN "DfltRoomPrice"."ROOM_UID" IS '¹æUID';
-
--- ½ÃÁð±¸ºÐÄÚµå
-COMMENT ON COLUMN "DfltRoomPrice"."SEASON_CAT_CD" IS '½ÃÁð±¸ºÐÄÚµå';
-
--- ÀÏ¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."SUN_PRICE" IS 'ÀÏ¿äÀÏ°¡°Ý';
-
--- ¿ù¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."MON_PRICE" IS '¿ù¿äÀÏ°¡°Ý';
-
--- È­¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."TUE_PRICE" IS 'È­¿äÀÏ°¡°Ý';
-
--- ¼ö¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."WED_PRICE" IS '¼ö¿äÀÏ°¡°Ý';
-
--- ¸ñ¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."THU_PRICE" IS '¸ñ¿äÀÏ°¡°Ý';
-
--- ±Ý¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."FRI_PRICE" IS '±Ý¿äÀÏ°¡°Ý';
-
--- Åä¿äÀÏ°¡°Ý
-COMMENT ON COLUMN "DfltRoomPrice"."SAT_PRICE" IS 'Åä¿äÀÏ°¡°Ý';
-
--- Default Room Price ±âº»Å°
-COMMENT ON INDEX "PK_DfltRoomPrice" IS 'Default Room Price ±âº»Å°';
-
--- Default Room Price ±âº»Å°
-COMMENT ON CONSTRAINT "DfltRoomPrice"."PK_DfltRoomPrice" IS 'Default Room Price ±âº»Å°';
-
--- Accomodation PolicyOption Relation
-CREATE TABLE "AccomodationPolicyOptionRel" (
-	"ACMD_UID"     VARCHAR(32) NOT NULL, -- ¼÷¹ÚUID
-	"PLCY_OPT_UID" VARCHAR(32) NOT NULL  -- Á¤Ã¥¿É¼ÇUID
+CREATE TABLE MO_DfltRoomPrice (
+	ROOM_UID      VARCHAR(32) NOT NULL, -- ë°©UID
+	SEASON_CAT_CD VARCHAR(2)  NOT NULL, -- ì‹œì¦Œêµ¬ë¶„ì½”ë“œ
+	SUN_PRICE     VARCHAR(10) NULL,     -- ì¼ìš”ì¼ê°€ê²©
+	MON_PRICE     VARCHAR(10) NULL,     -- ì›”ìš”ì¼ê°€ê²©
+	TUE_PRICE     VARCHAR(10) NULL,     -- í™”ìš”ì¼ê°€ê²©
+	WED_PRICE     VARCHAR(10) NULL,     -- ìˆ˜ìš”ì¼ê°€ê²©
+	THU_PRICE     VARCHAR(10) NULL,     -- ëª©ìš”ì¼ê°€ê²©
+	FRI_PRICE     VARCHAR(10) NULL,     -- ê¸ˆìš”ì¼ê°€ê²©
+	SAT_PRICE     VARCHAR(10) NULL      -- í† ìš”ì¼ê°€ê²©
 );
 
--- Accomodation PolicyOption Relation ±âº»Å°
-CREATE UNIQUE INDEX "PK_AccomodationPolicyOptionRel"
-	ON "AccomodationPolicyOptionRel" ( -- Accomodation PolicyOption Relation
-		"ACMD_UID"     ASC, -- ¼÷¹ÚUID
-		"PLCY_OPT_UID" ASC  -- Á¤Ã¥¿É¼ÇUID
-	);
-
--- Accomodation PolicyOption Relation
-ALTER TABLE "AccomodationPolicyOptionRel"
+-- Default Room Price
+ALTER TABLE MO_DfltRoomPrice
 	ADD
-		CONSTRAINT "PK_AccomodationPolicyOptionRel" -- Accomodation PolicyOption Relation ±âº»Å°
+		CONSTRAINT PK_MO_DfltRoomPrice -- Default Room Price ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID",     -- ¼÷¹ÚUID
-			"PLCY_OPT_UID"  -- Á¤Ã¥¿É¼ÇUID
+			ROOM_UID,      -- ë°©UID
+			SEASON_CAT_CD  -- ì‹œì¦Œêµ¬ë¶„ì½”ë“œ
 		);
 
 -- Accomodation PolicyOption Relation
-COMMENT ON TABLE "AccomodationPolicyOptionRel" IS 'Accomodation PolicyOption Relation';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "AccomodationPolicyOptionRel"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- Á¤Ã¥¿É¼ÇUID
-COMMENT ON COLUMN "AccomodationPolicyOptionRel"."PLCY_OPT_UID" IS 'Á¤Ã¥¿É¼ÇUID';
-
--- Accomodation PolicyOption Relation ±âº»Å°
-COMMENT ON INDEX "PK_AccomodationPolicyOptionRel" IS 'Accomodation PolicyOption Relation ±âº»Å°';
-
--- Accomodation PolicyOption Relation ±âº»Å°
-COMMENT ON CONSTRAINT "AccomodationPolicyOptionRel"."PK_AccomodationPolicyOptionRel" IS 'Accomodation PolicyOption Relation ±âº»Å°';
-
--- Site Types
-CREATE TABLE "SiteTypes" (
-	"SITE_TYPE_UID"  VARCHAR(32)  NOT NULL, -- »çÀÌÆ®Å¸ÀÔUID
-	"SITE_TYPE_NAME" VARCHAR(100) NULL      -- »çÀÌÆ®Å¸ÀÔ¸í
+CREATE TABLE MO_AccomodationPolicyOptionRel (
+	ACMD_UID     VARCHAR(32) NOT NULL, -- ìˆ™ë°•UID
+	PLCY_OPT_UID VARCHAR(32) NOT NULL  -- ì •ì±…ì˜µì…˜UID
 );
 
--- Site Types ±âº»Å°
-CREATE UNIQUE INDEX "PK_SiteTypes"
-	ON "SiteTypes" ( -- Site Types
-		"SITE_TYPE_UID" ASC -- »çÀÌÆ®Å¸ÀÔUID
-	);
-
--- Site Types
-ALTER TABLE "SiteTypes"
+-- Accomodation PolicyOption Relation
+ALTER TABLE MO_AccomodationPolicyOptionRel
 	ADD
-		CONSTRAINT "PK_SiteTypes" -- Site Types ±âº»Å°
+		CONSTRAINT PK_MO_AccomodationPolicyOptionRel -- Accomodation PolicyOption Relation ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"SITE_TYPE_UID" -- »çÀÌÆ®Å¸ÀÔUID
+			ACMD_UID,     -- ìˆ™ë°•UID
+			PLCY_OPT_UID  -- ì •ì±…ì˜µì…˜UID
 		);
 
 -- Site Types
-COMMENT ON TABLE "SiteTypes" IS 'Site Types';
-
--- »çÀÌÆ®Å¸ÀÔUID
-COMMENT ON COLUMN "SiteTypes"."SITE_TYPE_UID" IS '»çÀÌÆ®Å¸ÀÔUID';
-
--- »çÀÌÆ®Å¸ÀÔ¸í
-COMMENT ON COLUMN "SiteTypes"."SITE_TYPE_NAME" IS '»çÀÌÆ®Å¸ÀÔ¸í';
-
--- Site Types ±âº»Å°
-COMMENT ON INDEX "PK_SiteTypes" IS 'Site Types ±âº»Å°';
-
--- Site Types ±âº»Å°
-COMMENT ON CONSTRAINT "SiteTypes"."PK_SiteTypes" IS 'Site Types ±âº»Å°';
-
--- Discount Rates
-CREATE TABLE "DiscountRates" (
-	"ROOM_UID"                VARCHAR(32) NOT NULL, -- ¹æUID
-	"DISCOUNT_TYPE_CD"        VARCHAR(2)  NOT NULL, -- ÇÒÀÎÅ¸ÀÔÄÚµå
-	"DISCOUNT_RATE"           INTEGER     NULL,     -- ÇÒÀÎ·ü
-	"DISCOUNT_START_DATE"     VARCHAR(10) NULL,     -- ÇÒÀÎ½ÃÀÛÀÏÀÚ
-	"DISCOUNT_END_DATE"       VARCHAR(10) NULL,     -- ÇÒÀÎÁ¾·áÀÏÀÚ
-	"DISCOUNT_APPLY_WEEK_DAY" VARCHAR(13) NULL      -- ÇÒÀÎÀû¿ë¿äÀÏ
+CREATE TABLE MO_SiteTypes (
+	SITE_TYPE_UID  VARCHAR(32)  NOT NULL, -- ì‚¬ì´íŠ¸íƒ€ìž…UID
+	SITE_TYPE_NAME VARCHAR(100) NULL      -- ì‚¬ì´íŠ¸íƒ€ìž…ëª…
 );
 
--- Discount Rates ±âº»Å°
-CREATE UNIQUE INDEX "PK_DiscountRates"
-	ON "DiscountRates" ( -- Discount Rates
-		"ROOM_UID"         ASC, -- ¹æUID
-		"DISCOUNT_TYPE_CD" ASC  -- ÇÒÀÎÅ¸ÀÔÄÚµå
-	);
-
--- Discount Rates
-ALTER TABLE "DiscountRates"
+-- Site Types
+ALTER TABLE MO_SiteTypes
 	ADD
-		CONSTRAINT "PK_DiscountRates" -- Discount Rates ±âº»Å°
+		CONSTRAINT PK_MO_SiteTypes -- Site Types ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID",         -- ¹æUID
-			"DISCOUNT_TYPE_CD"  -- ÇÒÀÎÅ¸ÀÔÄÚµå
+			SITE_TYPE_UID -- ì‚¬ì´íŠ¸íƒ€ìž…UID
 		);
 
 -- Discount Rates
-COMMENT ON TABLE "DiscountRates" IS 'Discount Rates';
-
--- ¹æUID
-COMMENT ON COLUMN "DiscountRates"."ROOM_UID" IS '¹æUID';
-
--- ÇÒÀÎÅ¸ÀÔÄÚµå
-COMMENT ON COLUMN "DiscountRates"."DISCOUNT_TYPE_CD" IS 'ÇÒÀÎÅ¸ÀÔÄÚµå';
-
--- ÇÒÀÎ·ü
-COMMENT ON COLUMN "DiscountRates"."DISCOUNT_RATE" IS 'ÇÒÀÎ·ü';
-
--- ÇÒÀÎ½ÃÀÛÀÏÀÚ
-COMMENT ON COLUMN "DiscountRates"."DISCOUNT_START_DATE" IS 'ÇÒÀÎ½ÃÀÛÀÏÀÚ';
-
--- ÇÒÀÎÁ¾·áÀÏÀÚ
-COMMENT ON COLUMN "DiscountRates"."DISCOUNT_END_DATE" IS 'ÇÒÀÎÁ¾·áÀÏÀÚ';
-
--- ÇÒÀÎÀû¿ë¿äÀÏ
-COMMENT ON COLUMN "DiscountRates"."DISCOUNT_APPLY_WEEK_DAY" IS 'ÇÒÀÎÀû¿ë¿äÀÏ';
-
--- Discount Rates ±âº»Å°
-COMMENT ON INDEX "PK_DiscountRates" IS 'Discount Rates ±âº»Å°';
-
--- Discount Rates ±âº»Å°
-COMMENT ON CONSTRAINT "DiscountRates"."PK_DiscountRates" IS 'Discount Rates ±âº»Å°';
-
--- Season
-CREATE TABLE "Season" (
-	"ACMD_UID"          VARCHAR(32) NOT NULL, -- ¼÷¹ÚUID
-	"SEASON_CD"         VARCHAR(2)  NOT NULL, -- ½ÃÁðÄÚµå
-	"SEASON_START_DATE" VARCHAR(10) NULL,     -- ½ÃÁð½ÃÀÛÀÏÀÚ
-	"SEASON_END_DATE"   VARCHAR(10) NULL      -- ½ÃÁðÁ¾·áÀÏÀÚ
+CREATE TABLE MO_DiscountRates (
+	ROOM_UID                VARCHAR(32) NOT NULL, -- ë°©UID
+	DISCOUNT_TYPE_CD        VARCHAR(2)  NOT NULL, -- í• ì¸íƒ€ìž…ì½”ë“œ
+	DISCOUNT_RATE           INTEGER     NULL,     -- í• ì¸ë¥ 
+	DISCOUNT_START_DATE     VARCHAR(10) NULL,     -- í• ì¸ì‹œìž‘ì¼ìž
+	DISCOUNT_END_DATE       VARCHAR(10) NULL,     -- í• ì¸ì¢…ë£Œì¼ìž
+	DISCOUNT_APPLY_WEEK_DAY VARCHAR(13) NULL      -- í• ì¸ì ìš©ìš”ì¼
 );
 
--- Season ±âº»Å°
-CREATE UNIQUE INDEX "PK_Season"
-	ON "Season" ( -- Season
-		"ACMD_UID"  ASC, -- ¼÷¹ÚUID
-		"SEASON_CD" ASC  -- ½ÃÁðÄÚµå
-	);
-
--- Season
-ALTER TABLE "Season"
+-- Discount Rates
+ALTER TABLE MO_DiscountRates
 	ADD
-		CONSTRAINT "PK_Season" -- Season ±âº»Å°
+		CONSTRAINT PK_MO_DiscountRates -- Discount Rates ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACMD_UID",  -- ¼÷¹ÚUID
-			"SEASON_CD"  -- ½ÃÁðÄÚµå
+			ROOM_UID,         -- ë°©UID
+			DISCOUNT_TYPE_CD  -- í• ì¸íƒ€ìž…ì½”ë“œ
 		);
 
 -- Season
-COMMENT ON TABLE "Season" IS 'Season';
-
--- ¼÷¹ÚUID
-COMMENT ON COLUMN "Season"."ACMD_UID" IS '¼÷¹ÚUID';
-
--- ½ÃÁðÄÚµå
-COMMENT ON COLUMN "Season"."SEASON_CD" IS '½ÃÁðÄÚµå';
-
--- ½ÃÁð½ÃÀÛÀÏÀÚ
-COMMENT ON COLUMN "Season"."SEASON_START_DATE" IS '½ÃÁð½ÃÀÛÀÏÀÚ';
-
--- ½ÃÁðÁ¾·áÀÏÀÚ
-COMMENT ON COLUMN "Season"."SEASON_END_DATE" IS '½ÃÁðÁ¾·áÀÏÀÚ';
-
--- Season ±âº»Å°
-COMMENT ON INDEX "PK_Season" IS 'Season ±âº»Å°';
-
--- Season ±âº»Å°
-COMMENT ON CONSTRAINT "Season"."PK_Season" IS 'Season ±âº»Å°';
-
--- Activity
-CREATE TABLE "Activity" (
-	"ACTV_UID"      VARCHAR(32)   NOT NULL, -- ¾×Æ¼ºñÆ¼UID
-	"ACTV_NAME"     VARCHAR(100)  NULL,     -- ¾×Æ¼ºñÆ¼¸í
-	"CITY_UID"      VARCHAR(32)   NULL,     -- µµ½ÃUID
-	"EMAIL"         VARCHAR(100)  NULL,     -- ÀÌ¸ÞÀÏ
-	"CONTACT"       VARCHAR(30)   NULL,     -- ¿¬¶ôÃ³
-	"IMG_URL"       VARCHAR(255)  NULL,     -- ÀÌ¹ÌÁöURL
-	"VIDEO_URL"     VARCHAR(255)  NULL,     -- ºñµð¿ÀURL
-	"CRC_NATION_CD" VARCHAR(2)    NULL,     -- ÅëÈ­±¹°¡ÄÚµå
-	"DURATION"      VARCHAR(5)    NULL,     -- ¼Ò¿ä½Ã°£
-	"ACTV_ADDR"     VARCHAR(255)  NULL,     -- ¾×Æ¼ºñÆ¼ÁÖ¼Ò
-	"ACTV_ALTD"     VARCHAR(255)  NULL,     -- ¾×Æ¼ºñÆ¼À§µµ
-	"ACTV_LGTD"     VARCHAR(255)  NULL,     -- ¾×Æ¼ºñÆ¼°æµµ
-	"DIRECTION"     VARCHAR(1000) NULL      -- ¿À´Â±æ
+CREATE TABLE MO_Season (
+	ACMD_UID          VARCHAR(32) NOT NULL, -- ìˆ™ë°•UID
+	SEASON_CD         VARCHAR(2)  NOT NULL, -- ì‹œì¦Œì½”ë“œ
+	SEASON_START_DATE VARCHAR(10) NULL,     -- ì‹œì¦Œì‹œìž‘ì¼ìž
+	SEASON_END_DATE   VARCHAR(10) NULL      -- ì‹œì¦Œì¢…ë£Œì¼ìž
 );
 
--- Activity ±âº»Å°
-CREATE UNIQUE INDEX "PK_Activity"
-	ON "Activity" ( -- Activity
-		"ACTV_UID" ASC -- ¾×Æ¼ºñÆ¼UID
-	);
-
--- Activity
-ALTER TABLE "Activity"
+-- Season
+ALTER TABLE MO_Season
 	ADD
-		CONSTRAINT "PK_Activity" -- Activity ±âº»Å°
+		CONSTRAINT PK_MO_Season -- Season ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACMD_UID,  -- ìˆ™ë°•UID
+			SEASON_CD  -- ì‹œì¦Œì½”ë“œ
 		);
 
 -- Activity
-COMMENT ON TABLE "Activity" IS 'Activity';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "Activity"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- ¾×Æ¼ºñÆ¼¸í
-COMMENT ON COLUMN "Activity"."ACTV_NAME" IS '¾×Æ¼ºñÆ¼¸í';
-
--- µµ½ÃUID
-COMMENT ON COLUMN "Activity"."CITY_UID" IS 'µµ½ÃUID';
-
--- ÀÌ¸ÞÀÏ
-COMMENT ON COLUMN "Activity"."EMAIL" IS 'ÀÌ¸ÞÀÏ';
-
--- ¿¬¶ôÃ³
-COMMENT ON COLUMN "Activity"."CONTACT" IS '¿¬¶ôÃ³';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "Activity"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- ºñµð¿ÀURL
-COMMENT ON COLUMN "Activity"."VIDEO_URL" IS 'ºñµð¿ÀURL';
-
--- ÅëÈ­±¹°¡ÄÚµå
-COMMENT ON COLUMN "Activity"."CRC_NATION_CD" IS 'ÅëÈ­±¹°¡ÄÚµå';
-
--- ¼Ò¿ä½Ã°£
-COMMENT ON COLUMN "Activity"."DURATION" IS '¼Ò¿ä½Ã°£';
-
--- ¾×Æ¼ºñÆ¼ÁÖ¼Ò
-COMMENT ON COLUMN "Activity"."ACTV_ADDR" IS '¾×Æ¼ºñÆ¼ÁÖ¼Ò';
-
--- ¾×Æ¼ºñÆ¼À§µµ
-COMMENT ON COLUMN "Activity"."ACTV_ALTD" IS '¾×Æ¼ºñÆ¼À§µµ';
-
--- ¾×Æ¼ºñÆ¼°æµµ
-COMMENT ON COLUMN "Activity"."ACTV_LGTD" IS '¾×Æ¼ºñÆ¼°æµµ';
-
--- ¿À´Â±æ
-COMMENT ON COLUMN "Activity"."DIRECTION" IS '¿À´Â±æ';
-
--- Activity ±âº»Å°
-COMMENT ON INDEX "PK_Activity" IS 'Activity ±âº»Å°';
-
--- Activity ±âº»Å°
-COMMENT ON CONSTRAINT "Activity"."PK_Activity" IS 'Activity ±âº»Å°';
-
--- Acvity Types
-CREATE TABLE "ActivityTypes" (
-	"ACTV_TYPE_UID"  VARCHAR(32)        NOT NULL, -- ¾×Æ¼ºñÆ¼Å¸ÀÔUID
-	"ACTV_TYPE_NAME" VARCHAR(100)       NULL,     -- ¾×Æ¼ºñÆ¼Å¸ÀÔ¸í
-	"ACTV_TYPE_IMG"  <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL      -- ¾×Æ¼ºñÆ¼Å¸ÀÔÀÌ¹ÌÁö
+CREATE TABLE MO_Activity (
+	ACTV_UID      VARCHAR(32)   NOT NULL, -- ì•¡í‹°ë¹„í‹°UID
+	ACTV_NAME     VARCHAR(100)  NULL,     -- ì•¡í‹°ë¹„í‹°ëª…
+	CITY_UID      VARCHAR(32)   NULL,     -- ë„ì‹œUID
+	EMAIL         VARCHAR(100)  NULL,     -- ì´ë©”ì¼
+	CONTACT       VARCHAR(30)   NULL,     -- ì—°ë½ì²˜
+	IMG_URL       VARCHAR(255)  NULL,     -- ì´ë¯¸ì§€URL
+	VIDEO_URL     VARCHAR(255)  NULL,     -- ë¹„ë””ì˜¤URL
+	CRC_NATION_CD VARCHAR(2)    NULL,     -- í†µí™”êµ­ê°€ì½”ë“œ
+	DURATION      VARCHAR(5)    NULL,     -- ì†Œìš”ì‹œê°„
+	ACTV_ADDR     VARCHAR(255)  NULL,     -- ì•¡í‹°ë¹„í‹°ì£¼ì†Œ
+	ACTV_ALTD     VARCHAR(255)  NULL,     -- ì•¡í‹°ë¹„í‹°ìœ„ë„
+	ACTV_LGTD     VARCHAR(255)  NULL,     -- ì•¡í‹°ë¹„í‹°ê²½ë„
+	DIRECTION     VARCHAR(1000) NULL      -- ì˜¤ëŠ”ê¸¸
 );
 
--- Acvity Types ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityTypes"
-	ON "ActivityTypes" ( -- Acvity Types
-		"ACTV_TYPE_UID" ASC -- ¾×Æ¼ºñÆ¼Å¸ÀÔUID
-	);
-
--- Acvity Types
-ALTER TABLE "ActivityTypes"
+-- Activity
+ALTER TABLE MO_Activity
 	ADD
-		CONSTRAINT "PK_ActivityTypes" -- Acvity Types ±âº»Å°
+		CONSTRAINT PK_MO_Activity -- Activity ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACTV_TYPE_UID" -- ¾×Æ¼ºñÆ¼Å¸ÀÔUID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
 
 -- Acvity Types
-COMMENT ON TABLE "ActivityTypes" IS 'Acvity Types';
-
--- ¾×Æ¼ºñÆ¼Å¸ÀÔUID
-COMMENT ON COLUMN "ActivityTypes"."ACTV_TYPE_UID" IS '¾×Æ¼ºñÆ¼Å¸ÀÔUID';
-
--- ¾×Æ¼ºñÆ¼Å¸ÀÔ¸í
-COMMENT ON COLUMN "ActivityTypes"."ACTV_TYPE_NAME" IS '¾×Æ¼ºñÆ¼Å¸ÀÔ¸í';
-
--- ¾×Æ¼ºñÆ¼Å¸ÀÔÀÌ¹ÌÁö
-COMMENT ON COLUMN "ActivityTypes"."ACTV_TYPE_IMG" IS '¾×Æ¼ºñÆ¼Å¸ÀÔÀÌ¹ÌÁö';
-
--- Acvity Types ±âº»Å°
-COMMENT ON INDEX "PK_ActivityTypes" IS 'Acvity Types ±âº»Å°';
-
--- Acvity Types ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityTypes"."PK_ActivityTypes" IS 'Acvity Types ±âº»Å°';
-
--- Daily Room Price
-CREATE TABLE "DailyRoomPrice" (
-	"ROOM_UID"  VARCHAR(32) NOT NULL, -- ¹æUID
-	"ACMD_DATE" VARCHAR(10) NOT NULL  -- ¼÷¹ÚÀÏÀÚ
+CREATE TABLE MO_ActivityTypes (
+	ACTV_TYPE_UID  VARCHAR(32)  NOT NULL, -- ì•¡í‹°ë¹„í‹°íƒ€ìž…UID
+	ACTV_TYPE_NAME VARCHAR(100) NULL,     -- ì•¡í‹°ë¹„í‹°íƒ€ìž…ëª…
+	ACTV_TYPE_IMG  VARCHAR(255) NULL      -- ì•¡í‹°ë¹„í‹°íƒ€ìž…ì´ë¯¸ì§€
 );
 
--- Daily Room Price ±âº»Å°
-CREATE UNIQUE INDEX "PK_DailyRoomPrice"
-	ON "DailyRoomPrice" ( -- Daily Room Price
-		"ROOM_UID"  ASC, -- ¹æUID
-		"ACMD_DATE" ASC  -- ¼÷¹ÚÀÏÀÚ
-	);
-
--- Daily Room Price
-ALTER TABLE "DailyRoomPrice"
+-- Acvity Types
+ALTER TABLE MO_ActivityTypes
 	ADD
-		CONSTRAINT "PK_DailyRoomPrice" -- Daily Room Price ±âº»Å°
+		CONSTRAINT PK_MO_ActivityTypes -- Acvity Types ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ROOM_UID",  -- ¹æUID
-			"ACMD_DATE"  -- ¼÷¹ÚÀÏÀÚ
-		);
-
--- Daily Room Price
-COMMENT ON TABLE "DailyRoomPrice" IS 'Daily Room Price';
-
--- ¹æUID
-COMMENT ON COLUMN "DailyRoomPrice"."ROOM_UID" IS '¹æUID';
-
--- ¼÷¹ÚÀÏÀÚ
-COMMENT ON COLUMN "DailyRoomPrice"."ACMD_DATE" IS '¼÷¹ÚÀÏÀÚ';
-
--- Daily Room Price ±âº»Å°
-COMMENT ON INDEX "PK_DailyRoomPrice" IS 'Daily Room Price ±âº»Å°';
-
--- Daily Room Price ±âº»Å°
-COMMENT ON CONSTRAINT "DailyRoomPrice"."PK_DailyRoomPrice" IS 'Daily Room Price ±âº»Å°';
-
--- Daily Room Info
-CREATE TABLE "DailyRoomInfo" (
-	"ROOM_UID"        VARCHAR(32)   NOT NULL, -- ¹æUID
-	"ACMD_DATE"       VARCHAR(10)   NOT NULL, -- ¼÷¹ÚÀÏÀÚ
-	"ROOM_RSV_STATUS" VARCHAR(2)    NULL,     -- ¹æ¿¹¾à»óÅÂ
-	"ROOM_PRICE"      VARCHAR(10)   NULL,     -- ¹æ°¡°Ý
-	"HOTDEAL_YN"      VARCHAR(1)    NULL,     -- ÇÖµô¿©ºÎ
-	"MEMO"            VARCHAR(1000) NULL      -- ¸Þ¸ð
-);
-
--- Daily Room Info ±âº»Å°
-CREATE UNIQUE INDEX "PK_DailyRoomInfo"
-	ON "DailyRoomInfo" ( -- Daily Room Info
-		"ROOM_UID"  ASC, -- ¹æUID
-		"ACMD_DATE" ASC  -- ¼÷¹ÚÀÏÀÚ
-	);
-
--- Daily Room Info
-ALTER TABLE "DailyRoomInfo"
-	ADD
-		CONSTRAINT "PK_DailyRoomInfo" -- Daily Room Info ±âº»Å°
-		PRIMARY KEY (
-			"ROOM_UID",  -- ¹æUID
-			"ACMD_DATE"  -- ¼÷¹ÚÀÏÀÚ
+			ACTV_TYPE_UID -- ì•¡í‹°ë¹„í‹°íƒ€ìž…UID
 		);
 
 -- Daily Room Info
-COMMENT ON TABLE "DailyRoomInfo" IS 'Daily Room Info';
-
--- ¹æUID
-COMMENT ON COLUMN "DailyRoomInfo"."ROOM_UID" IS '¹æUID';
-
--- ¼÷¹ÚÀÏÀÚ
-COMMENT ON COLUMN "DailyRoomInfo"."ACMD_DATE" IS '¼÷¹ÚÀÏÀÚ';
-
--- ¹æ¿¹¾à»óÅÂ
-COMMENT ON COLUMN "DailyRoomInfo"."ROOM_RSV_STATUS" IS '¹æ¿¹¾à»óÅÂ';
-
--- ¹æ°¡°Ý
-COMMENT ON COLUMN "DailyRoomInfo"."ROOM_PRICE" IS '¹æ°¡°Ý';
-
--- ÇÖµô¿©ºÎ
-COMMENT ON COLUMN "DailyRoomInfo"."HOTDEAL_YN" IS 'ÇÖµô¿©ºÎ';
-
--- ¸Þ¸ð
-COMMENT ON COLUMN "DailyRoomInfo"."MEMO" IS '¸Þ¸ð';
-
--- Daily Room Info ±âº»Å°
-COMMENT ON INDEX "PK_DailyRoomInfo" IS 'Daily Room Info ±âº»Å°';
-
--- Daily Room Info ±âº»Å°
-COMMENT ON CONSTRAINT "DailyRoomInfo"."PK_DailyRoomInfo" IS 'Daily Room Info ±âº»Å°';
-
--- Activity Images
-CREATE TABLE "ActivityImages" (
-	"ACTV_UID"  VARCHAR(32)  NOT NULL, -- ¾×Æ¼ºñÆ¼UID
-	"IMG_URL"   VARCHAR(255) NULL,     -- ÀÌ¹ÌÁöURL
-	"IMG_TITLE" VARCHAR(100) NULL,     -- ÀÌ¹ÌÁöÁ¦¸ñ
-	"IMG_NO"    INTEGER      NULL      -- ÀÌ¹ÌÁö¹øÈ£
+CREATE TABLE MO_DailyRoomInfo (
+	ROOM_UID        VARCHAR(32)   NOT NULL, -- ë°©UID
+	ACMD_DATE       VARCHAR(10)   NOT NULL, -- ìˆ™ë°•ì¼ìž
+	ROOM_RSV_STATUS VARCHAR(2)    NULL,     -- ë°©ì˜ˆì•½ìƒíƒœ
+	ROOM_PRICE      VARCHAR(10)   NULL,     -- ë°©ê°€ê²©
+	HOTDEAL_YN      VARCHAR(1)    NULL,     -- í•«ë”œì—¬ë¶€
+	MEMO            VARCHAR(1000) NULL      -- ë©”ëª¨
 );
 
--- Activity Images ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityImages"
-	ON "ActivityImages" ( -- Activity Images
-		"ACTV_UID" ASC -- ¾×Æ¼ºñÆ¼UID
-	);
-
--- Activity Images
-ALTER TABLE "ActivityImages"
+-- Daily Room Info
+ALTER TABLE MO_DailyRoomInfo
 	ADD
-		CONSTRAINT "PK_ActivityImages" -- Activity Images ±âº»Å°
+		CONSTRAINT PK_MO_DailyRoomInfo -- Daily Room Info ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ROOM_UID,  -- ë°©UID
+			ACMD_DATE  -- ìˆ™ë°•ì¼ìž
 		);
 
 -- Activity Images
-COMMENT ON TABLE "ActivityImages" IS 'Activity Images';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "ActivityImages"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- ÀÌ¹ÌÁöURL
-COMMENT ON COLUMN "ActivityImages"."IMG_URL" IS 'ÀÌ¹ÌÁöURL';
-
--- ÀÌ¹ÌÁöÁ¦¸ñ
-COMMENT ON COLUMN "ActivityImages"."IMG_TITLE" IS 'ÀÌ¹ÌÁöÁ¦¸ñ';
-
--- ÀÌ¹ÌÁö¹øÈ£
-COMMENT ON COLUMN "ActivityImages"."IMG_NO" IS 'ÀÌ¹ÌÁö¹øÈ£';
-
--- Activity Images ±âº»Å°
-COMMENT ON INDEX "PK_ActivityImages" IS 'Activity Images ±âº»Å°';
-
--- Activity Images ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityImages"."PK_ActivityImages" IS 'Activity Images ±âº»Å°';
-
--- Acvity Packages
-CREATE TABLE "ActivityPackages" (
-	"PACKAGE_UID"   VARCHAR(32)  NOT NULL, -- ÆÐÅ°ÁöUID
-	"ACTV_UID"      VARCHAR(32)  NULL,     -- ¾×Æ¼ºñÆ¼UID
-	"PACKAGE_NAME"  VARCHAR(100) NULL,     -- ÆÐÅ°Áö¸í
-	"OP_START_DATE" VARCHAR(10)  NULL,     -- ¿î¿µ½ÃÀÛÀÏÀÚ
-	"OP_END_DATE"   VARCHAR(10)  NULL,     -- ¿î¿µÁ¾·áÀÏÀÚ
-	"OP_WEEK_DAY"   VARCHAR(13)  NULL      -- ¿î¿µ¿äÀÏ
+CREATE TABLE MO_ActivityImages (
+	ACTV_UID  VARCHAR(32)  NOT NULL, -- ì•¡í‹°ë¹„í‹°UID
+	IMG_URL   VARCHAR(255) NULL,     -- ì´ë¯¸ì§€URL
+	IMG_TITLE VARCHAR(100) NULL,     -- ì´ë¯¸ì§€ì œëª©
+	IMG_NO    INTEGER      NULL      -- ì´ë¯¸ì§€ë²ˆí˜¸
 );
 
--- Acvity Packages ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityPackages"
-	ON "ActivityPackages" ( -- Acvity Packages
-		"PACKAGE_UID" ASC -- ÆÐÅ°ÁöUID
-	);
-
--- Acvity Packages
-ALTER TABLE "ActivityPackages"
+-- Activity Images
+ALTER TABLE MO_ActivityImages
 	ADD
-		CONSTRAINT "PK_ActivityPackages" -- Acvity Packages ±âº»Å°
+		CONSTRAINT PK_MO_ActivityImages -- Activity Images ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
 
 -- Acvity Packages
-COMMENT ON TABLE "ActivityPackages" IS 'Acvity Packages';
-
--- ÆÐÅ°ÁöUID
-COMMENT ON COLUMN "ActivityPackages"."PACKAGE_UID" IS 'ÆÐÅ°ÁöUID';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "ActivityPackages"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- ÆÐÅ°Áö¸í
-COMMENT ON COLUMN "ActivityPackages"."PACKAGE_NAME" IS 'ÆÐÅ°Áö¸í';
-
--- ¿î¿µ½ÃÀÛÀÏÀÚ
-COMMENT ON COLUMN "ActivityPackages"."OP_START_DATE" IS '¿î¿µ½ÃÀÛÀÏÀÚ';
-
--- ¿î¿µÁ¾·áÀÏÀÚ
-COMMENT ON COLUMN "ActivityPackages"."OP_END_DATE" IS '¿î¿µÁ¾·áÀÏÀÚ';
-
--- ¿î¿µ¿äÀÏ
-COMMENT ON COLUMN "ActivityPackages"."OP_WEEK_DAY" IS '¿î¿µ¿äÀÏ';
-
--- Acvity Packages ±âº»Å°
-COMMENT ON INDEX "PK_ActivityPackages" IS 'Acvity Packages ±âº»Å°';
-
--- Acvity Packages ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityPackages"."PK_ActivityPackages" IS 'Acvity Packages ±âº»Å°';
-
--- Activity Package Desc
-CREATE TABLE "ActivityPackageDesc" (
-	"PACKAGE_DESC_UID" VARCHAR(32)   NOT NULL, -- ÆÐÅ°Áö¼³¸íUID
-	"PACKAGE_UID"      VARCHAR(32)   NOT NULL, -- ÆÐÅ°ÁöUID
-	"PACKAGE_DESC"     VARCHAR(1000) NOT NULL  -- ÆÐÅ°Áö¼³¸í
+CREATE TABLE MO_ActivityPackages (
+	PACKAGE_UID   VARCHAR(32)  NOT NULL, -- íŒ¨í‚¤ì§€UID
+	ACTV_UID      VARCHAR(32)  NULL,     -- ì•¡í‹°ë¹„í‹°UID
+	PACKAGE_NAME  VARCHAR(100) NULL,     -- íŒ¨í‚¤ì§€ëª…
+	OP_START_DATE VARCHAR(10)  NULL,     -- ìš´ì˜ì‹œìž‘ì¼ìž
+	OP_END_DATE   VARCHAR(10)  NULL,     -- ìš´ì˜ì¢…ë£Œì¼ìž
+	OP_WEEK_DAY   VARCHAR(13)  NULL      -- ìš´ì˜ìš”ì¼
 );
 
--- Activity Package Desc ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityPackageDesc"
-	ON "ActivityPackageDesc" ( -- Activity Package Desc
-		"PACKAGE_DESC_UID" ASC, -- ÆÐÅ°Áö¼³¸íUID
-		"PACKAGE_UID"      ASC  -- ÆÐÅ°ÁöUID
-	);
-
--- Activity Package Desc
-ALTER TABLE "ActivityPackageDesc"
+-- Acvity Packages
+ALTER TABLE MO_ActivityPackages
 	ADD
-		CONSTRAINT "PK_ActivityPackageDesc" -- Activity Package Desc ±âº»Å°
+		CONSTRAINT PK_MO_ActivityPackages -- Acvity Packages ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PACKAGE_DESC_UID", -- ÆÐÅ°Áö¼³¸íUID
-			"PACKAGE_UID"       -- ÆÐÅ°ÁöUID
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		);
 
 -- Activity Package Desc
-COMMENT ON TABLE "ActivityPackageDesc" IS 'Activity Package Desc';
-
--- ÆÐÅ°Áö¼³¸íUID
-COMMENT ON COLUMN "ActivityPackageDesc"."PACKAGE_DESC_UID" IS 'ÆÐÅ°Áö¼³¸íUID';
-
--- ÆÐÅ°ÁöUID
-COMMENT ON COLUMN "ActivityPackageDesc"."PACKAGE_UID" IS 'ÆÐÅ°ÁöUID';
-
--- ÆÐÅ°Áö¼³¸í
-COMMENT ON COLUMN "ActivityPackageDesc"."PACKAGE_DESC" IS 'ÆÐÅ°Áö¼³¸í';
-
--- Activity Package Desc ±âº»Å°
-COMMENT ON INDEX "PK_ActivityPackageDesc" IS 'Activity Package Desc ±âº»Å°';
-
--- Activity Package Desc ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityPackageDesc"."PK_ActivityPackageDesc" IS 'Activity Package Desc ±âº»Å°';
-
--- Package Operation Times
-CREATE TABLE "PackageOpTimes" (
-	"PACKAGE_OP_TIME_UID" VARCHAR(32) NOT NULL, -- ÆÐÅ°Áö¿î¿µ½Ã°£UID
-	"PACKAGE_UID"         VARCHAR(32) NOT NULL, -- ÆÐÅ°ÁöUID
-	"PACKAGE_OP_TIME"     VARCHAR(5)  NOT NULL  -- ÆÐÅ°Áö¿î¿µ½Ã°£
+CREATE TABLE MO_ActivityPackageDesc (
+	PACKAGE_DESC_UID VARCHAR(32)   NOT NULL, -- íŒ¨í‚¤ì§€ì„¤ëª…UID
+	PACKAGE_UID      VARCHAR(32)   NOT NULL, -- íŒ¨í‚¤ì§€UID
+	PACKAGE_DESC     VARCHAR(1000) NOT NULL  -- íŒ¨í‚¤ì§€ì„¤ëª…
 );
 
--- Package Operation Times ±âº»Å°
-CREATE UNIQUE INDEX "PK_PackageOpTimes"
-	ON "PackageOpTimes" ( -- Package Operation Times
-		"PACKAGE_OP_TIME_UID" ASC, -- ÆÐÅ°Áö¿î¿µ½Ã°£UID
-		"PACKAGE_UID"         ASC  -- ÆÐÅ°ÁöUID
-	);
-
--- Package Operation Times
-ALTER TABLE "PackageOpTimes"
+-- Activity Package Desc
+ALTER TABLE MO_ActivityPackageDesc
 	ADD
-		CONSTRAINT "PK_PackageOpTimes" -- Package Operation Times ±âº»Å°
+		CONSTRAINT PK_MO_ActivityPackageDesc -- Activity Package Desc ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PACKAGE_OP_TIME_UID", -- ÆÐÅ°Áö¿î¿µ½Ã°£UID
-			"PACKAGE_UID"          -- ÆÐÅ°ÁöUID
+			PACKAGE_DESC_UID, -- íŒ¨í‚¤ì§€ì„¤ëª…UID
+			PACKAGE_UID       -- íŒ¨í‚¤ì§€UID
 		);
 
 -- Package Operation Times
-COMMENT ON TABLE "PackageOpTimes" IS 'Package Operation Times';
-
--- ÆÐÅ°Áö¿î¿µ½Ã°£UID
-COMMENT ON COLUMN "PackageOpTimes"."PACKAGE_OP_TIME_UID" IS 'ÆÐÅ°Áö¿î¿µ½Ã°£UID';
-
--- ÆÐÅ°ÁöUID
-COMMENT ON COLUMN "PackageOpTimes"."PACKAGE_UID" IS 'ÆÐÅ°ÁöUID';
-
--- ÆÐÅ°Áö¿î¿µ½Ã°£
-COMMENT ON COLUMN "PackageOpTimes"."PACKAGE_OP_TIME" IS 'ÆÐÅ°Áö¿î¿µ½Ã°£';
-
--- Package Operation Times ±âº»Å°
-COMMENT ON INDEX "PK_PackageOpTimes" IS 'Package Operation Times ±âº»Å°';
-
--- Package Operation Times ±âº»Å°
-COMMENT ON CONSTRAINT "PackageOpTimes"."PK_PackageOpTimes" IS 'Package Operation Times ±âº»Å°';
-
--- Package Price
-CREATE TABLE "PackagePrice" (
-	"PACKAGE_PRICE_UID" VARCHAR(32)  NOT NULL, -- ÆÐÅ°Áö°¡°ÝUID
-	"PACKAGE_UID"       VARCHAR(32)  NOT NULL, -- ÆÐÅ°ÁöUID
-	"QUANTITY_NAME"     VARCHAR(100) NULL,     -- ¼ö·®¸í
-	"PRICE"             VARCHAR(10)  NULL,     -- °¡°Ý
-	"MIN_RSRV_PPL"      VARCHAR(10)  NULL,     -- ÃÖ¼Ò¿¹¾àÀÎ¿ø
-	"MAX_RSRV_PPL"      VARCHAR(10)  NULL      -- ÃÖ´ë¿¹¾àÀÎ¿ø
+CREATE TABLE MO_PackageOpTimes (
+	PACKAGE_OP_TIME_UID VARCHAR(32) NOT NULL, -- íŒ¨í‚¤ì§€ìš´ì˜ì‹œê°„UID
+	PACKAGE_UID         VARCHAR(32) NOT NULL, -- íŒ¨í‚¤ì§€UID
+	PACKAGE_OP_TIME     VARCHAR(5)  NOT NULL  -- íŒ¨í‚¤ì§€ìš´ì˜ì‹œê°„
 );
 
--- Package Price ±âº»Å°
-CREATE UNIQUE INDEX "PK_PackagePrice"
-	ON "PackagePrice" ( -- Package Price
-		"PACKAGE_PRICE_UID" ASC, -- ÆÐÅ°Áö°¡°ÝUID
-		"PACKAGE_UID"       ASC  -- ÆÐÅ°ÁöUID
-	);
-
--- Package Price
-ALTER TABLE "PackagePrice"
+-- Package Operation Times
+ALTER TABLE MO_PackageOpTimes
 	ADD
-		CONSTRAINT "PK_PackagePrice" -- Package Price ±âº»Å°
+		CONSTRAINT PK_MO_PackageOpTimes -- Package Operation Times ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PACKAGE_PRICE_UID", -- ÆÐÅ°Áö°¡°ÝUID
-			"PACKAGE_UID"        -- ÆÐÅ°ÁöUID
+			PACKAGE_OP_TIME_UID, -- íŒ¨í‚¤ì§€ìš´ì˜ì‹œê°„UID
+			PACKAGE_UID          -- íŒ¨í‚¤ì§€UID
 		);
 
 -- Package Price
-COMMENT ON TABLE "PackagePrice" IS 'Package Price';
-
--- ÆÐÅ°Áö°¡°ÝUID
-COMMENT ON COLUMN "PackagePrice"."PACKAGE_PRICE_UID" IS 'ÆÐÅ°Áö°¡°ÝUID';
-
--- ÆÐÅ°ÁöUID
-COMMENT ON COLUMN "PackagePrice"."PACKAGE_UID" IS 'ÆÐÅ°ÁöUID';
-
--- ¼ö·®¸í
-COMMENT ON COLUMN "PackagePrice"."QUANTITY_NAME" IS '¼ö·®¸í';
-
--- °¡°Ý
-COMMENT ON COLUMN "PackagePrice"."PRICE" IS '°¡°Ý';
-
--- ÃÖ¼Ò¿¹¾àÀÎ¿ø
-COMMENT ON COLUMN "PackagePrice"."MIN_RSRV_PPL" IS 'ÃÖ¼Ò¿¹¾àÀÎ¿ø';
-
--- ÃÖ´ë¿¹¾àÀÎ¿ø
-COMMENT ON COLUMN "PackagePrice"."MAX_RSRV_PPL" IS 'ÃÖ´ë¿¹¾àÀÎ¿ø';
-
--- Package Price ±âº»Å°
-COMMENT ON INDEX "PK_PackagePrice" IS 'Package Price ±âº»Å°';
-
--- Package Price ±âº»Å°
-COMMENT ON CONSTRAINT "PackagePrice"."PK_PackagePrice" IS 'Package Price ±âº»Å°';
-
--- Package Discount
-CREATE TABLE "PackageDiscount" (
-	"PACKAGE_UID"             VARCHAR(32) NOT NULL, -- ÆÐÅ°ÁöUID
-	"DISCOUNT_TYPE_CD"        VARCHAR(2)  NOT NULL, -- ÇÒÀÎÅ¸ÀÔÄÚµå
-	"DISCOUNT_RATE"           INTEGER     NULL,     -- ÇÒÀÎ·ü
-	"DISCOUNT_START_DATE"     VARCHAR(10) NULL,     -- ÇÒÀÎ½ÃÀÛÀÏÀÚ
-	"DISCOUNT_END_DATE"       VARCHAR(10) NULL,     -- ÇÒÀÎÁ¾·áÀÏÀÚ
-	"DISCOUNT_APPLY_WEEK_DAY" VARCHAR(13) NULL      -- ÇÒÀÎÀû¿ë¿äÀÏ
+CREATE TABLE MO_PackagePrice (
+	PACKAGE_PRICE_UID VARCHAR(32)  NOT NULL, -- íŒ¨í‚¤ì§€ê°€ê²©UID
+	PACKAGE_UID       VARCHAR(32)  NOT NULL, -- íŒ¨í‚¤ì§€UID
+	QUANTITY_NAME     VARCHAR(100) NULL,     -- ìˆ˜ëŸ‰ëª…
+	PRICE             VARCHAR(10)  NULL,     -- ê°€ê²©
+	MIN_RSRV_PPL      VARCHAR(10)  NULL,     -- ìµœì†Œì˜ˆì•½ì¸ì›
+	MAX_RSRV_PPL      VARCHAR(10)  NULL      -- ìµœëŒ€ì˜ˆì•½ì¸ì›
 );
 
--- Package Discount ±âº»Å°
-CREATE UNIQUE INDEX "PK_PackageDiscount"
-	ON "PackageDiscount" ( -- Package Discount
-		"PACKAGE_UID"      ASC, -- ÆÐÅ°ÁöUID
-		"DISCOUNT_TYPE_CD" ASC  -- ÇÒÀÎÅ¸ÀÔÄÚµå
-	);
-
--- Package Discount
-ALTER TABLE "PackageDiscount"
+-- Package Price
+ALTER TABLE MO_PackagePrice
 	ADD
-		CONSTRAINT "PK_PackageDiscount" -- Package Discount ±âº»Å°
+		CONSTRAINT PK_MO_PackagePrice -- Package Price ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PACKAGE_UID",      -- ÆÐÅ°ÁöUID
-			"DISCOUNT_TYPE_CD"  -- ÇÒÀÎÅ¸ÀÔÄÚµå
+			PACKAGE_PRICE_UID, -- íŒ¨í‚¤ì§€ê°€ê²©UID
+			PACKAGE_UID        -- íŒ¨í‚¤ì§€UID
 		);
 
 -- Package Discount
-COMMENT ON TABLE "PackageDiscount" IS 'Package Discount';
-
--- ÆÐÅ°ÁöUID
-COMMENT ON COLUMN "PackageDiscount"."PACKAGE_UID" IS 'ÆÐÅ°ÁöUID';
-
--- ÇÒÀÎÅ¸ÀÔÄÚµå
-COMMENT ON COLUMN "PackageDiscount"."DISCOUNT_TYPE_CD" IS 'ÇÒÀÎÅ¸ÀÔÄÚµå';
-
--- ÇÒÀÎ·ü
-COMMENT ON COLUMN "PackageDiscount"."DISCOUNT_RATE" IS 'ÇÒÀÎ·ü';
-
--- ÇÒÀÎ½ÃÀÛÀÏÀÚ
-COMMENT ON COLUMN "PackageDiscount"."DISCOUNT_START_DATE" IS 'ÇÒÀÎ½ÃÀÛÀÏÀÚ';
-
--- ÇÒÀÎÁ¾·áÀÏÀÚ
-COMMENT ON COLUMN "PackageDiscount"."DISCOUNT_END_DATE" IS 'ÇÒÀÎÁ¾·áÀÏÀÚ';
-
--- ÇÒÀÎÀû¿ë¿äÀÏ
-COMMENT ON COLUMN "PackageDiscount"."DISCOUNT_APPLY_WEEK_DAY" IS 'ÇÒÀÎÀû¿ë¿äÀÏ';
-
--- Package Discount ±âº»Å°
-COMMENT ON INDEX "PK_PackageDiscount" IS 'Package Discount ±âº»Å°';
-
--- Package Discount ±âº»Å°
-COMMENT ON CONSTRAINT "PackageDiscount"."PK_PackageDiscount" IS 'Package Discount ±âº»Å°';
-
--- Activity Information
-CREATE TABLE "ActivityInfo" (
-	"ACTV_UID"      VARCHAR(32)   NOT NULL, -- ¾×Æ¼ºñÆ¼UID
-	"EXCLUDE_ITEM"  VARCHAR(1000) NULL,     -- Á¦¿ÜÇ×¸ñ
-	"INCLUDE_ITEM"  VARCHAR(1000) NULL,     -- Æ÷ÇÔÇ×¸ñ
-	"BUSINESS_HOUR" VARCHAR(1000) NULL,     -- ¿µ¾÷½Ã°£
-	"SCHEDULE"      VARCHAR(1000) NULL,     -- ½ºÄÉÁì
-	"REMINDER"      VARCHAR(1000) NULL      -- ¸®¸¶ÀÎ´õ
+CREATE TABLE MO_PackageDiscount (
+	PACKAGE_UID             VARCHAR(32) NOT NULL, -- íŒ¨í‚¤ì§€UID
+	DISCOUNT_TYPE_CD        VARCHAR(2)  NOT NULL, -- í• ì¸íƒ€ìž…ì½”ë“œ
+	DISCOUNT_RATE           INTEGER     NULL,     -- í• ì¸ë¥ 
+	DISCOUNT_START_DATE     VARCHAR(10) NULL,     -- í• ì¸ì‹œìž‘ì¼ìž
+	DISCOUNT_END_DATE       VARCHAR(10) NULL,     -- í• ì¸ì¢…ë£Œì¼ìž
+	DISCOUNT_APPLY_WEEK_DAY VARCHAR(13) NULL      -- í• ì¸ì ìš©ìš”ì¼
 );
 
--- Activity Information ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityInfo"
-	ON "ActivityInfo" ( -- Activity Information
-		"ACTV_UID" ASC -- ¾×Æ¼ºñÆ¼UID
-	);
-
--- Activity Information
-ALTER TABLE "ActivityInfo"
+-- Package Discount
+ALTER TABLE MO_PackageDiscount
 	ADD
-		CONSTRAINT "PK_ActivityInfo" -- Activity Information ±âº»Å°
+		CONSTRAINT PK_MO_PackageDiscount -- Package Discount ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			PACKAGE_UID,      -- íŒ¨í‚¤ì§€UID
+			DISCOUNT_TYPE_CD  -- í• ì¸íƒ€ìž…ì½”ë“œ
 		);
 
 -- Activity Information
-COMMENT ON TABLE "ActivityInfo" IS 'Activity Information';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "ActivityInfo"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- Á¦¿ÜÇ×¸ñ
-COMMENT ON COLUMN "ActivityInfo"."EXCLUDE_ITEM" IS 'Á¦¿ÜÇ×¸ñ';
-
--- Æ÷ÇÔÇ×¸ñ
-COMMENT ON COLUMN "ActivityInfo"."INCLUDE_ITEM" IS 'Æ÷ÇÔÇ×¸ñ';
-
--- ¿µ¾÷½Ã°£
-COMMENT ON COLUMN "ActivityInfo"."BUSINESS_HOUR" IS '¿µ¾÷½Ã°£';
-
--- ½ºÄÉÁì
-COMMENT ON COLUMN "ActivityInfo"."SCHEDULE" IS '½ºÄÉÁì';
-
--- ¸®¸¶ÀÎ´õ
-COMMENT ON COLUMN "ActivityInfo"."REMINDER" IS '¸®¸¶ÀÎ´õ';
-
--- Activity Information ±âº»Å°
-COMMENT ON INDEX "PK_ActivityInfo" IS 'Activity Information ±âº»Å°';
-
--- Activity Information ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityInfo"."PK_ActivityInfo" IS 'Activity Information ±âº»Å°';
-
--- Activity Package Options
-CREATE TABLE "ActivityPackageOptions" (
-	"ACTV_UID"          VARCHAR(32)   NOT NULL, -- ¾×Æ¼ºñÆ¼UID
-	"PACKAGE_OPT_UID"   VARCHAR(32)   NOT NULL, -- ÆÐÅ°Áö¿É¼ÇUID
-	"PACKAGE_OPT_TITLE" VARCHAR(100)  NULL,     -- ÆÐÅ°Áö¿É¼ÇÁ¦¸ñ
-	"PACKAGE_OPT_CTNT"  VARCHAR(1000) NULL      -- ÆÐÅ°Áö¿É¼Ç³»¿ë
+CREATE TABLE MO_ActivityInfo (
+	ACTV_UID      VARCHAR(32)   NOT NULL, -- ì•¡í‹°ë¹„í‹°UID
+	EXCLUDE_ITEM  VARCHAR(1000) NULL,     -- ì œì™¸í•­ëª©
+	INCLUDE_ITEM  VARCHAR(1000) NULL,     -- í¬í•¨í•­ëª©
+	BUSINESS_HOUR VARCHAR(1000) NULL,     -- ì˜ì—…ì‹œê°„
+	SCHEDULE      VARCHAR(1000) NULL,     -- ìŠ¤ì¼€ì¥´
+	REMINDER      VARCHAR(1000) NULL      -- ë¦¬ë§ˆì¸ë”
 );
 
--- Activity Package Options ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityPackageOptions"
-	ON "ActivityPackageOptions" ( -- Activity Package Options
-		"ACTV_UID"        ASC, -- ¾×Æ¼ºñÆ¼UID
-		"PACKAGE_OPT_UID" ASC  -- ÆÐÅ°Áö¿É¼ÇUID
-	);
-
--- Activity Package Options
-ALTER TABLE "ActivityPackageOptions"
+-- Activity Information
+ALTER TABLE MO_ActivityInfo
 	ADD
-		CONSTRAINT "PK_ActivityPackageOptions" -- Activity Package Options ±âº»Å°
+		CONSTRAINT PK_MO_ActivityInfo -- Activity Information ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"ACTV_UID",        -- ¾×Æ¼ºñÆ¼UID
-			"PACKAGE_OPT_UID"  -- ÆÐÅ°Áö¿É¼ÇUID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
 
 -- Activity Package Options
-COMMENT ON TABLE "ActivityPackageOptions" IS 'Activity Package Options';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "ActivityPackageOptions"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- ÆÐÅ°Áö¿É¼ÇUID
-COMMENT ON COLUMN "ActivityPackageOptions"."PACKAGE_OPT_UID" IS 'ÆÐÅ°Áö¿É¼ÇUID';
-
--- ÆÐÅ°Áö¿É¼ÇÁ¦¸ñ
-COMMENT ON COLUMN "ActivityPackageOptions"."PACKAGE_OPT_TITLE" IS 'ÆÐÅ°Áö¿É¼ÇÁ¦¸ñ';
-
--- ÆÐÅ°Áö¿É¼Ç³»¿ë
-COMMENT ON COLUMN "ActivityPackageOptions"."PACKAGE_OPT_CTNT" IS 'ÆÐÅ°Áö¿É¼Ç³»¿ë';
-
--- Activity Package Options ±âº»Å°
-COMMENT ON INDEX "PK_ActivityPackageOptions" IS 'Activity Package Options ±âº»Å°';
-
--- Activity Package Options ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityPackageOptions"."PK_ActivityPackageOptions" IS 'Activity Package Options ±âº»Å°';
-
--- Activity Policy
-CREATE TABLE "ActivityPolicy" (
-	"PLCY_UID"         VARCHAR(32)   NOT NULL, -- Á¤Ã¥UID
-	"ACTV_UID"         VARCHAR(32)   NOT NULL, -- ¾×Æ¼ºñÆ¼UID
-	"CFRM_TYPE_CD"     VARCHAR(2)    NULL,     -- È®ÀÎÅ¸ÀÔÄÚµå
-	"CFRM_TIME"        VARCHAR(5)    NULL,     -- È®ÀÎ½Ã°£
-	"RSRV_ABLE_CD"     VARCHAR(2)    NULL,     -- ¿¹¾à°¡´ÉÄÚµå
-	"RSRV_ABLE_DAYS"   INTEGER       NULL,     -- ¿¹¾à°¡´ÉÀÏ¼ö
-	"CANCEL_TYPE_CD"   VARCHAR(2)    NULL,     -- Ãë¼ÒÅ¸ÀÔÄÚµå
-	"CANCEL_ABLE_TIME" VARCHAR(5)    NULL,     -- Ãë¼Ò°¡´É½Ã°£
-	"HOW_TO_USE"       VARCHAR(1000) NULL      -- »ç¿ë¹ý
+CREATE TABLE MO_ActivityPackageOptions (
+	ACTV_UID          VARCHAR(32)   NOT NULL, -- ì•¡í‹°ë¹„í‹°UID
+	PACKAGE_OPT_UID   VARCHAR(32)   NOT NULL, -- íŒ¨í‚¤ì§€ì˜µì…˜UID
+	PACKAGE_OPT_TITLE VARCHAR(100)  NULL,     -- íŒ¨í‚¤ì§€ì˜µì…˜ì œëª©
+	PACKAGE_OPT_CTNT  VARCHAR(1000) NULL      -- íŒ¨í‚¤ì§€ì˜µì…˜ë‚´ìš©
 );
 
--- Activity Policy ±âº»Å°
-CREATE UNIQUE INDEX "PK_ActivityPolicy"
-	ON "ActivityPolicy" ( -- Activity Policy
-		"PLCY_UID" ASC, -- Á¤Ã¥UID
-		"ACTV_UID" ASC  -- ¾×Æ¼ºñÆ¼UID
-	);
-
--- Activity Policy
-ALTER TABLE "ActivityPolicy"
+-- Activity Package Options
+ALTER TABLE MO_ActivityPackageOptions
 	ADD
-		CONSTRAINT "PK_ActivityPolicy" -- Activity Policy ±âº»Å°
+		CONSTRAINT PK_MO_ActivityPackageOptions -- Activity Package Options ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			"PLCY_UID", -- Á¤Ã¥UID
-			"ACTV_UID"  -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID,        -- ì•¡í‹°ë¹„í‹°UID
+			PACKAGE_OPT_UID  -- íŒ¨í‚¤ì§€ì˜µì…˜UID
 		);
 
 -- Activity Policy
-COMMENT ON TABLE "ActivityPolicy" IS 'Activity Policy';
-
--- Á¤Ã¥UID
-COMMENT ON COLUMN "ActivityPolicy"."PLCY_UID" IS 'Á¤Ã¥UID';
-
--- ¾×Æ¼ºñÆ¼UID
-COMMENT ON COLUMN "ActivityPolicy"."ACTV_UID" IS '¾×Æ¼ºñÆ¼UID';
-
--- È®ÀÎÅ¸ÀÔÄÚµå
-COMMENT ON COLUMN "ActivityPolicy"."CFRM_TYPE_CD" IS 'È®ÀÎÅ¸ÀÔÄÚµå';
-
--- È®ÀÎ½Ã°£
-COMMENT ON COLUMN "ActivityPolicy"."CFRM_TIME" IS 'È®ÀÎ½Ã°£';
-
--- ¿¹¾à°¡´ÉÄÚµå
-COMMENT ON COLUMN "ActivityPolicy"."RSRV_ABLE_CD" IS '¿¹¾à°¡´ÉÄÚµå';
-
--- ¿¹¾à°¡´ÉÀÏ¼ö
-COMMENT ON COLUMN "ActivityPolicy"."RSRV_ABLE_DAYS" IS '¿¹¾à°¡´ÉÀÏ¼ö';
-
--- Ãë¼ÒÅ¸ÀÔÄÚµå
-COMMENT ON COLUMN "ActivityPolicy"."CANCEL_TYPE_CD" IS 'Ãë¼ÒÅ¸ÀÔÄÚµå';
-
--- Ãë¼Ò°¡´É½Ã°£
-COMMENT ON COLUMN "ActivityPolicy"."CANCEL_ABLE_TIME" IS 'Ãë¼Ò°¡´É½Ã°£';
-
--- »ç¿ë¹ý
-COMMENT ON COLUMN "ActivityPolicy"."HOW_TO_USE" IS '»ç¿ë¹ý';
-
--- Activity Policy ±âº»Å°
-COMMENT ON INDEX "PK_ActivityPolicy" IS 'Activity Policy ±âº»Å°';
-
--- Activity Policy ±âº»Å°
-COMMENT ON CONSTRAINT "ActivityPolicy"."PK_ActivityPolicy" IS 'Activity Policy ±âº»Å°';
-
--- Activity Default Policy
-CREATE TABLE "ActivityDfltPolicy" (
-	"COL2" <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- Áï¼®È®ÀÎ±âº»¸Þ½ÃÁö
-	"COL"  <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL  -- È®ÀÎ±âº»¸Þ½ÃÁö
+CREATE TABLE MO_ActivityPolicy (
+	PLCY_UID         VARCHAR(32)   NOT NULL, -- ì •ì±…UID
+	ACTV_UID         VARCHAR(32)   NOT NULL, -- ì•¡í‹°ë¹„í‹°UID
+	CFRM_TYPE_CD     VARCHAR(2)    NULL,     -- í™•ì¸íƒ€ìž…ì½”ë“œ
+	CFRM_TIME        VARCHAR(5)    NULL,     -- í™•ì¸ì‹œê°„
+	RSRV_ABLE_CD     VARCHAR(2)    NULL,     -- ì˜ˆì•½ê°€ëŠ¥ì½”ë“œ
+	RSRV_ABLE_DAYS   INTEGER       NULL,     -- ì˜ˆì•½ê°€ëŠ¥ì¼ìˆ˜
+	CANCEL_TYPE_CD   VARCHAR(2)    NULL,     -- ì·¨ì†Œíƒ€ìž…ì½”ë“œ
+	CANCEL_ABLE_TIME VARCHAR(5)    NULL,     -- ì·¨ì†Œê°€ëŠ¥ì‹œê°„
+	HOW_TO_USE       VARCHAR(1000) NULL      -- ì‚¬ìš©ë²•
 );
 
--- Activity Default Policy
-COMMENT ON TABLE "ActivityDfltPolicy" IS 'Activity Default Policy';
+-- Activity Policy
+ALTER TABLE MO_ActivityPolicy
+	ADD
+		CONSTRAINT PK_MO_ActivityPolicy -- Activity Policy ê¸°ë³¸í‚¤
+		PRIMARY KEY (
+			PLCY_UID, -- ì •ì±…UID
+			ACTV_UID  -- ì•¡í‹°ë¹„í‹°UID
+		);
 
--- Áï¼®È®ÀÎ±âº»¸Þ½ÃÁö
-COMMENT ON COLUMN "ActivityDfltPolicy"."COL2" IS 'Áï¼®È®ÀÎ±âº»¸Þ½ÃÁö';
-
--- È®ÀÎ±âº»¸Þ½ÃÁö
-COMMENT ON COLUMN "ActivityDfltPolicy"."COL" IS 'È®ÀÎ±âº»¸Þ½ÃÁö';
-
--- User
-CREATE TABLE "User" (
-	"USER_ID"              <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- »ç¿ëÀÚID
-	"USER_NAME"            <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- »ç¿ëÀÚ¸í
-	"PASSWORD"             <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- ºñ¹Ð¹øÈ£
-	"PASSWORD_ERROR_COUNT" <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- ºñ¹Ð¹øÈ£¿À·ùÈ½¼ö
-	"LAST_LOGIN_DTTM"      <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL, -- ¸¶Áö¸··Î±×ÀÎÀÏ½Ã
-	"LOCK_YN"              <µ¥ÀÌÅÍ Å¸ÀÔ ¾øÀ½> NULL  -- Àá±Ý¿©ºÎ
+-- User Info
+CREATE TABLE MO_UserInfo (
+	USER_ID              VARCHAR(40)  NULL, -- ì‚¬ìš©ìžID
+	USER_NAME            VARCHAR(100) NULL, -- ì‚¬ìš©ìžëª…
+	PASSWORD             VARCHAR(512) NULL, -- ë¹„ë°€ë²ˆí˜¸
+	PROFILE_IMG_URL      VARCHAR(255) NULL, -- í”„ë¡œí•„ì´ë¯¸ì§€URL
+	PASSWORD_ERROR_COUNT VARCHAR(10)  NULL, -- ë¹„ë°€ë²ˆí˜¸ì˜¤ë¥˜íšŸìˆ˜
+	LAST_LOGIN_DTTM      VARCHAR(20)  NULL, -- ë§ˆì§€ë§‰ë¡œê·¸ì¸ì¼ì‹œ
+	LOCK_YN              VARCHAR(1)   NULL  -- ìž ê¸ˆì—¬ë¶€
 );
 
--- User
-COMMENT ON TABLE "User" IS 'User';
-
--- »ç¿ëÀÚID
-COMMENT ON COLUMN "User"."USER_ID" IS '»ç¿ëÀÚID';
-
--- »ç¿ëÀÚ¸í
-COMMENT ON COLUMN "User"."USER_NAME" IS '»ç¿ëÀÚ¸í';
-
--- ºñ¹Ð¹øÈ£
-COMMENT ON COLUMN "User"."PASSWORD" IS 'ºñ¹Ð¹øÈ£';
-
--- ºñ¹Ð¹øÈ£¿À·ùÈ½¼ö
-COMMENT ON COLUMN "User"."PASSWORD_ERROR_COUNT" IS 'ºñ¹Ð¹øÈ£¿À·ùÈ½¼ö';
-
--- ¸¶Áö¸··Î±×ÀÎÀÏ½Ã
-COMMENT ON COLUMN "User"."LAST_LOGIN_DTTM" IS '¸¶Áö¸··Î±×ÀÎÀÏ½Ã';
-
--- Àá±Ý¿©ºÎ
-COMMENT ON COLUMN "User"."LOCK_YN" IS 'Àá±Ý¿©ºÎ';
-
 -- Accommodation
-ALTER TABLE "Accommodation"
+ALTER TABLE MO_Accommodation
 	ADD
-		CONSTRAINT "FK_NationCity_TO_Accommodation" -- NationCity -> Accommodation
+		CONSTRAINT FK_MO_NationCity_TO_MO_Accommodation -- NationCity -> Accommodation
 		FOREIGN KEY (
-			"CITY_UID" -- µµ½ÃUID
+			CITY_UID -- ë„ì‹œUID
 		)
-		REFERENCES "NationCity" ( -- NationCity
-			"CITY_UID" -- µµ½ÃUID
+		REFERENCES MO_NationCity ( -- NationCity
+			CITY_UID -- ë„ì‹œUID
 		);
 
--- NationCity -> Accommodation
-COMMENT ON CONSTRAINT "Accommodation"."FK_NationCity_TO_Accommodation" IS 'NationCity -> Accommodation';
-
 -- Accommodation
-ALTER TABLE "Accommodation"
+ALTER TABLE MO_Accommodation
 	ADD
-		CONSTRAINT "FK_Currency_TO_Accommodation" -- Currency -> Accommodation
+		CONSTRAINT FK_MO_Currency_TO_MO_Accommodation -- Currency -> Accommodation
 		FOREIGN KEY (
-			"CRC_NATION_CD" -- ÅëÈ­±¹°¡ÄÚµå
+			CRC_NATION_CD -- í†µí™”êµ­ê°€ì½”ë“œ
 		)
-		REFERENCES "Currency" ( -- Currency
-			"CRC_NTL_CD" -- ÅëÈ­±¹°¡ÄÚµå
+		REFERENCES MO_Currency ( -- Currency
+			CRC_NTL_CD -- í†µí™”êµ­ê°€ì½”ë“œ
 		);
 
--- Currency -> Accommodation
-COMMENT ON CONSTRAINT "Accommodation"."FK_Currency_TO_Accommodation" IS 'Currency -> Accommodation';
-
 -- Accommodation
-ALTER TABLE "Accommodation"
+ALTER TABLE MO_Accommodation
 	ADD
-		CONSTRAINT "FK_CancelPolicy_TO_Accommodation" -- Cancel Policy -> Accommodation
+		CONSTRAINT FK_MO_CancelPolicy_TO_MO_Accommodation -- Cancel Policy -> Accommodation
 		FOREIGN KEY (
-			"CANCEL_PLCY_UID" -- Ãë¼ÒÁ¤Ã¥UID
+			CANCEL_PLCY_UID -- ì·¨ì†Œì •ì±…UID
 		)
-		REFERENCES "CancelPolicy" ( -- Cancel Policy
-			"COL" -- Ãë¼ÒÁ¤Ã¥UID
+		REFERENCES MO_CancelPolicy ( -- Cancel Policy
+			COL -- ì·¨ì†Œì •ì±…UID
 		);
-
--- Cancel Policy -> Accommodation
-COMMENT ON CONSTRAINT "Accommodation"."FK_CancelPolicy_TO_Accommodation" IS 'Cancel Policy -> Accommodation';
 
 -- Recommend Spots
-ALTER TABLE "RecommendSpots"
+ALTER TABLE MO_RecommendSpots
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_RecommendSpots" -- Accommodation -> Recommend Spots
+		CONSTRAINT FK_MO_Accommodation_TO_MO_RecommendSpots -- Accommodation -> Recommend Spots
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Recommend Spots
-COMMENT ON CONSTRAINT "RecommendSpots"."FK_Accommodation_TO_RecommendSpots" IS 'Accommodation -> Recommend Spots';
 
 -- Themes
-ALTER TABLE "Themes"
+ALTER TABLE MO_Themes
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_Themes" -- Accommodation -> Themes
+		CONSTRAINT FK_MO_Accommodation_TO_MO_Themes -- Accommodation -> Themes
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Themes
-COMMENT ON CONSTRAINT "Themes"."FK_Accommodation_TO_Themes" IS 'Accommodation -> Themes';
 
 -- Special Facilities
-ALTER TABLE "SpecialFacilities"
+ALTER TABLE MO_SpecialFacilities
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_SpecialFacilities" -- Accommodation -> Special Facilities
+		CONSTRAINT FK_MO_Accommodation_TO_MO_SpecialFacilities -- Accommodation -> Special Facilities
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Special Facilities
-COMMENT ON CONSTRAINT "SpecialFacilities"."FK_Accommodation_TO_SpecialFacilities" IS 'Accommodation -> Special Facilities';
 
 -- Accommodation Images
-ALTER TABLE "AccommodationImages"
+ALTER TABLE MO_AccommodationImages
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_AccommodationImages" -- Accommodation -> Accommodation Images
+		CONSTRAINT FK_MO_Accommodation_TO_MO_AccommodationImages -- Accommodation -> Accommodation Images
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Accommodation Images
-COMMENT ON CONSTRAINT "AccommodationImages"."FK_Accommodation_TO_AccommodationImages" IS 'Accommodation -> Accommodation Images';
 
 -- Extra Options
-ALTER TABLE "ExtraOptions"
+ALTER TABLE MO_ExtraOptions
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_ExtraOptions" -- Accommodation -> Extra Options
+		CONSTRAINT FK_MO_Accommodation_TO_MO_ExtraOptions -- Accommodation -> Extra Options
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Extra Options
-COMMENT ON CONSTRAINT "ExtraOptions"."FK_Accommodation_TO_ExtraOptions" IS 'Accommodation -> Extra Options';
 
 -- Policies
-ALTER TABLE "Policies"
+ALTER TABLE MO_Policies
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_Policies" -- Accommodation -> Policies
+		CONSTRAINT FK_MO_Accommodation_TO_MO_Policies -- Accommodation -> Policies
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Policies
-COMMENT ON CONSTRAINT "Policies"."FK_Accommodation_TO_Policies" IS 'Accommodation -> Policies';
 
 -- Reviews
-ALTER TABLE "Reviews"
+ALTER TABLE MO_Reviews
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_Reviews" -- Accommodation -> Reviews
+		CONSTRAINT FK_MO_Accommodation_TO_MO_Reviews -- Accommodation -> Reviews
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Reviews
-COMMENT ON CONSTRAINT "Reviews"."FK_Accommodation_TO_Reviews" IS 'Accommodation -> Reviews';
 
 -- Rooms
-ALTER TABLE "Rooms"
+ALTER TABLE MO_Rooms
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_Rooms" -- Accommodation -> Rooms
+		CONSTRAINT FK_MO_Accommodation_TO_MO_Rooms -- Accommodation -> Rooms
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Rooms
-COMMENT ON CONSTRAINT "Rooms"."FK_Accommodation_TO_Rooms" IS 'Accommodation -> Rooms';
 
 -- Rooms
-ALTER TABLE "Rooms"
+ALTER TABLE MO_Rooms
 	ADD
-		CONSTRAINT "FK_RoomTypes_TO_Rooms" -- Room Types -> Rooms
+		CONSTRAINT FK_MO_RoomTypes_TO_MO_Rooms -- Room Types -> Rooms
 		FOREIGN KEY (
-			"ROOM_TYPE_UID" -- ¹æÅ¸ÀÔUID
+			ROOM_TYPE_UID -- ë°©íƒ€ìž…UID
 		)
-		REFERENCES "RoomTypes" ( -- Room Types
-			"ROOM_TYPE_UID" -- ¹æÅ¸ÀÔUID
+		REFERENCES MO_RoomTypes ( -- Room Types
+			ROOM_TYPE_UID -- ë°©íƒ€ìž…UID
 		);
-
--- Room Types -> Rooms
-COMMENT ON CONSTRAINT "Rooms"."FK_RoomTypes_TO_Rooms" IS 'Room Types -> Rooms';
 
 -- Rooms
-ALTER TABLE "Rooms"
+ALTER TABLE MO_Rooms
 	ADD
-		CONSTRAINT "FK_SiteTypes_TO_Rooms" -- Site Types -> Rooms
+		CONSTRAINT FK_MO_SiteTypes_TO_MO_Rooms -- Site Types -> Rooms
 		FOREIGN KEY (
-			"SITE_TYPE_UID" -- »çÀÌÆ®Å¸ÀÔUID
+			SITE_TYPE_UID -- ì‚¬ì´íŠ¸íƒ€ìž…UID
 		)
-		REFERENCES "SiteTypes" ( -- Site Types
-			"SITE_TYPE_UID" -- »çÀÌÆ®Å¸ÀÔUID
+		REFERENCES MO_SiteTypes ( -- Site Types
+			SITE_TYPE_UID -- ì‚¬ì´íŠ¸íƒ€ìž…UID
 		);
-
--- Site Types -> Rooms
-COMMENT ON CONSTRAINT "Rooms"."FK_SiteTypes_TO_Rooms" IS 'Site Types -> Rooms';
 
 -- Room Images
-ALTER TABLE "RoomImages"
+ALTER TABLE MO_RoomImages
 	ADD
-		CONSTRAINT "FK_Rooms_TO_RoomImages" -- Rooms -> Room Images
+		CONSTRAINT FK_MO_Rooms_TO_MO_RoomImages -- Rooms -> Room Images
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Room Images
-COMMENT ON CONSTRAINT "RoomImages"."FK_Rooms_TO_RoomImages" IS 'Rooms -> Room Images';
 
 -- Accommodation Facilities Relation
-ALTER TABLE "AccommodationFacilitiesRel"
+ALTER TABLE MO_AccommodationFacilitiesRel
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_AccommodationFacilitiesRel" -- Accommodation -> Accommodation Facilities Relation
+		CONSTRAINT FK_MO_Accommodation_TO_MO_AccommodationFacilitiesRel -- Accommodation -> Accommodation Facilities Relation
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Accommodation Facilities Relation
-COMMENT ON CONSTRAINT "AccommodationFacilitiesRel"."FK_Accommodation_TO_AccommodationFacilitiesRel" IS 'Accommodation -> Accommodation Facilities Relation';
 
 -- Accommodation Facilities Relation
-ALTER TABLE "AccommodationFacilitiesRel"
+ALTER TABLE MO_AccommodationFacilitiesRel
 	ADD
-		CONSTRAINT "FK_Facilities_TO_AccommodationFacilitiesRel" -- Facilities -> Accommodation Facilities Relation
+		CONSTRAINT FK_MO_Facilities_TO_MO_AccommodationFacilitiesRel -- Facilities -> Accommodation Facilities Relation
 		FOREIGN KEY (
-			"FCLT_UID" -- ¼÷¹Ú½Ã¼³UID
+			FCLT_UID -- ìˆ™ë°•ì‹œì„¤UID
 		)
-		REFERENCES "Facilities" ( -- Facilities
-			"FCLT_UID" -- ¼÷¹Ú½Ã¼³UID
+		REFERENCES MO_Facilities ( -- Facilities
+			FCLT_UID -- ìˆ™ë°•ì‹œì„¤UID
 		);
-
--- Facilities -> Accommodation Facilities Relation
-COMMENT ON CONSTRAINT "AccommodationFacilitiesRel"."FK_Facilities_TO_AccommodationFacilitiesRel" IS 'Facilities -> Accommodation Facilities Relation';
 
 -- Room Amenities
-ALTER TABLE "RoomAmenities"
+ALTER TABLE MO_RoomAmenities
 	ADD
-		CONSTRAINT "FK_Rooms_TO_RoomAmenities" -- Rooms -> Room Amenities
+		CONSTRAINT FK_MO_Rooms_TO_MO_RoomAmenities -- Rooms -> Room Amenities
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Room Amenities
-COMMENT ON CONSTRAINT "RoomAmenities"."FK_Rooms_TO_RoomAmenities" IS 'Rooms -> Room Amenities';
 
 -- Room Amenities
-ALTER TABLE "RoomAmenities"
+ALTER TABLE MO_RoomAmenities
 	ADD
-		CONSTRAINT "FK_Amenities_TO_RoomAmenities" -- Amenities -> Room Amenities
+		CONSTRAINT FK_MO_Amenities_TO_MO_RoomAmenities -- Amenities -> Room Amenities
 		FOREIGN KEY (
-			"AMNY_UID" -- ÆíÀÇ½Ã¼³UID
+			AMNY_UID -- íŽ¸ì˜ì‹œì„¤UID
 		)
-		REFERENCES "Amenities" ( -- Amenities
-			"AMNY_UID" -- ÆíÀÇ½Ã¼³UID
+		REFERENCES MO_Amenities ( -- Amenities
+			AMNY_UID -- íŽ¸ì˜ì‹œì„¤UID
 		);
-
--- Amenities -> Room Amenities
-COMMENT ON CONSTRAINT "RoomAmenities"."FK_Amenities_TO_RoomAmenities" IS 'Amenities -> Room Amenities';
 
 -- Special Amenities
-ALTER TABLE "SpecialAmenities"
+ALTER TABLE MO_SpecialAmenities
 	ADD
-		CONSTRAINT "FK_Rooms_TO_SpecialAmenities" -- Rooms -> Special Amenities
+		CONSTRAINT FK_MO_Rooms_TO_MO_SpecialAmenities -- Rooms -> Special Amenities
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Special Amenities
-COMMENT ON CONSTRAINT "SpecialAmenities"."FK_Rooms_TO_SpecialAmenities" IS 'Rooms -> Special Amenities';
 
 -- Default Room Price
-ALTER TABLE "DfltRoomPrice"
+ALTER TABLE MO_DfltRoomPrice
 	ADD
-		CONSTRAINT "FK_Rooms_TO_DfltRoomPrice" -- Rooms -> Default Room Price
+		CONSTRAINT FK_MO_Rooms_TO_MO_DfltRoomPrice -- Rooms -> Default Room Price
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Default Room Price
-COMMENT ON CONSTRAINT "DfltRoomPrice"."FK_Rooms_TO_DfltRoomPrice" IS 'Rooms -> Default Room Price';
 
 -- Accomodation PolicyOption Relation
-ALTER TABLE "AccomodationPolicyOptionRel"
+ALTER TABLE MO_AccomodationPolicyOptionRel
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_AccomodationPolicyOptionRel" -- Accommodation -> Accomodation PolicyOption Relation
+		CONSTRAINT FK_MO_Accommodation_TO_MO_AccomodationPolicyOptionRel -- Accommodation -> Accomodation PolicyOption Relation
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Accomodation PolicyOption Relation
-COMMENT ON CONSTRAINT "AccomodationPolicyOptionRel"."FK_Accommodation_TO_AccomodationPolicyOptionRel" IS 'Accommodation -> Accomodation PolicyOption Relation';
 
 -- Accomodation PolicyOption Relation
-ALTER TABLE "AccomodationPolicyOptionRel"
+ALTER TABLE MO_AccomodationPolicyOptionRel
 	ADD
-		CONSTRAINT "FK_PolicyOptions_TO_AccomodationPolicyOptionRel" -- Policy Options -> Accomodation PolicyOption Relation
+		CONSTRAINT FK_MO_PolicyOptions_TO_MO_AccomodationPolicyOptionRel -- Policy Options -> Accomodation PolicyOption Relation
 		FOREIGN KEY (
-			"PLCY_OPT_UID" -- Á¤Ã¥¿É¼ÇUID
+			PLCY_OPT_UID -- ì •ì±…ì˜µì…˜UID
 		)
-		REFERENCES "PolicyOptions" ( -- Policy Options
-			"COL3" -- Á¤Ã¥¿É¼ÇUID
+		REFERENCES MO_PolicyOptions ( -- Policy Options
+			COL3 -- ì •ì±…ì˜µì…˜UID
 		);
-
--- Policy Options -> Accomodation PolicyOption Relation
-COMMENT ON CONSTRAINT "AccomodationPolicyOptionRel"."FK_PolicyOptions_TO_AccomodationPolicyOptionRel" IS 'Policy Options -> Accomodation PolicyOption Relation';
 
 -- Discount Rates
-ALTER TABLE "DiscountRates"
+ALTER TABLE MO_DiscountRates
 	ADD
-		CONSTRAINT "FK_Rooms_TO_DiscountRates" -- Rooms -> Discount Rates
+		CONSTRAINT FK_MO_Rooms_TO_MO_DiscountRates -- Rooms -> Discount Rates
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Discount Rates
-COMMENT ON CONSTRAINT "DiscountRates"."FK_Rooms_TO_DiscountRates" IS 'Rooms -> Discount Rates';
 
 -- Season
-ALTER TABLE "Season"
+ALTER TABLE MO_Season
 	ADD
-		CONSTRAINT "FK_Accommodation_TO_Season" -- Accommodation -> Season
+		CONSTRAINT FK_MO_Accommodation_TO_MO_Season -- Accommodation -> Season
 		FOREIGN KEY (
-			"ACMD_UID" -- ¼÷¹ÚUID
+			ACMD_UID -- ìˆ™ë°•UID
 		)
-		REFERENCES "Accommodation" ( -- Accommodation
-			"ACMD_UID" -- ¼÷¹ÚUID
+		REFERENCES MO_Accommodation ( -- Accommodation
+			ACMD_UID -- ìˆ™ë°•UID
 		);
-
--- Accommodation -> Season
-COMMENT ON CONSTRAINT "Season"."FK_Accommodation_TO_Season" IS 'Accommodation -> Season';
 
 -- Activity
-ALTER TABLE "Activity"
+ALTER TABLE MO_Activity
 	ADD
-		CONSTRAINT "FK_NationCity_TO_Activity" -- NationCity -> Activity
+		CONSTRAINT FK_MO_NationCity_TO_MO_Activity -- NationCity -> Activity
 		FOREIGN KEY (
-			"CITY_UID" -- µµ½ÃUID
+			CITY_UID -- ë„ì‹œUID
 		)
-		REFERENCES "NationCity" ( -- NationCity
-			"CITY_UID" -- µµ½ÃUID
+		REFERENCES MO_NationCity ( -- NationCity
+			CITY_UID -- ë„ì‹œUID
 		);
-
--- NationCity -> Activity
-COMMENT ON CONSTRAINT "Activity"."FK_NationCity_TO_Activity" IS 'NationCity -> Activity';
 
 -- Activity
-ALTER TABLE "Activity"
+ALTER TABLE MO_Activity
 	ADD
-		CONSTRAINT "FK_Currency_TO_Activity" -- Currency -> Activity
+		CONSTRAINT FK_MO_Currency_TO_MO_Activity -- Currency -> Activity
 		FOREIGN KEY (
-			"CRC_NATION_CD" -- ÅëÈ­±¹°¡ÄÚµå
+			CRC_NATION_CD -- í†µí™”êµ­ê°€ì½”ë“œ
 		)
-		REFERENCES "Currency" ( -- Currency
-			"CRC_NTL_CD" -- ÅëÈ­±¹°¡ÄÚµå
+		REFERENCES MO_Currency ( -- Currency
+			CRC_NTL_CD -- í†µí™”êµ­ê°€ì½”ë“œ
 		);
-
--- Currency -> Activity
-COMMENT ON CONSTRAINT "Activity"."FK_Currency_TO_Activity" IS 'Currency -> Activity';
-
--- Daily Room Price
-ALTER TABLE "DailyRoomPrice"
-	ADD
-		CONSTRAINT "FK_Rooms_TO_DailyRoomPrice" -- Rooms -> Daily Room Price
-		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
-		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
-		);
-
--- Rooms -> Daily Room Price
-COMMENT ON CONSTRAINT "DailyRoomPrice"."FK_Rooms_TO_DailyRoomPrice" IS 'Rooms -> Daily Room Price';
 
 -- Daily Room Info
-ALTER TABLE "DailyRoomInfo"
+ALTER TABLE MO_DailyRoomInfo
 	ADD
-		CONSTRAINT "FK_Rooms_TO_DailyRoomInfo" -- Rooms -> Daily Room Info
+		CONSTRAINT FK_MO_Rooms_TO_MO_DailyRoomInfo -- Rooms -> Daily Room Info
 		FOREIGN KEY (
-			"ROOM_UID" -- ¹æUID
+			ROOM_UID -- ë°©UID
 		)
-		REFERENCES "Rooms" ( -- Rooms
-			"ROOM_UID" -- ¹æUID
+		REFERENCES MO_Rooms ( -- Rooms
+			ROOM_UID -- ë°©UID
 		);
-
--- Rooms -> Daily Room Info
-COMMENT ON CONSTRAINT "DailyRoomInfo"."FK_Rooms_TO_DailyRoomInfo" IS 'Rooms -> Daily Room Info';
 
 -- Activity Images
-ALTER TABLE "ActivityImages"
+ALTER TABLE MO_ActivityImages
 	ADD
-		CONSTRAINT "FK_Activity_TO_ActivityImages" -- Activity -> Activity Images
+		CONSTRAINT FK_MO_Activity_TO_MO_ActivityImages -- Activity -> Activity Images
 		FOREIGN KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		)
-		REFERENCES "Activity" ( -- Activity
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+		REFERENCES MO_Activity ( -- Activity
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
-
--- Activity -> Activity Images
-COMMENT ON CONSTRAINT "ActivityImages"."FK_Activity_TO_ActivityImages" IS 'Activity -> Activity Images';
 
 -- Acvity Packages
-ALTER TABLE "ActivityPackages"
+ALTER TABLE MO_ActivityPackages
 	ADD
-		CONSTRAINT "FK_Activity_TO_ActivityPackages" -- Activity -> Acvity Packages
+		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPackages -- Activity -> Acvity Packages
 		FOREIGN KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		)
-		REFERENCES "Activity" ( -- Activity
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+		REFERENCES MO_Activity ( -- Activity
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
-
--- Activity -> Acvity Packages
-COMMENT ON CONSTRAINT "ActivityPackages"."FK_Activity_TO_ActivityPackages" IS 'Activity -> Acvity Packages';
 
 -- Activity Package Desc
-ALTER TABLE "ActivityPackageDesc"
+ALTER TABLE MO_ActivityPackageDesc
 	ADD
-		CONSTRAINT "FK_ActivityPackages_TO_ActivityPackageDesc" -- Acvity Packages -> Activity Package Desc
+		CONSTRAINT FK_MO_ActivityPackages_TO_MO_ActivityPackageDesc -- Acvity Packages -> Activity Package Desc
 		FOREIGN KEY (
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		)
-		REFERENCES "ActivityPackages" ( -- Acvity Packages
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+		REFERENCES MO_ActivityPackages ( -- Acvity Packages
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		);
-
--- Acvity Packages -> Activity Package Desc
-COMMENT ON CONSTRAINT "ActivityPackageDesc"."FK_ActivityPackages_TO_ActivityPackageDesc" IS 'Acvity Packages -> Activity Package Desc';
 
 -- Package Operation Times
-ALTER TABLE "PackageOpTimes"
+ALTER TABLE MO_PackageOpTimes
 	ADD
-		CONSTRAINT "FK_ActivityPackages_TO_PackageOpTimes" -- Acvity Packages -> Package Operation Times
+		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackageOpTimes -- Acvity Packages -> Package Operation Times
 		FOREIGN KEY (
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		)
-		REFERENCES "ActivityPackages" ( -- Acvity Packages
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+		REFERENCES MO_ActivityPackages ( -- Acvity Packages
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		);
-
--- Acvity Packages -> Package Operation Times
-COMMENT ON CONSTRAINT "PackageOpTimes"."FK_ActivityPackages_TO_PackageOpTimes" IS 'Acvity Packages -> Package Operation Times';
 
 -- Package Price
-ALTER TABLE "PackagePrice"
+ALTER TABLE MO_PackagePrice
 	ADD
-		CONSTRAINT "FK_ActivityPackages_TO_PackagePrice" -- Acvity Packages -> Package Price
+		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackagePrice -- Acvity Packages -> Package Price
 		FOREIGN KEY (
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		)
-		REFERENCES "ActivityPackages" ( -- Acvity Packages
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+		REFERENCES MO_ActivityPackages ( -- Acvity Packages
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		);
-
--- Acvity Packages -> Package Price
-COMMENT ON CONSTRAINT "PackagePrice"."FK_ActivityPackages_TO_PackagePrice" IS 'Acvity Packages -> Package Price';
 
 -- Package Discount
-ALTER TABLE "PackageDiscount"
+ALTER TABLE MO_PackageDiscount
 	ADD
-		CONSTRAINT "FK_ActivityPackages_TO_PackageDiscount" -- Acvity Packages -> Package Discount
+		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackageDiscount -- Acvity Packages -> Package Discount
 		FOREIGN KEY (
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		)
-		REFERENCES "ActivityPackages" ( -- Acvity Packages
-			"PACKAGE_UID" -- ÆÐÅ°ÁöUID
+		REFERENCES MO_ActivityPackages ( -- Acvity Packages
+			PACKAGE_UID -- íŒ¨í‚¤ì§€UID
 		);
-
--- Acvity Packages -> Package Discount
-COMMENT ON CONSTRAINT "PackageDiscount"."FK_ActivityPackages_TO_PackageDiscount" IS 'Acvity Packages -> Package Discount';
 
 -- Activity Information
-ALTER TABLE "ActivityInfo"
+ALTER TABLE MO_ActivityInfo
 	ADD
-		CONSTRAINT "FK_Activity_TO_ActivityInfo" -- Activity -> Activity Information
+		CONSTRAINT FK_MO_Activity_TO_MO_ActivityInfo -- Activity -> Activity Information
 		FOREIGN KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		)
-		REFERENCES "Activity" ( -- Activity
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+		REFERENCES MO_Activity ( -- Activity
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
-
--- Activity -> Activity Information
-COMMENT ON CONSTRAINT "ActivityInfo"."FK_Activity_TO_ActivityInfo" IS 'Activity -> Activity Information';
 
 -- Activity Package Options
-ALTER TABLE "ActivityPackageOptions"
+ALTER TABLE MO_ActivityPackageOptions
 	ADD
-		CONSTRAINT "FK_Activity_TO_ActivityPackageOptions" -- Activity -> Activity Package Options
+		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPackageOptions -- Activity -> Activity Package Options
 		FOREIGN KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		)
-		REFERENCES "Activity" ( -- Activity
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+		REFERENCES MO_Activity ( -- Activity
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
-
--- Activity -> Activity Package Options
-COMMENT ON CONSTRAINT "ActivityPackageOptions"."FK_Activity_TO_ActivityPackageOptions" IS 'Activity -> Activity Package Options';
 
 -- Activity Policy
-ALTER TABLE "ActivityPolicy"
+ALTER TABLE MO_ActivityPolicy
 	ADD
-		CONSTRAINT "FK_Activity_TO_ActivityPolicy" -- Activity -> Activity Policy
+		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPolicy -- Activity -> Activity Policy
 		FOREIGN KEY (
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		)
-		REFERENCES "Activity" ( -- Activity
-			"ACTV_UID" -- ¾×Æ¼ºñÆ¼UID
+		REFERENCES MO_Activity ( -- Activity
+			ACTV_UID -- ì•¡í‹°ë¹„í‹°UID
 		);
-
--- Activity -> Activity Policy
-COMMENT ON CONSTRAINT "ActivityPolicy"."FK_Activity_TO_ActivityPolicy" IS 'Activity -> Activity Policy';

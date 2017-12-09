@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.UserDao">
+
+	<select id="selectUserById" resultType="com.keichee.mustoutdoor.domain.User">
+		SELECT 
+			USER_ID AS userId
+			, PASSWORD
+			, USER_NAME as userName
+			, PROFILE_IMG_URL as profileImgUrl
+			, PASSWORD_ERROR_COUNT as passwordErrorCount
+			, LAST_LOGIN_DTTM as lastLoginDttm
+			, LOCK_YN as lockYn
+		FROM MO_USERINFO WHERE USER_ID = #{userId}
+	</select>
+	
+	<insert id="insertUser" parameterType="com.keichee.mustoutdoor.domain.User">
+		INSERT INTO MO_USERINFO (USER_ID, USER_NAME, PASSWORD, PROFILE_IMG_URL, LOCK_YN)
+		VALUES (#{userId}, #{userName}, #{password}, #{profileImgUrl}, 'N')
+	</insert>
+	
+	<update id="updateUser" parameterType="com.keichee.mustoutdoor.domain.User">
+		UPDATE MO_USERINFO SET 
+			lock_yn = 'N' 	<!-- 개인 사용자가 본인 정보 수정하는 것이므로 lock은 안되어있다고 전제함 -->
+			<if test="userName != null and userName.length() > 0">
+				, user_name = #{userName}
+			</if>
+			<if test="password != null and password.length() > 0">
+				, password = #{password}
+			</if>
+			<if test="profileImgUrl != null and profileImgUrl.length() > 0">
+				, profile_img_url = #{profileImgUrl}
+			</if>
+			
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<delete id="deleteUserById">
+		DELETE FROM MO_USERINFO WHERE USER_ID = #{userId}
+	</delete>
+	
+</mapper>
