@@ -3,9 +3,6 @@
  */
 package com.keichee.mustoutdoor.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +22,6 @@ import com.keichee.utils.GuidUtils;
 public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	private final String LOGIN_PAGE_PATH = "/login";
-	private final String CONTEXT_PATH = "/keicheemall/";
-	private final List<String> SKIP_LOGIN_CHECK_URI_LIST = new ArrayList<>(Arrays.asList("super_login", "login", "user_info/add", "influencer_info/add"));
 
 	@Autowired
 	private SessionInfo sessionInfo;
@@ -53,12 +47,10 @@ public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
 			Locale locale = (Locale) session.getAttribute(IConstants.SESSION_INFO.LOCALE);
 			sessionInfo.setInfo(guid, userId, passwd, locale);
 			logger.debug("SessionInfo: {}", sessionInfo);
-			return true;
 		} else {
-			
 			logger.debug("No session info exist.");
-			return false;
 		}
+		return true;
 
 	}
 

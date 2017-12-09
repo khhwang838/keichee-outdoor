@@ -1,10 +1,17 @@
 package com.keichee.mustoutdoor.domain;
 
-public class UserInfo {
+public class User {
 
 	private String userId;
 	private String passwd;
+	private String userName;
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -20,13 +27,14 @@ public class UserInfo {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserInfo [userId=");
+		builder.append("User [userId=");
 		builder.append(userId);
 		builder.append(", passwd=");
 		builder.append(passwd);
+		builder.append(", userName=");
+		builder.append(userName);
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	
 }

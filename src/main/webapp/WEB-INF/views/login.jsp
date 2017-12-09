@@ -3,6 +3,7 @@
 
 <html>
 <head>
+	<title>Login</title>
 	<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
   	<script src="/js/login.js"></script>
 	<link rel="stylesheet" href="/css/login.css"/> 

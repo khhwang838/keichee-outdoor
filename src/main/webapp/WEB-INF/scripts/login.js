@@ -12,15 +12,21 @@ $(document).ready(function() {
       , data: JSON.stringify(form_data)
       , contentType : "application/json; charset=UTF-8"
       , success: function(response) {
-	        if(response.trim() == "success") {
-	          /*sessionStorage.setItem("user_id", form_data.user_id);*/
-	        	window.location.href = '/home';
-	        } else {
-	        }
+    	  console.log('Go to home');
+    	  sessionStorage.setItem("userId", form_data.user_id);
+    	  window.location.href = '/home';
+    	  
+//	        if(response.trim() == "success") {
+//	          /*sessionStorage.setItem("user_id", form_data.user_id);*/
+//	        	window.location.href = '/home';
+//	        } else {
+//	        }
       }
 	  , error: function(err) {
         $('#msg').html("Incorrect username or password.");
       }
     });
   });
+  
 });
+

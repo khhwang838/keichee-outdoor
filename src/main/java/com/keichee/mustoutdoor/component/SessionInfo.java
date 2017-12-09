@@ -2,7 +2,6 @@ package com.keichee.mustoutdoor.component;
 
 import java.util.Locale;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.log4j.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,9 +59,21 @@ public class SessionInfo implements IConstants {
 		guid.remove();
 		userId.remove();
 	}
-	
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.reflectionToString(this);
+		StringBuilder builder = new StringBuilder();
+		builder.append("SessionInfo [getUserId()=");
+		builder.append(getUserId());
+		builder.append(", getGuid()=");
+		builder.append(getGuid());
+		builder.append(", getRoleId()=");
+		builder.append(getRoleId());
+		builder.append(", getLocale()=");
+		builder.append(getLocale());
+		builder.append(", getLangCd()=");
+		builder.append(getLangCd());
+		builder.append("]");
+		return builder.toString();
 	}
+	
 }
