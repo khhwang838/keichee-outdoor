@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.keichee.mustoutdoor.domain.User;
 import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.dao.UserDao;
+import com.keichee.mustoutdoor.web.domain.User;
 
 @Service
 public class UserService {

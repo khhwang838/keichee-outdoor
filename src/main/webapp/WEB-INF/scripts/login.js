@@ -11,19 +11,19 @@ $(document).ready(function() {
       , url: action
       , data: JSON.stringify(form_data)
       , contentType : "application/json; charset=UTF-8"
-      , success: function(response) {
-    	  console.log('Go to home');
-    	  sessionStorage.setItem("userId", form_data.user_id);
-    	  window.location.href = '/home';
+      , success: function(data) {
+    	  console.log(data);
+    	  if ( data.errMsg != null ){
+    		  // TODO : animate the message like github
+    		  $('#msg').html(data.errMsg);
+    	  } else {
+    		  window.location.assign = "/home";
+    	  }
     	  
-//	        if(response.trim() == "success") {
-//	          /*sessionStorage.setItem("user_id", form_data.user_id);*/
-//	        	window.location.href = '/home';
-//	        } else {
-//	        }
       }
-	  , error: function(err) {
-        $('#msg').html("Incorrect username or password.");
+	  , error: function(e) {
+		  console.log('err: ',e);
+        $('#msg').html(e);
       }
     });
   });

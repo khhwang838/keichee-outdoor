@@ -20,8 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.constants.IConstants;
-import com.keichee.mustoutdoor.domain.User;
 import com.keichee.mustoutdoor.exception.LoginException;
+import com.keichee.mustoutdoor.web.domain.User;
 import com.keichee.mustoutdoor.web.service.UserService;
 
 @Controller
@@ -40,11 +40,11 @@ public class LoginController {
 		// check if session is alive, then go to home.
 		if ( session != null && session.getAttribute(IConstants.SESSION_INFO.USER_ID) != null ) {
 			model.addAttribute("userId", session.getAttribute(IConstants.SESSION_INFO.USER_ID));
-			logger.debug("Session is exist. Redirect to /home");
-			return "/home";
+			logger.debug("Session is exist. Redirect to home page.");
+			return "/home";	// go to home.jsp page
 		}
-		logger.debug("Redirect to /login");
-		return "/login";
+		logger.debug("Redirect to login page.");
+		return "/login";	// go to login.jsp page
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -53,22 +53,23 @@ public class LoginController {
 		logger.debug("userInfo : {}", userInfo);
 		ModelAndView mav = null;
 		User user = userService.validateUser(userInfo);
-		if (null != user) {
-			mav = new ModelAndView("home");
+		logger.debug("user: {}",user);
+		if (user != null) {
+			mav = new ModelAndView("redirect:/home");
 			session.setAttribute("userId", userInfo.getUserId());
 			session.setAttribute("userName", user.getUserName());
 		} else {
-			mav = new ModelAndView("login");
-			mav.addObject("message", "Incorrect username or password.");
+			throw new LoginException("Incorrect username or password.");
 		}
-		System.out.println(locale.getLanguage());
+//		System.out.println(locale.getLanguage()); // => ko
 		return mav;
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) throws LoginException {
 		session.invalidate();
-		return "/login";
+		session = null;
+		return "/login";	// go to login.jsp page
 	}
 	
 }

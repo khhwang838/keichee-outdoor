@@ -3,7 +3,7 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.UserDao">
 
-	<select id="selectUserById" resultType="com.keichee.mustoutdoor.domain.User">
+	<select id="selectUserById" resultType="com.keichee.mustoutdoor.web.domain.User">
 		SELECT 
 			USER_ID AS userId
 			, PASSWORD
@@ -15,12 +15,12 @@
 		FROM MO_USERINFO WHERE USER_ID = #{userId}
 	</select>
 	
-	<insert id="insertUser" parameterType="com.keichee.mustoutdoor.domain.User">
+	<insert id="insertUser" parameterType="com.keichee.mustoutdoor.web.domain.User">
 		INSERT INTO MO_USERINFO (USER_ID, USER_NAME, PASSWORD, PROFILE_IMG_URL, LOCK_YN)
 		VALUES (#{userId}, #{userName}, #{password}, #{profileImgUrl}, 'N')
 	</insert>
 	
-	<update id="updateUser" parameterType="com.keichee.mustoutdoor.domain.User">
+	<update id="updateUser" parameterType="com.keichee.mustoutdoor.web.domain.User">
 		UPDATE MO_USERINFO SET 
 			lock_yn = 'N' 	<!-- 개인 사용자가 본인 정보 수정하는 것이므로 lock은 안되어있다고 전제함 -->
 			<if test="userName != null and userName.length() > 0">

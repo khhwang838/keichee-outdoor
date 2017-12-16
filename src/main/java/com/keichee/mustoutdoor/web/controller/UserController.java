@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.keichee.mustoutdoor.domain.User;
+import com.keichee.mustoutdoor.web.domain.User;
 import com.keichee.mustoutdoor.web.service.UserService;
 
 @Controller

@@ -2,7 +2,7 @@ package com.keichee.mustoutdoor.web.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.keichee.mustoutdoor.domain.User;
+import com.keichee.mustoutdoor.web.domain.User;
 
 public interface UserDao {
 

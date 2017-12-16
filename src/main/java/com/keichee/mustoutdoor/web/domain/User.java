@@ -1,4 +1,4 @@
-package com.keichee.mustoutdoor.domain;
+package com.keichee.mustoutdoor.web.domain;
 
 public class User {
 
