@@ -12,12 +12,12 @@ $(document).ready(function() {
       , data: JSON.stringify(form_data)
       , contentType : "application/json; charset=UTF-8"
       , success: function(data) {
-    	  console.log(data);
     	  if ( data.errMsg != null ){
     		  // TODO : animate the message like github
     		  $('#msg').html(data.errMsg);
     	  } else {
-    		  window.location.assign = "/home";
+    		  console.log('assigning to /home');
+    		  window.location.assign("/home");
     	  }
     	  
       }

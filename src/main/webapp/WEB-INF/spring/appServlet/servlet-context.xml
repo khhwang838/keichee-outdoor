@@ -16,7 +16,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-
+	<mvc:resources mapping="/views/**" location="/WEB-INF/views/" />
 	<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
 	<mvc:resources mapping="/libs/**" location="/WEB-INF/libs/" />
 	<mvc:resources mapping="/js/**" location="/WEB-INF/scripts/" />

@@ -12,12 +12,13 @@
 			, PASSWORD_ERROR_COUNT as passwordErrorCount
 			, LAST_LOGIN_DTTM as lastLoginDttm
 			, LOCK_YN as lockYn
+			, SIGNUP_DTTM as signUpDttm
 		FROM MO_USERINFO WHERE USER_ID = #{userId}
 	</select>
 	
 	<insert id="insertUser" parameterType="com.keichee.mustoutdoor.web.domain.User">
-		INSERT INTO MO_USERINFO (USER_ID, USER_NAME, PASSWORD, PROFILE_IMG_URL, LOCK_YN)
-		VALUES (#{userId}, #{userName}, #{password}, #{profileImgUrl}, 'N')
+		INSERT INTO MO_USERINFO (USER_ID, USER_NAME, PASSWORD, PROFILE_IMG_URL, LOCK_YN, SIGNUP_DTTM)
+		VALUES (#{userId}, #{userName}, #{password}, #{profileImgUrl}, 'N', #{signUpDttm})
 	</insert>
 	
 	<update id="updateUser" parameterType="com.keichee.mustoutdoor.web.domain.User">
@@ -32,7 +33,6 @@
 			<if test="profileImgUrl != null and profileImgUrl.length() > 0">
 				, profile_img_url = #{profileImgUrl}
 			</if>
-			
 		WHERE USER_ID = #{userId}
 	</update>
 	

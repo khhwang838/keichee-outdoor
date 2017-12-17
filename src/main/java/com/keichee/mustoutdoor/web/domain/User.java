@@ -9,7 +9,14 @@ public class User {
 	private int passwordErrorCount;
 	private String lastLoginDttm;
 	private String lockYn;
+	private String signUpDttm;
 	
+	public String getSignUpDttm() {
+		return signUpDttm;
+	}
+	public void setSignUpDttm(String signUpDttm) {
+		this.signUpDttm = signUpDttm;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -69,6 +76,8 @@ public class User {
 		builder.append(lastLoginDttm);
 		builder.append(", lockYn=");
 		builder.append(lockYn);
+		builder.append(", signUpDttm=");
+		builder.append(signUpDttm);
 		builder.append("]");
 		return builder.toString();
 	}

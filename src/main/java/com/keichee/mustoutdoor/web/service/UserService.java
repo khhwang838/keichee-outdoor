@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.dao.UserDao;
 import com.keichee.mustoutdoor.web.domain.User;
+import com.keichee.utils.DateUtils;
 
 @Service
 public class UserService {
@@ -32,6 +33,7 @@ public class UserService {
 
 	public int addUser(User userInfo) {
 		if ( userInfo.getUserId() != null ) {
+			userInfo.setSignUpDttm(DateUtils.instance.getCurrentDttmAsUTC());
 			return userDao.insertUser(userInfo);
 		}
 		throw new RuntimeException("Invalid argument.");

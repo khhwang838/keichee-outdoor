@@ -12,6 +12,7 @@ public interface IConstants {
 		int PAGE_SIZE = 10;
 		int PAGE_NUMBER = 1;
 		Locale LOCALE = Locale.KOREA;
+		String PROFILE_IMG_URL = "../images/avatar.png";
 	}
 	
 	interface SESSION_INFO{

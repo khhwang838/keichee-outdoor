@@ -1,11 +1,10 @@
 $(document).ready(function() {
-	console.log('/home is now ready!!!');
-	// 언어 세팅
 	
+	// 프로필 이미지
+	setProfileImage();
 	
 	// 로그아웃
 	$('.logout').click(function() {
-		console.log('logging out.');
 		let action = "/logout";
 		let d = { 'userId' : $('#userId').text(), 'passwd':'' };
 		
@@ -14,7 +13,7 @@ $(document).ready(function() {
 			url : action,
 			data : JSON.stringify(d),
 			contentType : "application/json; charset=UTF-8",
-			success : function(response) {
+			success : function(resp) {
 				window.location.href = '/';
 			},
 			error : function(err) {
@@ -22,5 +21,34 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	setContentAreaWidth();
+	
+	// 메뉴
+	$('#menu-add-acmd').click(function (e){
+		$.get('/views/acmd/add/main.html', function(data){
+			$('#content').html(data);
+		});
+		
+	});
+	$('#menu-my-acmd').click(function (e){
+		$.get('/views/acmd/my/main.html', function(data){
+			$('#content').html(data);
+		});
+	});
+	
+	$(window).resize(setContentAreaWidth);
 });
 
+function setProfileImage(){
+	let url = $('#userProfileImgUrl').text();
+	let profileImgWidth = $('.profile-img').width();
+	let profileImgHeight = $('.profile-img').height();
+	$('.profile-img').css({'background':'url("' + url + '") no-repeat', 'background-size': profileImgWidth+'px '+ profileImgHeight+'px'});
+}
+function setContentAreaWidth() {
+	let restWidth = $('body').width() - $('#sidebar').outerWidth(true);
+	let marginWidth = parseInt($('#content').css("marginRight")) + parseInt($('#content').css("marginLeft"))
+	restWidth -= (marginWidth+4);	// 4는 border 1px 씩 sidebar 2, content 2, +alpha
+	$('#content').css({'width': ''+restWidth+'px'});
+}
