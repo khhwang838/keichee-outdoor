@@ -1,36 +1,7 @@
 @charset "UTF-8";
-.faq-cat-content {
-    margin-top: 25px;
+.title-icon {
+	background: url("/images/title/outdoor-accommodation.png") no-repeat;
+	background-size: 50px 50px;
 }
 
-.faq-cat-tabs li a {
-    padding: 15px 10px 15px 10px;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    color: #777777;
-}
-
-.nav-tabs li a:focus,
-.panel-heading a:focus {
-    outline: none;
-}
-
-.panel-heading a,
-.panel-heading a:hover,
-.panel-heading a:focus {
-    text-decoration: none;
-    color: #777777;
-}
-
-.faq-cat-content .panel-heading:hover {
-    background-color: #efefef;
-}
-
-.active-faq {
-    border-left: 5px solid #888888;
-}
-
-.panel-faq .panel-heading .panel-title span {
-    font-size: 13px;
-    font-weight: normal;
-}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover { color:#fff; background-color: #29521e;}

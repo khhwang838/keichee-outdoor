@@ -22,8 +22,7 @@ $(document).ready(function() {
     	  
       }
 	  , error: function(e) {
-		  console.log('err: ',e);
-        $('#msg').html(e);
+        $('#msg').html('Server Error. Please contact the system administrator.');
       }
     });
   });

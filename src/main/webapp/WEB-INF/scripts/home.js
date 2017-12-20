@@ -29,6 +29,12 @@ $(document).ready(function() {
 		$.get('/views/acmd/add/main.html', function(data){
 			$('#content').html(data);
 		});
+		$('.nav-tabs>li>a').click(function(){
+			console.log('222222222');
+			$('.nav-tabs>li>a').attr('class', '');
+			let dis = $(this);
+			this.attr('class','active');
+		});
 		
 	});
 	$('#menu-my-acmd').click(function (e){
@@ -42,6 +48,9 @@ $(document).ready(function() {
 
 function setProfileImage(){
 	let url = $('#userProfileImgUrl').text();
+	if ( url == null || url.length == 0 ){
+		url = '/images/avatar.png';
+	}
 	let profileImgWidth = $('.profile-img').width();
 	let profileImgHeight = $('.profile-img').height();
 	$('.profile-img').css({'background':'url("' + url + '") no-repeat', 'background-size': profileImgWidth+'px '+ profileImgHeight+'px'});

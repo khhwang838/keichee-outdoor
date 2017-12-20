@@ -6,14 +6,15 @@
 <head>
 	<title>Must Outdoor</title>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="/css/3rd-party/bootstrap-4.0.0.min.css"/>
+	<link rel="stylesheet" href="/css/3rd-party/bootstrap-3.3.7.min.css"/>
 	<link rel="stylesheet" href="/css/common.css"/>
 	<link rel="stylesheet" href="/css/acmd/add.css"/>
 	<link rel="stylesheet" href="/css/acmd/my.css"/>
 
 	<script src="/js/3rd-party/jquery-3.2.1.min.js"></script>
+	<script src="/js/3rd-party/bootstrap-3.3.7.min.js"></script>
 	<script src="/js/home.js"></script>
-	<script src="/js/acmd/acmd.js"></script>
+	<script src="/js/acmd/add.js"></script>
 
     <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/images/favicon.ico'/>" />
 
@@ -49,7 +50,7 @@
 	<div class="profile">
 		<div class="profile-img"></div>
 		<div class="user-info">
-			<h3>${userName}</h3>
+			<h5>${userName}</h5>
 			<p>Member since ${signUpMonth}</p>
 		</div>
 	</div>
