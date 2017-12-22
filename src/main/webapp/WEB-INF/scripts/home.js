@@ -28,18 +28,34 @@ $(document).ready(function() {
 	$('#menu-add-acmd').click(function (e){
 		$.get('/views/acmd/add/main.html', function(data){
 			$('#content').html(data);
-		});
-		$('.nav-tabs>li>a').click(function(){
-			console.log('222222222');
-			$('.nav-tabs>li>a').attr('class', '');
-			let dis = $(this);
-			this.attr('class','active');
+			$('.nav-tabs>li').click(function(e){
+				$('.nav-tabs>li').attr('class', '');
+				let dis = $(this);
+				dis.attr('class','active');
+			});
+			
+			$('.input-data>div').css('display', 'none');
+			$('#content-g-info').css('display','inline');
+			
+			$('#g-info').click(function (e){
+				$('.input-data>div').css('display', 'none');
+				$('#content-g-info').css('display','inline');
+			});
+			$('#acmd-details').click(function (e){
+				$('.input-data>div').css('display', 'none');
+				$('#content-acmd-details').css('display','inline');
+			});
 		});
 		
 	});
 	$('#menu-my-acmd').click(function (e){
 		$.get('/views/acmd/my/main.html', function(data){
 			$('#content').html(data);
+			$('.nav-tabs>li').click(function(){
+				$('.nav-tabs>li').attr('class', '');
+				let dis = $(this);
+				dis.attr('class','active');
+			});
 		});
 	});
 	
