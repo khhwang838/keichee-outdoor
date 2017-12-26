@@ -1,15 +1,13 @@
-<div>
+<div class="menu-path">
 	<a href="#">My Account</a> > Add Accommodation
 </div>
 
 <div class="title">
-	<div class="title-icon inline"></div>
-	<h1 class="inline"></h1>
+	<div class="title-icon inline m-r-20"></div>
+	<h1 class="inline">Add Accommodation</h1>
 </div>
 
 <div class="container">
-	<div class="title-icon inline m-r-20">&nbsp;</div>
-	<h3 class="inline">Add Accommodation</h3>
 	<ul class="nav nav-tabs">
 		<li id="g-info" class="active"><a>General Info</a></li>
 		<li id="l-settings"><a>Location Settings</a></li>
@@ -22,12 +20,13 @@
 
 	<div class="input-data">
 		<!-- js이용하여 탭 메뉴 별로 html include, 기본세팅은 General Info. 탭의 내용 -->
+		<!-- General Info 탭 메뉴 -->
 		<div id="content-g-info">
 			<form>
 				<h5 class="inline">
 					Title<span>*</span>
 				</h5>
-				<div class="tool-tip inline"></div>
+				<div class="mo-tooltip inline"></div>
 				<br> 
 					<input class="input-name" type="text" name="acmd-name" placeholder="Name of Accommodation">
 				<p />
@@ -36,7 +35,7 @@
 					Description<span>*</span>
 				</h5>
 				
-				<div class="tool-tip inline"></div>
+				<div class="mo-tooltip inline"></div>
 				<br> 
 					<input class="input-desc" type="text" name="acmd-desc" placeholder="Describe your accommodation for customers.">
 				<p />
@@ -62,8 +61,8 @@
 				<div class="tool-tip inline"></div>
 				<div class="input-image">
 					<img src="../../../images/photo-small.png">
-					<button type="button" class="btn btn-md">Image Upload</button>
 				</div>
+				<button type="button" class="btn btn-md">Image Upload</button>
 				<p/>
 					Your Currency
 				<h5 class="inline">
@@ -79,7 +78,13 @@
 
 			</form>
 		</div>
-		<div id="content-l-settings"></div>
+		
+		<!-- Location Settings 탭 메뉴 -->
+		<div id="content-l-settings">
+			Location Settings
+		</div>
+		
+		<!-- Accommodation Details 탭 메뉴 -->
 		<div id="content-acmd-details">
 			<form>
 				<div>
@@ -138,14 +143,82 @@
 				</div>
 				<p>
 				
-				<div>
+				<div class="special-facility">
 					<h5 class="inline">Special Facility</h5>
 					<div class="inline add-icon"></div>
+					<div class="content-box">
+						<!-- home.js에서 동적으로 생성함 -->
+						<div class="sf-item">
+							<div class="delete-icon"></div>
+							<div class="sf-title">
+								Title <input type="text" name="sfTitle0" placeholder="Title of Special Facility">
+							</div>
+							<div class="sf-desc">
+								Description <input type="text" name="sfDesc0" placeholder="Please describe your special facility for user">
+							</div>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
-		<div id="content-acmd-gallery"></div>
-		<div id="content-other-options"></div>
-		<div id="content-policy"></div>
+		
+		<div id="content-acmd-gallery">
+			<div class="input-image">
+				<img src="../../../images/photo-small.png">
+			</div>
+			<div>Upload the attractive features of your accommodation that guests might love.<div class="mo-tooltip inline"></div></div>
+			<button type="button" class="btn btn-md">Image Upload</button>
+		</div>
+
+		<div id="content-other-options">
+			<form >
+				<div class="extra-options">
+					<h5 class="inline">Extra Options</h5>
+					<div class="inline add-icon"></div>
+					<div class="content-box">
+						<!-- home.js에서 동적으로 생성함 -->
+						<div class="eo-item">
+							<div class="delete-icon"></div>
+							<table>
+								<tr>
+									<td>
+										<div class="eo-title">Name of Item</div>
+									</td>
+									<td>
+										<div class="eo-price">
+											Price <span class="t-small">(per 1 item)</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="text" name="eoTitle0" placeholder="Name of Item for extra option"></td>
+									<td><input type="text" name="eoPrice0" placeholder="$"></td>
+								</tr>
+								<tr><td><div class="eo-max-number">Max of Number</div></td>
+									<td><div class="eo-payment-method">Payment Method</div></td></tr>
+								<tr><td><input type="number" name="eoMaxItems0" placeholer="Input max number of the item that can be ordered"></td>
+									<td><input type="radio" name="eoPayment0" value="onsite"> On-site Payment Only  <input type="radio" name="eoPayment0" value="option"> Available in Extra Option</td></tr>
+								<tr>
+									<td colspan="2">
+										<div class="eo-desc">Description</div>
+									</td>
+								</tr>
+								<tr>
+									 <td colspan="2"><input type="text" name="eoDesc0" placeholder="Please describe inclusion of extra options for user."></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div id="content-policy">
+			Policy
+		</div>
+		
+		<!-- submit 버튼은 모든 탭 메뉴에 공통 적용, home.js에서 ajax사용하여 처리 -->
+		<p/>
+		<button class="btn-submit" type="button">Submit Accommodation</button>
 	</div>
 </div>
