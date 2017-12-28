@@ -4,10 +4,10 @@
 <html>
 <head>
 	<title>Login</title>
-  	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+  	
 	<link rel="stylesheet" href="/css/login.css"/>
 
-	<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+	<script src="/js/3rd-party/jquery-3.2.1.min.js"></script>
 	<script src="/js/login.js"></script>
 
 	<link rel="shortcut icon" type="image/x-icon" href="<c:url value='/images/favicon.ico'/>" />

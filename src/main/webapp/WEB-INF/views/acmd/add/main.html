@@ -21,8 +21,8 @@
 	<div class="input-data">
 		<!-- js이용하여 탭 메뉴 별로 html include, 기본세팅은 General Info. 탭의 내용 -->
 		<!-- General Info 탭 메뉴 -->
-		<div id="content-g-info">
-			<form>
+		<form>
+			<div id="content-g-info">
 				<h5 class="inline">
 					Title<span>*</span>
 				</h5>
@@ -45,7 +45,7 @@
 						<td><h5>Email</h5></td>
 						<td><h5>Phone Number</h5></td>
 					</tr>
-
+	
 					<tr>
 						<td>
 							<input class="input-email" type="text" name="acmd-email" placeholder="E-mail Address">
@@ -56,7 +56,7 @@
 					</tr>
 				</table>
 				<p />
-
+	
 				<h5 class="inline">Featured Image</h5>
 				<div class="tool-tip inline"></div>
 				<div class="input-image">
@@ -75,20 +75,17 @@
 					<option>Chineese yuan (¥)</option>
 					<option>South Korea won (₩)</option>
 				</select>
-
-			</form>
-		</div>
-		
-		<!-- Location Settings 탭 메뉴 -->
-		<div id="content-l-settings">
-			Location Settings
-		</div>
-		
-		<!-- Accommodation Details 탭 메뉴 -->
-		<div id="content-acmd-details">
-			<form>
+			</div>
+			
+			<!-- Location Settings 탭 메뉴 -->
+			<div id="content-l-settings">
+				Location Settings
+			</div>
+			
+			<!-- Accommodation Details 탭 메뉴 -->
+			<div id="content-acmd-details">
 				<div>
-					<h5 class="inline">
+					<h5>
 						Outdoor Accommodation Type<span>*</span>
 					</h5>
 					<br> <input class="input-type" type="checkbox"
@@ -101,7 +98,7 @@
 						class="input-type" type="checkbox" name="acmd-type"
 						value="luxury-glamping">Luxury Glamping
 				</div>
-
+	
 				<p/>
 				
 				<div>
@@ -159,19 +156,17 @@
 						</div>
 					</div>
 				</div>
-			</form>
-		</div>
-		
-		<div id="content-acmd-gallery">
-			<div class="input-image">
-				<img src="../../../images/photo-small.png">
 			</div>
-			<div>Upload the attractive features of your accommodation that guests might love.<div class="mo-tooltip inline"></div></div>
-			<button type="button" class="btn btn-md">Image Upload</button>
-		</div>
-
-		<div id="content-other-options">
-			<form >
+			
+			<div id="content-acmd-gallery">
+				<div class="input-image">
+					<img src="../../../images/photo-small.png">
+				</div>
+				<div>Upload the attractive features of your accommodation that guests might love.<div class="mo-tooltip inline"></div></div>
+				<button type="button" class="btn btn-md">Image Upload</button>
+			</div>
+	
+			<div id="content-other-options">
 				<div class="extra-options">
 					<h5 class="inline">Extra Options</h5>
 					<div class="inline add-icon"></div>
@@ -210,15 +205,101 @@
 						</div>
 					</div>
 				</div>
-			</form>
-		</div>
-		
-		<div id="content-policy">
-			Policy
-		</div>
-		
-		<!-- submit 버튼은 모든 탭 메뉴에 공통 적용, home.js에서 ajax사용하여 처리 -->
+			</div>
+			
+			<div id="content-policy">
+				<div class="inline checkInTimePicker">
+					<h5>
+						Check In Time<span>*</span>
+					</h5>
+					<input type="text" id="checkInTime" class="time ui-timepicker-input" autocomplete="off">
+				</div>
+				<div class="inline checkOutTimePicker">
+					<h5>
+						Check Out Time<span>*</span>
+					</h5>
+					<input type="text" id="checkOutTime" class="time ui-timepicker-input" autocomplete="off">
+				</div>
+				<div>
+					<h5>
+						Confirmation<span>*</span>
+					</h5>
+					<input type="radio" name="confirm" value="instant">Instant Confirmation
+					<input type="radio" name="confirm" value="within">Confirmation within
+					
+					<select id="confirm-within">
+						<option>24 Hours</option>
+						<option>48 Hours</option>
+					</select>
+					
+					<div class="confirm-desc">
+						<input type="text">
+					</div>
+				</div>
+				<div>
+					<h5>
+						Booking Available<span>*</span><span>Please select the least day(s) prior to check in date.</span>
+					</h5>
+					<input type="radio" name="booking-availability" value="today">Available Today
+					<input type="radio" name="booking-availability" value="within">Booking is available at least
+					
+					<select id="confirm-within">
+						<option>2 Days</option>
+						<option>3 Days</option>
+						<option>4 Days</option>
+						<option>5 Days</option>
+						<option>6 Days</option>
+						<option>7 Days</option>
+						<option>8 Days</option>
+						<option>9 Days</option>
+						<option>10 Days</option>
+						<option>11 Days</option>
+						<option>12 Days</option>
+						<option>13 Days</option>
+						<option>14 Days</option>
+						<option>15 Days</option>
+					</select> in advance of check-in date
+					
+					<div class="booking-desc">
+						<input type="text">
+					</div>
+				</div>
+				
+				<div class="policy-options">
+					<h5 class="inline">Policy Options</h5>
+					<div class="inline add-icon"></div>
+					<div class="content-box">
+						<!-- home.js에서 동적으로 생성함 -->
+						<div class="po-item">
+							<div class="delete-icon"></div>
+							<div class="po-title">
+								Name of Policy <input type="text" name="poTitle0" placeholder="Name of Policy">
+							</div>
+							<div class="po-desc">
+								Policy Description <input type="text" name="poDesc0" placeholder="Please describe your policy on your accommodation">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cancel-policy">
+					<h5>
+						Cancellation Policy<span>*</span>
+					</h5>
+					
+					
+					
+					
+					
+					
+					
+				</div>
+			</div>
+			
+			
+		</form>
 		<p/>
+		<!-- submit 버튼은 모든 탭 메뉴에 공통 적용, home.js에서 ajax사용하여 처리 -->
 		<button class="btn-submit" type="button">Submit Accommodation</button>
 	</div>
 </div>

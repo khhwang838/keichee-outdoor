@@ -7,12 +7,14 @@
 	<title>Must Outdoor</title>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/css/3rd-party/bootstrap-3.3.7.min.css"/>
+	<link rel="stylesheet" href="/css/3rd-party/jquery.timepicker.min.css"/>
 	<link rel="stylesheet" href="/css/common.css"/>
 	<link rel="stylesheet" href="/css/acmd/add.css"/>
 	<link rel="stylesheet" href="/css/acmd/my.css"/>
 
 	<script src="/js/3rd-party/jquery-3.2.1.min.js"></script>
 	<script src="/js/3rd-party/bootstrap-3.3.7.min.js"></script>
+	<script src="/js/3rd-party/jquery.timepicker.min.js"></script>
 	<script src="/js/home.js"></script>
 	<script src="/js/acmd/add.js"></script>
 

@@ -34,22 +34,22 @@ $(document).ready(function() {
 				dis.attr('class','active');
 			});
 			
-			$('.input-data>div').css('display', 'none');
+			$('.input-data>form>div').css('display', 'none');
 			$('#content-g-info').css('display','inline');
 			
 			$('#g-info').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-g-info').css('display','inline');
 			});
 			
 			$('#l-settings').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-l-settings').css('display','inline');
 			});
 			
 			let sfCnt = 1;
 			$('#acmd-details').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-acmd-details').css('display','inline');
 
 				$('div.special-facility>.add-icon').click(function (e){
@@ -58,13 +58,13 @@ $(document).ready(function() {
 			});
 			
 			$('#acmd-gallery').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-acmd-gallery').css('display','inline');
 			});
 			
 			let eoCnt = 1;
 			$('#other-options').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-other-options').css('display','inline');
 				
 				$('div.extra-options>.add-icon').click(function (e){
@@ -72,9 +72,37 @@ $(document).ready(function() {
 				});
 			});
 			
+			let poCnt = 1;
 			$('#policy').click(function (e){
-				$('.input-data>div').css('display', 'none');
+				$('.input-data>form>div').css('display', 'none');
 				$('#content-policy').css('display','inline');
+				
+				$('div.policy-options>.add-icon').click(function (e){
+					$('.policy-options>.content-box').append(getPolicyOptionsHtml(poCnt++));
+				});
+				
+				$('#checkInTime').timepicker({ 
+					timeFormat: 'h:mm p',
+				    interval: 30,
+				    minTime: '0',
+				    maxTime: '11:30pm',
+				    defaultTime: '2:00pm',
+				    startTime: '12:00am',
+				    dynamic: false,
+				    dropdown: true,
+				    scrollbar: true
+				});
+				$('#checkOutTime').timepicker({
+					timeFormat: 'h:mm p',
+				    interval: 30,
+				    minTime: '0',
+				    maxTime: '11:30pm',
+				    defaultTime: '10:00am',
+				    startTime: '12:00am',
+				    dynamic: false,
+				    dropdown: true,
+				    scrollbar: true
+				});
 			});
 			
 		});
@@ -95,7 +123,14 @@ $(document).ready(function() {
 	
 	$(window).resize(setContentAreaWidth);
 });
-
+function getPolicyOptionsHtml(count) {
+	return '<div class="po-item"><div class="po-item-delete-icon"></div><div class="po-title">Title'
+	+ '<input type="text" name="poTitle'+count+'" placeholder="Name of Policy">'	
+	+ '</div>'
+	+ '<div class="po-desc">Policy Description'
+	+ '<input type="text" name="poDesc'+count+'" placeholder="Please describe your policy on your accommodation">'
+	+ '</div></div>';
+}
 function getExtraOptionsHtml(count) {
 	return '<div class="eo-item">'
 			+ '<div class="delete-icon"></div>'
