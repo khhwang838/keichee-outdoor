@@ -40,7 +40,7 @@
 		<div class="top-icon language-icon">&nbsp;</div>
 		<div>
 			<select>
-			<!-- // TODO : 동적으로 DB에 있는 지원가능 언어 목록 조회-->
+				<!-- TODO : 동적으로 DB에 있는 지원가능 언어 목록 조회-->
 				<option selected>한국어</option>
 				<option>English</option>
 			</select>

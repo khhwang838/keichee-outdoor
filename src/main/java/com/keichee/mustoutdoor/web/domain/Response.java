@@ -25,6 +25,12 @@ public class Response<T> {
 	public void setRespMsg(String respMsg) {
 		this.respMsg = respMsg;
 	}
+	public List<T> getRespData() {
+		return respData;
+	}
+	public void setRespData(List<T> respData) {
+		this.respData = respData;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -32,7 +38,10 @@ public class Response<T> {
 		builder.append(respCode);
 		builder.append(", respMsg=");
 		builder.append(respMsg);
+		builder.append(", respData=");
+		builder.append(respData);
 		builder.append("]");
 		return builder.toString();
 	}
+	
 }

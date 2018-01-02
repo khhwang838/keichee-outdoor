@@ -34,7 +34,7 @@ div.title>h1 { vertical-align:middle;}
 	vertical-align:middle;
 }
 
-.sf-item, .eo-item, .po-item {border: 1px solid;}
+.sf-item, .eo-item, .po-item, .rs-item {border: 1px solid;}
 .delete-icon {
 	background: url("/images/delete.png") no-repeat;
 	background-size: 20px 20px;
@@ -42,3 +42,9 @@ div.title>h1 { vertical-align:middle;}
 	height: 20px;
 	float: right;
 }
+
+#map {
+	height: 400px;
+}
+
+.rs-image { float: right;}

@@ -1,5 +1,5 @@
 
-package com.keichee.mustoutdoor.component;
+package com.keichee.mustoutdoor.config;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;

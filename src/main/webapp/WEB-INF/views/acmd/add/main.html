@@ -21,15 +21,15 @@
 	<div class="input-data">
 		<!-- js이용하여 탭 메뉴 별로 html include, 기본세팅은 General Info. 탭의 내용 -->
 		<!-- General Info 탭 메뉴 -->
-		<form>
+		<form id="add-acmd-form">
 			<div id="content-g-info">
 				<h5 class="inline">
 					Title<span>*</span>
 				</h5>
 				<div class="mo-tooltip inline"></div>
 				<br> 
-					<input class="input-name" type="text" name="acmd-name" placeholder="Name of Accommodation">
-				<p />
+				<input name="acmdName" class="input-name" type="text" placeholder="Name of Accommodation">
+				<p	/>
 				
 				<h5 class="inline">
 					Description<span>*</span>
@@ -37,7 +37,7 @@
 				
 				<div class="mo-tooltip inline"></div>
 				<br> 
-					<input class="input-desc" type="text" name="acmd-desc" placeholder="Describe your accommodation for customers.">
+				<input name="acmdDesc" class="input-desc" type="text"  placeholder="Describe your accommodation for customers.">
 				<p />
 				
 				<table>
@@ -48,10 +48,10 @@
 	
 					<tr>
 						<td>
-							<input class="input-email" type="text" name="acmd-email" placeholder="E-mail Address">
+							<input name="acmdEmail" class="input-email" type="text"  placeholder="E-mail Address">
 						</td>
 						<td>
-							<input class="input-phone" type="text" name="acmd-phone" placeholder="Phone Number">
+							<input name="acmdPhone" class="input-phone" type="text"  placeholder="Phone Number">
 						</td>
 					</tr>
 				</table>
@@ -59,27 +59,88 @@
 	
 				<h5 class="inline">Featured Image</h5>
 				<div class="tool-tip inline"></div>
-				<div class="input-image">
+				<div class="preview-image">
 					<img src="../../../images/photo-small.png">
 				</div>
-				<button type="button" class="btn btn-md">Image Upload</button>
+				
+				<input name="featuredImage" class="btn btn-md featured-image" type="file" >
 				<p/>
 					Your Currency
 				<h5 class="inline">
 					<span>*</span>
 				</h5>
 				<div class="tool-tip inline"></div>
-				<select class="selectpicker">
+				<select class="selectpicker" name="crcNationCd" form="add-acmd-form">
 					<!-- TODO : 사용자의 현재 로케일 정보에 맞는 currency를 default로 설정, currency 테이블에서 조회한 내용을 option으로 대체, 국가명 순서로 정렬 -->
-					<option selected>United State dollar ($)</option>
-					<option>Chineese yuan (¥)</option>
-					<option>South Korea won (₩)</option>
+					<option value='us' selected>United State dollar ($)</option>
+					<option value='cn'>Chineese yuan (¥)</option>
+					<option value='kr'>South Korea won (₩)</option>
 				</select>
 			</div>
 			
 			<!-- Location Settings 탭 메뉴 -->
 			<div id="content-l-settings">
-				Location Settings
+				<div>
+					<h5>
+						Accommodation Location<span>*</span>
+					</h5>
+					<select class="selectpicker" name="cityUid" form="add-acmd-form">
+						<!-- TODO : location 테이블에서 조회한 내용을 option으로 대체, 국가명 순서로 정렬 -->
+						<option value='seoul' selected>Seoul</option>
+						<option value='gyeonggi'>Gyeonggi-do</option>
+						<option value='gangwon'>Gangwon-do</option>
+						<option value='chungcheongbuk'>Chungcheongbuk-do</option>
+						<option value='chungcheongnam'>Chungcheongnam-do</option>
+					</select>
+				</div>
+				<div>
+					<h5>
+						Real Accommodation Address<span>*</span>
+					</h5>
+					<input class="input-type" type="text" name="acmdAddr" placeholder="Real Accommodation Address">
+					<div class="input-type location-map">
+						<!-- TODO : map API 이용하여 map을 표시하고 위도와 경도 좌표 가져오기-->
+						<div id="map">
+							<!-- TODO: 실제로 맵이 표시될 영역 -->
+						</div>
+						<table>
+							<tr>
+								<td>Latitude</td>
+								<td>Longitude</td>
+							</tr>
+							<tr>
+								<td><input name="acmdAltd" type="text" readonly></td>
+								<td><input name="acmdLgtd" type="text" readonly></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div>
+					<h5>
+						How to Get There
+					</h5>
+					<input type="text" name="direction" placeholder="Provide guests with directions to your place, suggestions on transportation, and any other details that may help them arrive easily and on time.">
+				</div>
+				<div>
+					<h5 class="inline">Recommending Tourist Spot</h5>
+					<div class="inline add-icon"></div>
+					<div class="content-box">
+						<!-- home.js에서 동적으로 생성함 -->
+						<div class="rs-item">
+							<div class="delete-icon"></div>
+							<div class="rs-title">
+								Title <input type="text" name="rsTitle0" placeholder="Name of Tourist Spot near by your accommodation">
+							</div>
+							<div class="rs-desc">
+								Description of Tourist Spot<input type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation">
+							</div>
+							<div class="rs-image">
+								<!-- TODO : 이미지 업로드 -->
+								
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<!-- Accommodation Details 탭 메뉴 -->
@@ -158,6 +219,7 @@
 				</div>
 			</div>
 			
+			<!-- Gallery 탭 메뉴 -->
 			<div id="content-acmd-gallery">
 				<div class="input-image">
 					<img src="../../../images/photo-small.png">
@@ -166,6 +228,7 @@
 				<button type="button" class="btn btn-md">Image Upload</button>
 			</div>
 	
+			<!-- Other Options 탭 메뉴 -->
 			<div id="content-other-options">
 				<div class="extra-options">
 					<h5 class="inline">Extra Options</h5>
@@ -207,6 +270,7 @@
 				</div>
 			</div>
 			
+			<!-- Policy 탭 메뉴 -->
 			<div id="content-policy">
 				<div class="inline checkInTimePicker">
 					<h5>
@@ -287,16 +351,12 @@
 						Cancellation Policy<span>*</span>
 					</h5>
 					
-					
-					
-					
-					
-					
+					<div id="policy-desc-top"></div>
+					<div id="policy-desc-imgbox"></div>
+					<div id="policy-desc-bottom"></div>
 					
 				</div>
 			</div>
-			
-			
 		</form>
 		<p/>
 		<!-- submit 버튼은 모든 탭 메뉴에 공통 적용, home.js에서 ajax사용하여 처리 -->

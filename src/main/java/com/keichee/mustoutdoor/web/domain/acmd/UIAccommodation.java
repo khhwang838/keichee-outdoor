@@ -1,6 +1,6 @@
 package com.keichee.mustoutdoor.web.domain.acmd;
 
-public class AccommodationDto {
+public class UIAccommodation {
 
 	private String acmdUid;
 	private String acmdName;
@@ -17,19 +17,6 @@ public class AccommodationDto {
 	private String crcNationCd;
 	private String cancelPlcyUid;
 	
-	public AccommodationDto() {}
-	public AccommodationDto(UIAccommodation ui) {
-		this.acmdUid = ui.getAcmdUid();
-		this.acmdName = ui.getAcmdName();
-		this.acmdDesc = ui.getAcmdDesc();
-		this.email = ui.getEmail();
-		this.contact = ui.getContact();
-		this.acmdAddr = ui.getAcmdAddr();
-		this.acmdAltd = ui.getAcmdAltd();
-		this.acmdLgtd = ui.getAcmdLgtd();
-		this.direction = ui.getDirection();
-		this.crcNationCd = ui.getCrcNationCd();
-	}
 	public String getAcmdUid() {
 		return acmdUid;
 	}
