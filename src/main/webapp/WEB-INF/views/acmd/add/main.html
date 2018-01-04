@@ -123,18 +123,18 @@
 					</h5>
 					<input type="text" name="direction" placeholder="Provide guests with directions to your place, suggestions on transportation, and any other details that may help them arrive easily and on time.">
 				</div>
-				<div>
+				<div class="recommend-spots">
 					<h5 class="inline">Recommending Tourist Spot</h5>
 					<div class="inline add-icon"></div>
 					<div class="content-box">
 						<!-- home.js에서 동적으로 생성함 -->
 						<div class="rs-item">
-							<table class="w-100-p">
+							<table class="recommend-spots-tb w-100-p">
 								<tr>
 									<div class="delete-icon"></div>
 									<td>						
 										<div class="rs-title">
-											Title <p/><input class="w-100-p" type="text" name="rsTitle0" placeholder="Name of Tourist Spot near by your accommodation">
+											Title <p/><input class="w-100-p" type="text" name="rsTitle" placeholder="Name of Tourist Spot near by your accommodation">
 										</div>
 									</td>
 									<td rowspan=2 class="p-10 w-220">
@@ -145,8 +145,8 @@
 								</tr>
 								<tr>
 									<td>
-										<div class="rs-desc p-t-10">
-											Description of Tourist Spot<p/><input class="w-100-p" type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation">
+										<div class="rs-desc">
+											Description of Tourist Spot<p/><textarea class="w-100-p" type="text" name="rsDesc" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation"></textarea>
 										</div>
 									</td>
 								</tr>

@@ -47,5 +47,8 @@ div.title>h1 { vertical-align:middle;}
 	height: 400px;
 }
 
-.rs-image { float: right; border: 1px solid; width:200px; height:200px;}
+.rs-image { float: right; border: 1px solid; width:200px; height:200px; margin-right:50px;}
 .w-220 {width:220px}
+.rs-desc {padding-top:10px; height:200px;}
+.rs-desc textarea {height:140px;}
+.recommend-spots-tb td {padding-right:10px; padding-left:10px;}

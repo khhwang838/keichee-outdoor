@@ -58,6 +58,13 @@ $(document).ready(function() {
 				initMap();
 				
 				$('#searchAddr').click(findLocationOnMap);
+				
+				$('.rs-item div.delete-icon').click(function(e){
+					$(this).parent().remove();
+				});
+				$('.recommend-spots>.add-icon').click(function (e){
+					$('.recommend-spots>.content-box').append(getRecommendSpotsHtml());
+				});
 			});
 			
 			// Details 탭
@@ -68,6 +75,7 @@ $(document).ready(function() {
 
 				$('.sf-item>div.delete-icon').click(function(e){
 					$(this).parent().remove();
+					
 				});
 				$('div.special-facility>.add-icon').click(function (e){
 					$('.special-facility>.content-box').append(getSpecialFacilityHtml(sfCnt++));
@@ -234,12 +242,19 @@ function prepareUpload(event) {
 	}
 
 }
+function getRecommendSpotsHtml() {
+	return '<div class="rs-item"><table class="recommend-spots-tb w-100-p"><tr><div class="delete-icon"></div>'
+		+ '<td><div class="rs-title">Title <p/><input class="w-100-p" type="text" name="rsTitle" placeholder="Name of Tourist Spot near by your accommodation"></div></td>'
+		+ '<td rowspan=2 class="p-10 w-220"> <div class="rs-image"> <!-- TODO : 이미지 업로드 --> </div> </td></tr>'
+		+ '<tr> <td> <div class="rs-desc"> Description of Tourist Spot<p/><textarea class="w-100-p" type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation"> </textarea></div> </td> </tr>'
+		+ '</table></div>';
+}
 function getPolicyOptionsHtml(count) {
 	return '<div class="po-item"><div class="delete-icon"></div><div class="po-title">Title'
-	+ '<input type="text" name="poTitle'+count+'" placeholder="Name of Policy">'	
+	+ '<input type="text" name="poTitle" placeholder="Name of Policy">'	
 	+ '</div>'
 	+ '<div class="po-desc">Policy Description'
-	+ '<input type="text" name="poDesc'+count+'" placeholder="Please describe your policy on your accommodation">'
+	+ '<input type="text" name="poDesc" placeholder="Please describe your policy on your accommodation">'
 	+ '</div></div>';
 }
 function getExtraOptionsHtml(count) {
@@ -257,13 +272,13 @@ function getExtraOptionsHtml(count) {
 			+ '</td>'
 			+ '</tr>'
 			+ '<tr>'
-			+ '	<td><input type="text" name="eoTitle'+count+'" placeholder="Name of Item for extra option"></td>'
-			+ '	<td><input type="text" name="eoPrice'+count+'" placeholder="$"></td>'
+			+ '	<td><input type="text" name="eoTitle" placeholder="Name of Item for extra option"></td>'
+			+ '	<td><input type="text" name="eoPrice" placeholder="$"></td>'
 			+ '</tr>'
 			+ '<tr><td><div class="eo-max-number">Max of Number</div></td>'
 			+ '	<td><div class="eo-payment-method">Payment Method</div></td></tr>'
-			+ '<tr><td><input type="number" name="eoMaxItems'+count+'" placeholer="Input max number of the item that can be ordered"></td>'
-			+ '	<td><input type="radio" name="eoPayment'+count+'" value="onsite"> On-site Payment Only  <input type="radio" name="eoPayment'+count+'" value="option"> Available in Extra Option</td></tr>'
+			+ '<tr><td><input type="number" name="eoMaxItems" placeholer="Input max number of the item that can be ordered"></td>'
+			+ '	<td><input type="radio" name="eoPayment" value="onsite"> On-site Payment Only  <input type="radio" name="eoPayment'+count+'" value="option"> Available in Extra Option</td></tr>'
 			+ '<tr>'
 			+ '	<td colspan="2">'
 			+ '		<div class="eo-desc">Description</div>'
@@ -277,10 +292,10 @@ function getExtraOptionsHtml(count) {
 }
 function getSpecialFacilityHtml(count) {
 	return '<div class="sf-item"><div class="delete-icon"></div><div class="sf-title">Title'
-		+ '<input type="text" name="sfTitle'+count+'" placeholder="Title of Special Facility">'	
+		+ '<input type="text" name="sfTitle" placeholder="Title of Special Facility">'	
 		+ '</div>'
 		+ '<div class="sf-desc">Description'
-		+ '<input type="text" name="sfDesc'+count+'" placeholder="Please describe your special facility for user">'
+		+ '<input type="text" name="sfDesc" placeholder="Please describe your special facility for user">'
 		+ '</div></div>';
 }
 function setProfileImage(){
