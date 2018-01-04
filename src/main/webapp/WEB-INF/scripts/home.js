@@ -53,6 +53,11 @@ $(document).ready(function() {
 			$('#l-settings').click(function (e){
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-l-settings').css('display','inline');
+				
+				setContentAreaWidth();	// TODO : 이게 없으면 map height 때문에 #content 박스가 아래로 내려가는 현상 확인 필요
+				initMap();
+				
+				$('#searchAddr').click(findLocationOnMap);
 			});
 			
 			// Details 탭
@@ -292,4 +297,41 @@ function setContentAreaWidth() {
 	let marginWidth = parseInt($('#content').css("marginRight")) + parseInt($('#content').css("marginLeft"))
 	restWidth -= (marginWidth+4);	// 4는 border 1px 씩 sidebar 2, content 2, +alpha
 	$('#content').css({'width': ''+restWidth+'px'});
+}
+function initMap(lat, lng, zoom) {
+	
+	if ( lat == null && lng == null ) {
+		var lat = 37.566;	// lat_seoul
+		var lng = 126.9784;	// lng_seoul
+	}
+	var location = {lat: lat, lng: lng};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: (zoom == null ? 8 : zoom),
+      center: location
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+    $('#acmdAltd').val(lat);
+    $('#acmdLgtd').val(lng);
+	
+}
+function findLocationOnMap(){
+	let addr = $('input[name=acmdAddr]').val();
+	addr = addr.replace(/s/g,'+');
+	console.log('addr: ',addr);
+	let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addr + '&key=AIzaSyBuThZWpfwiFsnXJjEtxqikxCnQJo0o6TI';
+
+	$.ajax({
+		type: 'GET',
+		url: url,
+		success: function(resp) {
+			console.log('search addr resp: ',resp);
+			let lat = resp.results[0].geometry.location.lat;
+			let lng = resp.results[0].geometry.location.lng;
+			
+			initMap(lat, lng);
+		}
+	});
 }

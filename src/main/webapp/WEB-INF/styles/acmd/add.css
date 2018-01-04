@@ -47,4 +47,5 @@ div.title>h1 { vertical-align:middle;}
 	height: 400px;
 }
 
-.rs-image { float: right;}
+.rs-image { float: right; border: 1px solid; width:200px; height:200px;}
+.w-220 {width:220px}

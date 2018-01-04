@@ -8,6 +8,7 @@ body {
 	display: inline-block;
 }
 /* Common styles*/
+.p-10 {padding: 10px;}
 .p-l-10 {padding-left: 10px;}
 .p-l-20 {padding-left: 20px;}
 .p-l-30 {padding-left: 30px;}
@@ -29,6 +30,11 @@ body {
 .m-r-30 {margin-right: 30px;}
 .m-r-40 {margin-right: 40px;}
 .m-r-50 {margin-right: 50px;}
+
+.w-40-p {width:40%;}
+.w-60-p {width:60%;}
+.w-80-p {width:80%;}
+.w-100-p {width:100%;}
 
 
 /* Top area styles*/

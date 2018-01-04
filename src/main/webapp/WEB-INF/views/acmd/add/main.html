@@ -97,20 +97,22 @@
 					<h5>
 						Real Accommodation Address<span>*</span>
 					</h5>
-					<input class="input-type" type="text" name="acmdAddr" placeholder="Real Accommodation Address">
+					<input class="input-type inline" type="text" name="acmdAddr" placeholder="Real Accommodation Address">
+					<button id="searchAddr" class="inline btn btn-m" type="button">Search</button>
 					<div class="input-type location-map">
-						<!-- TODO : map API 이용하여 map을 표시하고 위도와 경도 좌표 가져오기-->
+						<!-- map API 이용하여 map을 표시하고 위도와 경도 좌표 가져오기-->
 						<div id="map">
-							<!-- TODO: 실제로 맵이 표시될 영역 -->
+							<!-- 실제로 맵이 표시될 영역 -->
 						</div>
+						<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuThZWpfwiFsnXJjEtxqikxCnQJo0o6TI&callback=initMap"> </script>
 						<table>
 							<tr>
 								<td>Latitude</td>
 								<td>Longitude</td>
 							</tr>
 							<tr>
-								<td><input name="acmdAltd" type="text" readonly></td>
-								<td><input name="acmdLgtd" type="text" readonly></td>
+								<td><input id="acmdAltd" name="acmdAltd" type="text" readonly></td>
+								<td><input id="acmdLgtd" name="acmdLgtd" type="text" readonly></td>
 							</tr>
 						</table>
 					</div>
@@ -127,17 +129,28 @@
 					<div class="content-box">
 						<!-- home.js에서 동적으로 생성함 -->
 						<div class="rs-item">
-							<div class="delete-icon"></div>
-							<div class="rs-title">
-								Title <input type="text" name="rsTitle0" placeholder="Name of Tourist Spot near by your accommodation">
-							</div>
-							<div class="rs-desc">
-								Description of Tourist Spot<input type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation">
-							</div>
-							<div class="rs-image">
-								<!-- TODO : 이미지 업로드 -->
-								
-							</div>
+							<table class="w-100-p">
+								<tr>
+									<div class="delete-icon"></div>
+									<td>						
+										<div class="rs-title">
+											Title <p/><input class="w-100-p" type="text" name="rsTitle0" placeholder="Name of Tourist Spot near by your accommodation">
+										</div>
+									</td>
+									<td rowspan=2 class="p-10 w-220">
+										<div class="rs-image">
+											<!-- TODO : 이미지 업로드 -->
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="rs-desc p-t-10">
+											Description of Tourist Spot<p/><input class="w-100-p" type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation">
+										</div>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
