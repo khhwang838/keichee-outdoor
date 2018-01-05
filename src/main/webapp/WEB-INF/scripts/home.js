@@ -39,6 +39,8 @@ $(document).ready(function() {
 				dis.attr('class','active');
 			});
 			
+			addDeleteEvent();
+			
 			// 기본적으로 General Info 탭의 내용을 출력
 			$('.input-data>form>div').css('display', 'none');
 			$('#content-g-info').css('display','inline');
@@ -59,11 +61,9 @@ $(document).ready(function() {
 				
 				$('#searchAddr').click(findLocationOnMap);
 				
-				$('.rs-item div.delete-icon').click(function(e){
-					$(this).parent().remove();
-				});
 				$('.recommend-spots>.add-icon').click(function (e){
 					$('.recommend-spots>.content-box').append(getRecommendSpotsHtml());
+					addDeleteEvent();
 				});
 			});
 			
@@ -73,12 +73,9 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-acmd-details').css('display','inline');
 
-				$('.sf-item>div.delete-icon').click(function(e){
-					$(this).parent().remove();
-					
-				});
 				$('div.special-facility>.add-icon').click(function (e){
 					$('.special-facility>.content-box').append(getSpecialFacilityHtml(sfCnt++));
+					addDeleteEvent();
 				});
 			});
 			
@@ -94,11 +91,9 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-other-options').css('display','inline');
 				
-				$('.eo-item>div.delete-icon').click(function(e){
-					$(this).parent().remove();
-				});
 				$('div.extra-options>.add-icon').click(function (e){
 					$('.extra-options>.content-box').append(getExtraOptionsHtml(eoCnt++));
+					addDeleteEvent();
 				});
 			});
 			
@@ -108,11 +103,9 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-policy').css('display','inline');
 				
-				$('.po-item>div.delete-icon').click(function(e){
-					$(this).parent().remove();
-				});
 				$('div.policy-options>.add-icon').click(function (e){
 					$('.policy-options>.content-box').append(getPolicyOptionsHtml(poCnt++));
+					addDeleteEvent();
 				});
 				
 				$('#checkInTime').timepicker({ 
@@ -215,6 +208,20 @@ $(document).ready(function() {
 	$(window).resize(setContentAreaWidth);
 });
 
+function addDeleteEvent() {
+	$('.rs-item div.delete-icon').click(function(e){
+		$(this).parent().remove();
+	});
+	$('.sf-item>div.delete-icon').click(function(e){
+		$(this).parent().remove();
+	});
+	$('.eo-item>div.delete-icon').click(function(e){
+		$(this).parent().remove();
+	});
+	$('.po-item>div.delete-icon').click(function(e){
+		$(this).parent().remove();
+	});
+}
 function prepareUpload(event) {
 	featuredImgEvent = event;
 	// thumb nail
