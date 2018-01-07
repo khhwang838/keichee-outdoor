@@ -1,139 +1,59 @@
 package com.keichee.mustoutdoor.web.domain.acmd;
 
+import java.util.List;
+
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.NationCityDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.ThemesDto;
+
 public class UIAccommodation {
 
-	private String acmdUid;
-	private String acmdName;
-	private String acmdDesc;
-	private String email;
-	private String contact;
-	private String imgUrl;
-	private String acmdAddr;
-	private String acmdAltd;
-	private String acmdLgtd;
-	private String direction;
-	private String acmdAvgScore;
-	private String cityUid;
-	private String crcNationCd;
-	private String cancelPlcyUid;
+	private AccommodationDto acmd;
+	private NationCityDto nationCity;
+	private List<RecommendSpotsDto> recommendSpots;
+	private List<FacilitiesDto> facilities;
+	private List<ThemesDto> themes;
+	private List<SpecialFacilitiesDto> specialFacilities;
 	
-	public String getAcmdUid() {
-		return acmdUid;
+	public AccommodationDto getAcmd() {
+		return acmd;
 	}
-	public void setAcmdUid(String acmdUid) {
-		this.acmdUid = acmdUid;
+	public void setAcmd(AccommodationDto acmd) {
+		this.acmd = acmd;
 	}
-	public String getAcmdName() {
-		return acmdName;
+	public NationCityDto getNationCity() {
+		return nationCity;
 	}
-	public void setAcmdName(String acmdName) {
-		this.acmdName = acmdName;
+	public void setNationCity(NationCityDto nationCity) {
+		this.nationCity = nationCity;
 	}
-	public String getAcmdDesc() {
-		return acmdDesc;
+	public List<RecommendSpotsDto> getRecommendSpots() {
+		return recommendSpots;
 	}
-	public void setAcmdDesc(String acmdDesc) {
-		this.acmdDesc = acmdDesc;
+	public void setRecommendSpots(List<RecommendSpotsDto> recommendSpots) {
+		this.recommendSpots = recommendSpots;
 	}
-	public String getEmail() {
-		return email;
+	public List<FacilitiesDto> getFacilities() {
+		return facilities;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setFacilities(List<FacilitiesDto> facilities) {
+		this.facilities = facilities;
 	}
-	public String getContact() {
-		return contact;
+	public List<ThemesDto> getThemes() {
+		return themes;
 	}
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setThemes(List<ThemesDto> themes) {
+		this.themes = themes;
 	}
-	public String getImgUrl() {
-		return imgUrl;
+	public List<SpecialFacilitiesDto> getSpecialFacilities() {
+		return specialFacilities;
 	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setSpecialFacilities(List<SpecialFacilitiesDto> specialFacilities) {
+		this.specialFacilities = specialFacilities;
 	}
-	public String getAcmdAddr() {
-		return acmdAddr;
-	}
-	public void setAcmdAddr(String acmdAddr) {
-		this.acmdAddr = acmdAddr;
-	}
-	public String getAcmdAltd() {
-		return acmdAltd;
-	}
-	public void setAcmdAltd(String acmdAltd) {
-		this.acmdAltd = acmdAltd;
-	}
-	public String getAcmdLgtd() {
-		return acmdLgtd;
-	}
-	public void setAcmdLgtd(String acmdLgtd) {
-		this.acmdLgtd = acmdLgtd;
-	}
-	public String getDirection() {
-		return direction;
-	}
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	public String getAcmdAvgScore() {
-		return acmdAvgScore;
-	}
-	public void setAcmdAvgScore(String acmdAvgScore) {
-		this.acmdAvgScore = acmdAvgScore;
-	}
-	public String getCityUid() {
-		return cityUid;
-	}
-	public void setCityUid(String cityUid) {
-		this.cityUid = cityUid;
-	}
-	public String getCrcNationCd() {
-		return crcNationCd;
-	}
-	public void setCrcNationCd(String crcNationCd) {
-		this.crcNationCd = crcNationCd;
-	}
-	public String getCancelPlcyUid() {
-		return cancelPlcyUid;
-	}
-	public void setCancelPlcyUid(String cancelPlcyUid) {
-		this.cancelPlcyUid = cancelPlcyUid;
-	}
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AccommodationDto [acmdUid=");
-		builder.append(acmdUid);
-		builder.append(", acmdName=");
-		builder.append(acmdName);
-		builder.append(", acmdDesc=");
-		builder.append(acmdDesc);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", contact=");
-		builder.append(contact);
-		builder.append(", imgUrl=");
-		builder.append(imgUrl);
-		builder.append(", acmdAddr=");
-		builder.append(acmdAddr);
-		builder.append(", acmdAltd=");
-		builder.append(acmdAltd);
-		builder.append(", acmdLgtd=");
-		builder.append(acmdLgtd);
-		builder.append(", direction=");
-		builder.append(direction);
-		builder.append(", acmdAvgScore=");
-		builder.append(acmdAvgScore);
-		builder.append(", cityUid=");
-		builder.append(cityUid);
-		builder.append(", crcNationCd=");
-		builder.append(crcNationCd);
-		builder.append(", cancelPlcyUid=");
-		builder.append(cancelPlcyUid);
-		builder.append("]");
-		return builder.toString();
-	}
+	
 	
 }

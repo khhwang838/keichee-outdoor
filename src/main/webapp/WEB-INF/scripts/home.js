@@ -59,12 +59,12 @@ $(document).ready(function() {
 				setContentAreaWidth();	// TODO : 이게 없으면 map height 때문에 #content 박스가 아래로 내려가는 현상 확인 필요
 				initMap();
 				
-				$('#searchAddr').click(findLocationOnMap);
-				
-				$('.recommend-spots>.add-icon').click(function (e){
-					$('.recommend-spots>.content-box').append(getRecommendSpotsHtml());
-					addDeleteEvent();
-				});
+			});
+			$('#searchAddr').click(findLocationOnMap);
+			
+			$('.recommend-spots>.add-icon').click(function (e){
+				$('.recommend-spots>.content-box').append(getRecommendSpotsHtml());
+				addDeleteEvent();
 			});
 			
 			// Details 탭
@@ -73,10 +73,10 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-acmd-details').css('display','inline');
 
-				$('div.special-facility>.add-icon').click(function (e){
-					$('.special-facility>.content-box').append(getSpecialFacilityHtml(sfCnt++));
-					addDeleteEvent();
-				});
+			});
+			$('div.special-facility>.add-icon').click(function (e){
+				$('.special-facility>.content-box').append(getSpecialFacilityHtml(sfCnt++));
+				addDeleteEvent();
 			});
 			
 			// Gallery 탭
@@ -91,10 +91,10 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-other-options').css('display','inline');
 				
-				$('div.extra-options>.add-icon').click(function (e){
-					$('.extra-options>.content-box').append(getExtraOptionsHtml(eoCnt++));
-					addDeleteEvent();
-				});
+			});
+			$('div.extra-options>.add-icon').click(function (e){
+				$('.extra-options>.content-box').append(getExtraOptionsHtml(eoCnt++));
+				addDeleteEvent();
 			});
 			
 			// Policy 탭
@@ -103,47 +103,70 @@ $(document).ready(function() {
 				$('.input-data>form>div').css('display', 'none');
 				$('#content-policy').css('display','inline');
 				
-				$('div.policy-options>.add-icon').click(function (e){
-					$('.policy-options>.content-box').append(getPolicyOptionsHtml(poCnt++));
-					addDeleteEvent();
-				});
-				
-				$('#checkInTime').timepicker({ 
-					timeFormat: 'h:mm p',
-				    interval: 30,
-				    minTime: '0',
-				    maxTime: '11:30pm',
-				    defaultTime: '2:00pm',
-				    startTime: '12:00am',
-				    dynamic: false,
-				    dropdown: true,
-				    scrollbar: true
-				});
-				$('#checkOutTime').timepicker({
-					timeFormat: 'h:mm p',
-				    interval: 30,
-				    minTime: '0',
-				    maxTime: '11:30pm',
-				    defaultTime: '10:00am',
-				    startTime: '12:00am',
-				    dynamic: false,
-				    dropdown: true,
-				    scrollbar: true
-				});
+			});
+			$('div.policy-options>.add-icon').click(function (e){
+				$('.policy-options>.content-box').append(getPolicyOptionsHtml(poCnt++));
+				addDeleteEvent();
+			});
+			
+			$('#checkInTime').timepicker({ 
+				timeFormat: 'h:mm p',
+				interval: 30,
+				minTime: '0',
+				maxTime: '11:30pm',
+				defaultTime: '2:00pm',
+				startTime: '12:00am',
+				dynamic: false,
+				dropdown: true,
+				scrollbar: true
+			});
+			$('#checkOutTime').timepicker({
+				timeFormat: 'h:mm p',
+				interval: 30,
+				minTime: '0',
+				maxTime: '11:30pm',
+				defaultTime: '10:00am',
+				startTime: '12:00am',
+				dynamic: false,
+				dropdown: true,
+				scrollbar: true
 			});
 			
 			$('.featured-image').on('change', prepareUpload);
 			
 			// Submit 버튼
 			$('.btn-submit').click(function(e){
+				// TODO : 필수 값 체크
+				checkRequiredFields();
+				
 				// TODO : 각 탭의 내용을 JSON형태로 만들어 /acmd/add API 호출
-				let inputData = {};
+				let inputData = { acmd: {}, nationCity: {}, recommendSpots:[] };
 				// general info
-				inputData.acmdName = $('#content-g-info>input[name=acmdName]').val();
-				inputData.acmdDesc = $('#content-g-info>input[name=acmdDesc]').val();
-				inputData.email = $('#content-g-info input[name=acmdEmail]').val();
-				inputData.contact = $('#content-g-info input[name=acmdPhone]').val();
+				inputData.acmd.acmdName = $('#content-g-info input[name=acmdName]').val();
+				inputData.acmd.acmdDesc = $('#content-g-info input[name=acmdDesc]').val();
+				inputData.acmd.email = $('#content-g-info input[name=acmdEmail]').val();
+				inputData.acmd.contact = $('#content-g-info input[name=acmdPhone]').val();
+				inputData.acmd.crcNationCd = $('#content-g-info input[name=crcNationCd]').val();
 				// location setting
+				inputData.nationCity.cityUid = $('#content-l-settings input[name=cityUid]').val();
+				inputData.acmd.acmdAddr = $('#content-l-settings input[name=acmdAddr]').val();
+				inputData.acmd.acmdAltd = $('#content-l-settings input[name=acmdAltd]').val();
+				inputData.acmd.acmdLgtd = $('#content-l-settings input[name=acmdLgtd]').val();
+				inputData.acmd.direction = $('#content-l-settings input[name=direction]').val();
+				
+				
+				let rsTitles = $('#content-l-settings .rs-item input[name="rsTitle"]');
+				let rsDescs = $('#content-l-settings .rs-item textarea[name="rsDesc"]');
+				
+				for ( let idx = 0; idx < rsTitles.length; idx++){
+					let title = rsTitles[idx].value;
+					let desc = rsDescs[idx].value;
+					
+					inputData.recommendSpots[idx] = {};
+					inputData.recommendSpots[idx].rcmdPlaceName = title;
+					inputData.recommendSpots[idx].rcmdPlaceDesc = desc;
+				}
+				
 				// details
 				// gallery
 				// options
@@ -208,6 +231,9 @@ $(document).ready(function() {
 	$(window).resize(setContentAreaWidth);
 });
 
+function checkRequiredFields(){
+	// TODO : implement check logic
+}
 function addDeleteEvent() {
 	$('.rs-item div.delete-icon').click(function(e){
 		$(this).parent().remove();
@@ -253,7 +279,7 @@ function getRecommendSpotsHtml() {
 	return '<div class="rs-item"><table class="recommend-spots-tb w-100-p"><tr><div class="delete-icon"></div>'
 		+ '<td><div class="rs-title">Title <p/><input class="w-100-p" type="text" name="rsTitle" placeholder="Name of Tourist Spot near by your accommodation"></div></td>'
 		+ '<td rowspan=2 class="p-10 w-220"> <div class="rs-image"> <!-- TODO : 이미지 업로드 --> </div> </td></tr>'
-		+ '<tr> <td> <div class="rs-desc"> Description of Tourist Spot<p/><textarea class="w-100-p" type="text" name="rsDesc0" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation"> </textarea></div> </td> </tr>'
+		+ '<tr> <td> <div class="rs-desc"> Description of Tourist Spot<p/><textarea class="w-100-p" type="text" name="rsDesc" placeholder="Provide quests with directions and descriptions of tourist spot that makes attractive to stay your accommodation"> </textarea></div> </td> </tr>'
 		+ '</table></div>';
 }
 function getPolicyOptionsHtml(count) {
@@ -341,19 +367,17 @@ function initMap(lat, lng, zoom) {
 }
 function findLocationOnMap(){
 	let addr = $('input[name=acmdAddr]').val();
-	addr = addr.replace(/s/g,'+');
-	console.log('addr: ',addr);
+	addr = addr.split(' ').join('+');
 	let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addr + '&key=AIzaSyBuThZWpfwiFsnXJjEtxqikxCnQJo0o6TI';
 
 	$.ajax({
 		type: 'GET',
 		url: url,
 		success: function(resp) {
-			console.log('search addr resp: ',resp);
 			let lat = resp.results[0].geometry.location.lat;
 			let lng = resp.results[0].geometry.location.lng;
 			
-			initMap(lat, lng);
+			initMap(lat, lng, 16);
 		}
 	});
 }

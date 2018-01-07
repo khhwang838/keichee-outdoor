@@ -56,10 +56,10 @@ public class LoginController {
 		User user = userService.validateUser(userInfo);
 		logger.debug("user: {}",user);
 		if (user != null) {
-			session.setAttribute("userId", user.getUserId());
-			session.setAttribute("userName", user.getUserName());
 			session.setAttribute("signUpMonth", DateUtils.instance.getUtcToLocal(user.getSignUpDttm()).split(" ")[0]);
 			session.setAttribute("profileImgUrl", getProfileImgUrl(user.getProfileImgUrl()) );
+			session.setAttribute("userId", user.getUserId());
+			session.setAttribute("userName", user.getUserName());
 		} else {
 			throw new LoginException("Incorrect username or password.");
 		}
