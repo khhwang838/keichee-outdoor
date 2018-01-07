@@ -1,4 +1,6 @@
-package com.keichee.mustoutdoor.web.domain.acmd;
+package com.keichee.mustoutdoor.web.domain.acmd.dto;
+
+import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 
 public class AccommodationDto {
 
@@ -19,16 +21,16 @@ public class AccommodationDto {
 	
 	public AccommodationDto() {}
 	public AccommodationDto(UIAccommodation ui) {
-		this.acmdUid = ui.getAcmdUid();
-		this.acmdName = ui.getAcmdName();
-		this.acmdDesc = ui.getAcmdDesc();
-		this.email = ui.getEmail();
-		this.contact = ui.getContact();
-		this.acmdAddr = ui.getAcmdAddr();
-		this.acmdAltd = ui.getAcmdAltd();
-		this.acmdLgtd = ui.getAcmdLgtd();
-		this.direction = ui.getDirection();
-		this.crcNationCd = ui.getCrcNationCd();
+		this.acmdUid = ui.getAcmd().getAcmdUid();
+		this.acmdName = ui.getAcmd().getAcmdName();
+		this.acmdDesc = ui.getAcmd().getAcmdDesc();
+		this.email = ui.getAcmd().getEmail();
+		this.contact = ui.getAcmd().getContact();
+		this.acmdAddr = ui.getAcmd().getAcmdAddr();
+		this.acmdAltd = ui.getAcmd().getAcmdAltd();
+		this.acmdLgtd = ui.getAcmd().getAcmdLgtd();
+		this.direction = ui.getAcmd().getDirection();
+		this.crcNationCd = ui.getAcmd().getCrcNationCd();
 	}
 	public String getAcmdUid() {
 		return acmdUid;

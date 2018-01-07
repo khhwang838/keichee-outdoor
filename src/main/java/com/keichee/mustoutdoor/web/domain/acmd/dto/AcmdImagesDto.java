@@ -1,12 +1,19 @@
-package com.keichee.mustoutdoor.web.domain.acmd;
+package com.keichee.mustoutdoor.web.domain.acmd.dto;
 
-public class AccommodationImagesDto {
+public class AcmdImagesDto {
 
 	private String acmdUid;
+	private String imgUid;
 	private String imgUrl;
 	private String imgTitle;
 	private int imgNo;
 	
+	public String getImgUid() {
+		return imgUid;
+	}
+	public void setImgUid(String imgUid) {
+		this.imgUid = imgUid;
+	}
 	public String getAcmdUid() {
 		return acmdUid;
 	}
@@ -36,6 +43,8 @@ public class AccommodationImagesDto {
 		StringBuilder builder = new StringBuilder();
 		builder.append("AccommodationImagesDto [acmdUid=");
 		builder.append(acmdUid);
+		builder.append(", imgUid=");
+		builder.append(imgUid);
 		builder.append(", imgUrl=");
 		builder.append(imgUrl);
 		builder.append(", imgTitle=");
@@ -45,6 +54,5 @@ public class AccommodationImagesDto {
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	
 }

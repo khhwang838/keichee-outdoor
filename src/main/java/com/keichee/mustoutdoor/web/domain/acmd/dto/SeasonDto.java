@@ -1,4 +1,4 @@
-package com.keichee.mustoutdoor.web.domain.acmd;
+package com.keichee.mustoutdoor.web.domain.acmd.dto;
 
 public class SeasonDto {
 
