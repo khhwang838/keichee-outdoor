@@ -60,7 +60,7 @@ ALTER TABLE MO_NationCity
 -- Recommend Spots
 CREATE TABLE MO_RecommendSpots (
 	ACMD_UID           VARCHAR(32)   NOT NULL, -- 숙박UID
-	RCMD_PLACE_UID     VARCHAR(32)   NULL,     -- 추천장소UID
+	RCMD_PLACE_UID     VARCHAR(32)   NOT NULL, -- 추천장소UID
 	RCMD_PLACE_NAME    VARCHAR(100)  NULL,     -- 추천장소명
 	RCMD_PLACE_DESC    VARCHAR(1000) NULL,     -- 추천장소설명
 	RCMD_PLACE_IMG_URL VARCHAR(255)  NULL      -- 추천장소이미지URL
@@ -71,7 +71,8 @@ ALTER TABLE MO_RecommendSpots
 	ADD
 		CONSTRAINT PK_MO_RecommendSpots -- Recommend Spots 기본키
 		PRIMARY KEY (
-			ACMD_UID -- 숙박UID
+			ACMD_UID,       -- 숙박UID
+			RCMD_PLACE_UID  -- 추천장소UID
 		);
 
 -- Room Types
@@ -91,7 +92,7 @@ ALTER TABLE MO_RoomTypes
 
 -- Facilities
 CREATE TABLE MO_Facilities (
-	FCLT_UID  VARCHAR(32)  NOT NULL, -- 숙박시설UID
+	FCLT_ID   VARCHAR(40)  NOT NULL, -- 숙박시설ID
 	FCLT_NAME VARCHAR(100) NULL,     -- 숙박시설명
 	FCLT_IMG  VARCHAR(255) NULL      -- 숙박시설이미지
 );
@@ -101,13 +102,12 @@ ALTER TABLE MO_Facilities
 	ADD
 		CONSTRAINT PK_MO_Facilities -- Facilities 기본키
 		PRIMARY KEY (
-			FCLT_UID -- 숙박시설UID
+			FCLT_ID -- 숙박시설ID
 		);
 
 -- Themes
 CREATE TABLE MO_Themes (
-	ACMD_THEME_UID  VARCHAR(32)  NOT NULL, -- 숙박테마UID
-	ACMD_UID        VARCHAR(32)  NOT NULL, -- 숙박UID
+	ACMD_THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
 	ACMD_THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
 	ACMD_THEME_IMG  VARCHAR(255) NULL      -- 숙박테마이미지
 );
@@ -117,13 +117,12 @@ ALTER TABLE MO_Themes
 	ADD
 		CONSTRAINT PK_MO_Themes -- Themes 기본키
 		PRIMARY KEY (
-			ACMD_THEME_UID, -- 숙박테마UID
-			ACMD_UID        -- 숙박UID
+			ACMD_THEME_ID -- 숙박테마ID
 		);
 
 -- Special Facilities
 CREATE TABLE MO_SpecialFacilities (
-	ACMD_UID          VARCHAR(32)   NOT NULL, -- 숙박UID
+	SPECIAL_FCLT_ID   VARCHAR(40)   NOT NULL, -- 특수숙박시설ID
 	SPECIAL_FCLT_NAME VARCHAR(100)  NULL,     -- 특수숙박시설명
 	SPECIAL_FCLT_DESC VARCHAR(1000) NULL      -- 특수숙박시설설명
 );
@@ -133,23 +132,25 @@ ALTER TABLE MO_SpecialFacilities
 	ADD
 		CONSTRAINT PK_MO_SpecialFacilities -- Special Facilities 기본키
 		PRIMARY KEY (
-			ACMD_UID -- 숙박UID
+			SPECIAL_FCLT_ID -- 특수숙박시설ID
 		);
 
 -- Accommodation Images
-CREATE TABLE MO_AccommodationImages (
+CREATE TABLE MO_AcmdImages (
 	ACMD_UID  VARCHAR(32)  NOT NULL, -- 숙박UID
+	IMG_UID   VARCHAR(32)  NOT NULL, -- 이미지UID
 	IMG_URL   VARCHAR(255) NULL,     -- 이미지URL
 	IMG_TITLE VARCHAR(100) NULL,     -- 이미지제목
 	IMG_NO    INTEGER      NULL      -- 이미지번호
 );
 
 -- Accommodation Images
-ALTER TABLE MO_AccommodationImages
+ALTER TABLE MO_AcmdImages
 	ADD
-		CONSTRAINT PK_MO_AccommodationImages -- Accommodation Images 기본키
+		CONSTRAINT PK_MO_AcmdImages -- Accommodation Images 기본키
 		PRIMARY KEY (
-			ACMD_UID -- 숙박UID
+			ACMD_UID, -- 숙박UID
+			IMG_UID   -- 이미지UID
 		);
 
 -- Extra Options
@@ -194,7 +195,7 @@ ALTER TABLE MO_Policies
 
 -- Cancel Policy
 CREATE TABLE MO_CancelPolicy (
-	COL              VARCHAR(32)   NOT NULL, -- 취소정책UID
+	CANCEL_PLCY_UID  VARCHAR(32)   NOT NULL, -- 취소정책UID
 	CANCEL_PLCY_NAME VARCHAR(100)  NULL,     -- 취소정책명
 	CANCEL_PLCY_DESC VARCHAR(1000) NULL      -- 취소정책설명
 );
@@ -204,12 +205,12 @@ ALTER TABLE MO_CancelPolicy
 	ADD
 		CONSTRAINT PK_MO_CancelPolicy -- Cancel Policy 기본키
 		PRIMARY KEY (
-			COL -- 취소정책UID
+			CANCEL_PLCY_UID -- 취소정책UID
 		);
 
 -- Policy Options
 CREATE TABLE MO_PolicyOptions (
-	COL3          VARCHAR(32)   NOT NULL, -- 정책옵션UID
+	PLCY_OPT_UID  VARCHAR(32)   NOT NULL, -- 정책옵션UID
 	PLCY_OPT_NAME VARCHAR(100)  NULL,     -- 정책옵션명
 	PLCY_OPT_DESC VARCHAR(1000) NULL      -- 정책옵션설명
 );
@@ -219,7 +220,7 @@ ALTER TABLE MO_PolicyOptions
 	ADD
 		CONSTRAINT PK_MO_PolicyOptions -- Policy Options 기본키
 		PRIMARY KEY (
-			COL3 -- 정책옵션UID
+			PLCY_OPT_UID -- 정책옵션UID
 		);
 
 -- Reviews
@@ -302,18 +303,18 @@ ALTER TABLE MO_Amenities
 		);
 
 -- Accommodation Facilities Relation
-CREATE TABLE MO_AccommodationFacilitiesRel (
+CREATE TABLE MO_AcmdFacilitiesRel (
 	ACMD_UID VARCHAR(32) NOT NULL, -- 숙박UID
-	FCLT_UID VARCHAR(32) NOT NULL  -- 숙박시설UID
+	FCLT_ID  VARCHAR(40) NOT NULL  -- 숙박시설ID
 );
 
 -- Accommodation Facilities Relation
-ALTER TABLE MO_AccommodationFacilitiesRel
+ALTER TABLE MO_AcmdFacilitiesRel
 	ADD
-		CONSTRAINT PK_MO_AccommodationFacilitiesRel -- Accommodation Facilities Relation 기본키
+		CONSTRAINT PK_MO_AcmdFacilitiesRel -- Accommodation Facilities Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID, -- 숙박UID
-			FCLT_UID  -- 숙박시설UID
+			FCLT_ID   -- 숙박시설ID
 		);
 
 -- Room Amenities
@@ -369,15 +370,15 @@ ALTER TABLE MO_DfltRoomPrice
 		);
 
 -- Accomodation PolicyOption Relation
-CREATE TABLE MO_AccomodationPolicyOptionRel (
+CREATE TABLE MO_AcmdPolicyOptionRel (
 	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙박UID
 	PLCY_OPT_UID VARCHAR(32) NOT NULL  -- 정책옵션UID
 );
 
 -- Accomodation PolicyOption Relation
-ALTER TABLE MO_AccomodationPolicyOptionRel
+ALTER TABLE MO_AcmdPolicyOptionRel
 	ADD
-		CONSTRAINT PK_MO_AccomodationPolicyOptionRel -- Accomodation PolicyOption Relation 기본키
+		CONSTRAINT PK_MO_AcmdPolicyOptionRel -- Accomodation PolicyOption Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID,     -- 숙박UID
 			PLCY_OPT_UID  -- 정책옵션UID
@@ -655,407 +656,80 @@ ALTER TABLE MO_ActivityPolicy
 
 -- User Info
 CREATE TABLE MO_UserInfo (
-	USER_ID              VARCHAR(40)  NULL, -- 사용자ID
-	USER_NAME            VARCHAR(100) NULL, -- 사용자명
-	PASSWORD             VARCHAR(512) NULL, -- 비밀번호
-	PROFILE_IMG_URL      VARCHAR(255) NULL, -- 프로필이미지URL
-	PASSWORD_ERROR_COUNT VARCHAR(10)  NULL, -- 비밀번호오류횟수
-	LAST_LOGIN_DTTM      VARCHAR(20)  NULL, -- 마지막로그인일시
-	LOCK_YN              VARCHAR(1)   NULL  -- 잠금여부
+	USER_ID              VARCHAR(40)  NOT NULL, -- 사용자ID
+	USER_NAME            VARCHAR(100) NULL,     -- 사용자명
+	PASSWORD             VARCHAR(512) NULL,     -- 비밀번호
+	PROFILE_IMG_URL      VARCHAR(255) NULL,     -- 프로필이미지URL
+	PASSWORD_ERROR_COUNT VARCHAR(10)  NULL,     -- 비밀번호오류횟수
+	LOCK_YN              VARCHAR(1)   NULL,     -- 잠금여부
+	SIGNUP_DTTM          VARCHAR(20)  NULL,     -- 가입일시
+	LAST_LOGIN_DTTM      VARCHAR(20)  NULL      -- 마지막로그인일시
 );
 
--- Accommodation
-ALTER TABLE MO_Accommodation
+-- User Info
+ALTER TABLE MO_UserInfo
 	ADD
-		CONSTRAINT FK_MO_NationCity_TO_MO_Accommodation -- NationCity -> Accommodation
-		FOREIGN KEY (
-			CITY_UID -- 도시UID
-		)
-		REFERENCES MO_NationCity ( -- NationCity
-			CITY_UID -- 도시UID
+		CONSTRAINT PK_MO_UserInfo -- User Info 기본키
+		PRIMARY KEY (
+			USER_ID -- 사용자ID
 		);
 
--- Accommodation
-ALTER TABLE MO_Accommodation
+-- Accommodation Themes Relation
+CREATE TABLE MO_AcmdThemesRel (
+	ACMD_UID      VARCHAR(32) NOT NULL, -- 숙박UID
+	ACMD_THEME_ID VARCHAR(40) NOT NULL  -- 숙박테마ID
+);
+
+-- Accommodation Themes Relation
+ALTER TABLE MO_AcmdThemesRel
 	ADD
-		CONSTRAINT FK_MO_Currency_TO_MO_Accommodation -- Currency -> Accommodation
-		FOREIGN KEY (
-			CRC_NATION_CD -- 통화국가코드
-		)
-		REFERENCES MO_Currency ( -- Currency
-			CRC_NTL_CD -- 통화국가코드
+		CONSTRAINT PK_MO_AcmdThemesRel -- Accommodation Themes Relation 기본키
+		PRIMARY KEY (
+			ACMD_UID,      -- 숙박UID
+			ACMD_THEME_ID  -- 숙박테마ID
 		);
 
--- Accommodation
-ALTER TABLE MO_Accommodation
+-- Accommodation Special Facilities Relation
+CREATE TABLE MO_AcmdSpecialFacilitiesRel (
+	SPECIAL_FCLT_ID VARCHAR(40) NOT NULL, -- 특수숙박시설ID
+	ACMD_UID        VARCHAR(32) NOT NULL  -- 숙박UID
+);
+
+-- Accommodation Special Facilities Relation
+ALTER TABLE MO_AcmdSpecialFacilitiesRel
 	ADD
-		CONSTRAINT FK_MO_CancelPolicy_TO_MO_Accommodation -- Cancel Policy -> Accommodation
-		FOREIGN KEY (
-			CANCEL_PLCY_UID -- 취소정책UID
-		)
-		REFERENCES MO_CancelPolicy ( -- Cancel Policy
-			COL -- 취소정책UID
+		CONSTRAINT PK_MO_AcmdSpecialFacilitiesRel -- Accommodation Special Facilities Relation 기본키
+		PRIMARY KEY (
+			SPECIAL_FCLT_ID, -- 특수숙박시설ID
+			ACMD_UID         -- 숙박UID
 		);
 
--- Recommend Spots
-ALTER TABLE MO_RecommendSpots
+-- Accommodation Types
+CREATE TABLE MO_AcmdTypes (
+	ACMD_TYPE_ID   VARCHAR(40)  NOT NULL, -- 숙박타입ID
+	ACMD_TYPE_NAME VARCHAR(100) NULL,     -- 숙박타입명
+	ACMD_TYPE_IMG  VARCHAR(255) NULL      -- 숙박타입이미지
+);
+
+-- Accommodation Types
+ALTER TABLE MO_AcmdTypes
 	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_RecommendSpots -- Accommodation -> Recommend Spots
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
+		CONSTRAINT PK_MO_AcmdTypes -- Accommodation Types 기본키
+		PRIMARY KEY (
+			ACMD_TYPE_ID -- 숙박타입ID
 		);
 
--- Themes
-ALTER TABLE MO_Themes
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_Themes -- Accommodation -> Themes
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
+-- Accommodation Types Relation
+CREATE TABLE MO_AcmdTypesRel (
+	ACMD_TYPE_ID VARCHAR(40) NOT NULL, -- 숙박타입ID
+	ACMD_UID     VARCHAR(32) NOT NULL  -- 숙박UID
+);
 
--- Special Facilities
-ALTER TABLE MO_SpecialFacilities
+-- Accommodation Types Relation
+ALTER TABLE MO_AcmdTypesRel
 	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_SpecialFacilities -- Accommodation -> Special Facilities
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Accommodation Images
-ALTER TABLE MO_AccommodationImages
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_AccommodationImages -- Accommodation -> Accommodation Images
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Extra Options
-ALTER TABLE MO_ExtraOptions
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_ExtraOptions -- Accommodation -> Extra Options
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Policies
-ALTER TABLE MO_Policies
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_Policies -- Accommodation -> Policies
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Reviews
-ALTER TABLE MO_Reviews
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_Reviews -- Accommodation -> Reviews
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Rooms
-ALTER TABLE MO_Rooms
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_Rooms -- Accommodation -> Rooms
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Rooms
-ALTER TABLE MO_Rooms
-	ADD
-		CONSTRAINT FK_MO_RoomTypes_TO_MO_Rooms -- Room Types -> Rooms
-		FOREIGN KEY (
-			ROOM_TYPE_UID -- 방타입UID
-		)
-		REFERENCES MO_RoomTypes ( -- Room Types
-			ROOM_TYPE_UID -- 방타입UID
-		);
-
--- Rooms
-ALTER TABLE MO_Rooms
-	ADD
-		CONSTRAINT FK_MO_SiteTypes_TO_MO_Rooms -- Site Types -> Rooms
-		FOREIGN KEY (
-			SITE_TYPE_UID -- 사이트타입UID
-		)
-		REFERENCES MO_SiteTypes ( -- Site Types
-			SITE_TYPE_UID -- 사이트타입UID
-		);
-
--- Room Images
-ALTER TABLE MO_RoomImages
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_RoomImages -- Rooms -> Room Images
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Accommodation Facilities Relation
-ALTER TABLE MO_AccommodationFacilitiesRel
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_AccommodationFacilitiesRel -- Accommodation -> Accommodation Facilities Relation
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Accommodation Facilities Relation
-ALTER TABLE MO_AccommodationFacilitiesRel
-	ADD
-		CONSTRAINT FK_MO_Facilities_TO_MO_AccommodationFacilitiesRel -- Facilities -> Accommodation Facilities Relation
-		FOREIGN KEY (
-			FCLT_UID -- 숙박시설UID
-		)
-		REFERENCES MO_Facilities ( -- Facilities
-			FCLT_UID -- 숙박시설UID
-		);
-
--- Room Amenities
-ALTER TABLE MO_RoomAmenities
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_RoomAmenities -- Rooms -> Room Amenities
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Room Amenities
-ALTER TABLE MO_RoomAmenities
-	ADD
-		CONSTRAINT FK_MO_Amenities_TO_MO_RoomAmenities -- Amenities -> Room Amenities
-		FOREIGN KEY (
-			AMNY_UID -- 편의시설UID
-		)
-		REFERENCES MO_Amenities ( -- Amenities
-			AMNY_UID -- 편의시설UID
-		);
-
--- Special Amenities
-ALTER TABLE MO_SpecialAmenities
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_SpecialAmenities -- Rooms -> Special Amenities
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Default Room Price
-ALTER TABLE MO_DfltRoomPrice
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_DfltRoomPrice -- Rooms -> Default Room Price
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Accomodation PolicyOption Relation
-ALTER TABLE MO_AccomodationPolicyOptionRel
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_AccomodationPolicyOptionRel -- Accommodation -> Accomodation PolicyOption Relation
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Accomodation PolicyOption Relation
-ALTER TABLE MO_AccomodationPolicyOptionRel
-	ADD
-		CONSTRAINT FK_MO_PolicyOptions_TO_MO_AccomodationPolicyOptionRel -- Policy Options -> Accomodation PolicyOption Relation
-		FOREIGN KEY (
-			PLCY_OPT_UID -- 정책옵션UID
-		)
-		REFERENCES MO_PolicyOptions ( -- Policy Options
-			COL3 -- 정책옵션UID
-		);
-
--- Discount Rates
-ALTER TABLE MO_DiscountRates
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_DiscountRates -- Rooms -> Discount Rates
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Season
-ALTER TABLE MO_Season
-	ADD
-		CONSTRAINT FK_MO_Accommodation_TO_MO_Season -- Accommodation -> Season
-		FOREIGN KEY (
-			ACMD_UID -- 숙박UID
-		)
-		REFERENCES MO_Accommodation ( -- Accommodation
-			ACMD_UID -- 숙박UID
-		);
-
--- Activity
-ALTER TABLE MO_Activity
-	ADD
-		CONSTRAINT FK_MO_NationCity_TO_MO_Activity -- NationCity -> Activity
-		FOREIGN KEY (
-			CITY_UID -- 도시UID
-		)
-		REFERENCES MO_NationCity ( -- NationCity
-			CITY_UID -- 도시UID
-		);
-
--- Activity
-ALTER TABLE MO_Activity
-	ADD
-		CONSTRAINT FK_MO_Currency_TO_MO_Activity -- Currency -> Activity
-		FOREIGN KEY (
-			CRC_NATION_CD -- 통화국가코드
-		)
-		REFERENCES MO_Currency ( -- Currency
-			CRC_NTL_CD -- 통화국가코드
-		);
-
--- Daily Room Info
-ALTER TABLE MO_DailyRoomInfo
-	ADD
-		CONSTRAINT FK_MO_Rooms_TO_MO_DailyRoomInfo -- Rooms -> Daily Room Info
-		FOREIGN KEY (
-			ROOM_UID -- 방UID
-		)
-		REFERENCES MO_Rooms ( -- Rooms
-			ROOM_UID -- 방UID
-		);
-
--- Activity Images
-ALTER TABLE MO_ActivityImages
-	ADD
-		CONSTRAINT FK_MO_Activity_TO_MO_ActivityImages -- Activity -> Activity Images
-		FOREIGN KEY (
-			ACTV_UID -- 액티비티UID
-		)
-		REFERENCES MO_Activity ( -- Activity
-			ACTV_UID -- 액티비티UID
-		);
-
--- Acvity Packages
-ALTER TABLE MO_ActivityPackages
-	ADD
-		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPackages -- Activity -> Acvity Packages
-		FOREIGN KEY (
-			ACTV_UID -- 액티비티UID
-		)
-		REFERENCES MO_Activity ( -- Activity
-			ACTV_UID -- 액티비티UID
-		);
-
--- Activity Package Desc
-ALTER TABLE MO_ActivityPackageDesc
-	ADD
-		CONSTRAINT FK_MO_ActivityPackages_TO_MO_ActivityPackageDesc -- Acvity Packages -> Activity Package Desc
-		FOREIGN KEY (
-			PACKAGE_UID -- 패키지UID
-		)
-		REFERENCES MO_ActivityPackages ( -- Acvity Packages
-			PACKAGE_UID -- 패키지UID
-		);
-
--- Package Operation Times
-ALTER TABLE MO_PackageOpTimes
-	ADD
-		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackageOpTimes -- Acvity Packages -> Package Operation Times
-		FOREIGN KEY (
-			PACKAGE_UID -- 패키지UID
-		)
-		REFERENCES MO_ActivityPackages ( -- Acvity Packages
-			PACKAGE_UID -- 패키지UID
-		);
-
--- Package Price
-ALTER TABLE MO_PackagePrice
-	ADD
-		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackagePrice -- Acvity Packages -> Package Price
-		FOREIGN KEY (
-			PACKAGE_UID -- 패키지UID
-		)
-		REFERENCES MO_ActivityPackages ( -- Acvity Packages
-			PACKAGE_UID -- 패키지UID
-		);
-
--- Package Discount
-ALTER TABLE MO_PackageDiscount
-	ADD
-		CONSTRAINT FK_MO_ActivityPackages_TO_MO_PackageDiscount -- Acvity Packages -> Package Discount
-		FOREIGN KEY (
-			PACKAGE_UID -- 패키지UID
-		)
-		REFERENCES MO_ActivityPackages ( -- Acvity Packages
-			PACKAGE_UID -- 패키지UID
-		);
-
--- Activity Information
-ALTER TABLE MO_ActivityInfo
-	ADD
-		CONSTRAINT FK_MO_Activity_TO_MO_ActivityInfo -- Activity -> Activity Information
-		FOREIGN KEY (
-			ACTV_UID -- 액티비티UID
-		)
-		REFERENCES MO_Activity ( -- Activity
-			ACTV_UID -- 액티비티UID
-		);
-
--- Activity Package Options
-ALTER TABLE MO_ActivityPackageOptions
-	ADD
-		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPackageOptions -- Activity -> Activity Package Options
-		FOREIGN KEY (
-			ACTV_UID -- 액티비티UID
-		)
-		REFERENCES MO_Activity ( -- Activity
-			ACTV_UID -- 액티비티UID
-		);
-
--- Activity Policy
-ALTER TABLE MO_ActivityPolicy
-	ADD
-		CONSTRAINT FK_MO_Activity_TO_MO_ActivityPolicy -- Activity -> Activity Policy
-		FOREIGN KEY (
-			ACTV_UID -- 액티비티UID
-		)
-		REFERENCES MO_Activity ( -- Activity
-			ACTV_UID -- 액티비티UID
+		CONSTRAINT PK_TABLE -- Accommodation Types Relation 기본키
+		PRIMARY KEY (
+			ACMD_TYPE_ID, -- 숙박타입ID
+			ACMD_UID      -- 숙박UID
 		);
