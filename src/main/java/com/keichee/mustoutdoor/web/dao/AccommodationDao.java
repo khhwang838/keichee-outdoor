@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.keichee.mustoutdoor.web.domain.acmd.AccommodationDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto;
 
 public interface AccommodationDao {
 

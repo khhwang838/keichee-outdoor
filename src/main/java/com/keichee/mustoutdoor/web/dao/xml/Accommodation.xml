@@ -3,7 +3,7 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.AccommodationDao">
 
-	<select id="selectAll" resultType="com.keichee.mustoutdoor.web.domain.acmd.AccommodationDto">
+	<select id="selectAll" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
 		SELECT 
 			ACMD_UID as acmdUid
 			, ACMD_NAME as acmdName
@@ -22,7 +22,7 @@
 		FROM MO_ACCOMMODATION WHERE USER_ID = #{userId}
 	</select>
 	
-	<select id="selectByUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.AccommodationDto">
+	<select id="selectByUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
 		SELECT 
 			ACMD_UID as acmdUid
 			, ACMD_NAME as acmdName
@@ -41,12 +41,12 @@
 		FROM MO_ACCOMMODATION WHERE ACMD_UID = #{acmdUid}
 	</select>
 	
-	<insert id="insertAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.AccommodationDto">
+	<insert id="insertAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
 		INSERT INTO MO_ACCOMMODATION (ACMD_UID, ACMD_NAME, ACMD_DESC, EMAIL, CONTACT, IMG_URL, ACMD_ADDR, ACMD_ALTD, ACMD_LGTD, DIRECTION, ACMD_AVG_SCORE, CITY_UID, CRC_NATION_CD, CANCEL_PLCY_UID)
 		VALUES (#{acmdUid}, #{acmdName}, #{acmdDesc}, #{email}, #{contact}, #{imgUrl}, #{acmdAddr}, #{acmdAltd}, #{acmdLgtd}, #{direction}, #{acmdAvgScore}, #{cityUid}, #{crcNationCd}, #{cancelPlcyUid})
 	</insert>
 	
-	<update id="updateAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.AccommodationDto">
+	<update id="updateAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
 		UPDATE MO_ACCOMMODATION SET 
 			ACMD_NAME = #{acmdName}
 			<if test="acmdDesc != null and acmdDesc.length() > 0">
