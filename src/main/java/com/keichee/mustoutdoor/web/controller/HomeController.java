@@ -29,7 +29,8 @@ public class HomeController {
 	public String home(Locale locale, Model model, HttpSession session) throws LoginException {
 		if (session != null && session.getAttribute(IConstants.SESSION_INFO.USER_ID) != null) {
 			logger.debug("Go to home page.");
-			return "home";
+			// call addAcmd.jsp
+			return "/acmd/addAcmd";
 		} else {
 			logger.debug("Go to login page.");
 			return "redirect:/";

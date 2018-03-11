@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.keichee.mustoutdoor.constants.IMessageCode;
 import com.keichee.mustoutdoor.domain.ErrorFormat;
 
 /**
@@ -23,6 +24,13 @@ public class DefaultExceptionHandler {
 	public ErrorFormat anyException(Throwable th) {
 		logger.error(th.getMessage(), th);
 		return new ErrorFormat(th);
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	@ResponseBody
+	public ErrorFormat loginException(Throwable th) {
+		logger.error(th.getMessage(), th);
+		return new ErrorFormat(th, IMessageCode.ERROR.E0001);
 	}
 
 }

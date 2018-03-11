@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +43,13 @@ public class AccommodationController {
 	@Autowired
 	private MessageSource messageSource;
 	
+	
+	@RequestMapping(value="/addAcmd", method = {RequestMethod.GET})
+	public void addAcmd(ModelMap map, HttpSession session) {
+		// call addAcmd.jsp
+		// 출력해야할 데이터가 있으면 map 에 넣어준다.
+		
+	}
 	@RequestMapping(value="/add", method = {RequestMethod.POST})
 	@ResponseBody
 	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {

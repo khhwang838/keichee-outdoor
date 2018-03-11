@@ -63,7 +63,6 @@ public class LoginController {
 		} else {
 			throw new LoginException("Incorrect username or password.");
 		}
-//		System.out.println(locale.getLanguage()); // => ko
 		return new Response<String>(IMessageCode.SUCCESS.S0001, "goto home");
 	}
 	

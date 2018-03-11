@@ -16,6 +16,7 @@ public interface IMessageCode {
 	}
 	
 	interface ERROR {
+		String E0000 = "E0000";	// catch하지 않은 예외 (unexpected exceptions)
 		String E0001 = "E0001";
 	}
 }

@@ -14,7 +14,11 @@ $(document).ready(function() {
       , success: function(data) {
     	  if ( data.errMsg != null ){
     		  // TODO : animate the message like github
-    		  $('#msg').html(data.errMsg);
+    		  if ( data.errCode == 'E0000') {
+    			  $('#msg').html('Server Error. Contact system administrator.');
+    		  } else {
+    			  $('#msg').html(data.errMsg);
+    		  }
     	  } else {
     		  console.log('assigning to /home');
     		  window.location.assign("/home");
