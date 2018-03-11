@@ -155,17 +155,38 @@ select {
 	background: url("/images/sidebar/wishlist.png") no-repeat;
 	background-size: 30px 30px;
 }
-
 .message-inbox-icon {
 	background: url("/images/sidebar/message-inbox.png") no-repeat;
 	background-size: 30px 30px;
 }
-
 .booking-box-icon {
 	background: url("/images/sidebar/booking-inbox.png") no-repeat;
 	background-size: 30px 30px;
 }
-
+.accommodation-icon {
+	background: url("/images/sidebar/outdoor-accommodation.png") no-repeat;
+	background-size: 30px 30px;
+}
+.calendar-icon {
+	background: url("/images/sidebar/calendar.png") no-repeat;
+	background-size: 30px 30px;
+}
+.activity-icon {
+	background: url("/images/sidebar/outdoor-activity.png") no-repeat;
+	background-size: 30px 30px;
+}
+.activity-box-icon {
+	background: url("/images/sidebar/outdoor-activity.png") no-repeat;
+	background-size: 30px 30px;
+}
+.statistic-icon {
+	background: url("/images/sidebar/statistics.png") no-repeat;
+	background-size: 30px 30px;
+}
+.booking-status-icon {
+	background: url("/images/sidebar/booking-status.png") no-repeat;
+	background-size: 30px 30px;
+}
 /* content styles ( Right Side )*/
 #content {
 	border: 1px solid;
