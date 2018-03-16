@@ -54,9 +54,10 @@ body {
 }
 
 .account-info {
-	float: right;
-	margin-right: 70px;
 	margin-top: 15px;
+	width: 380px;
+	position: absolute;
+	right: 0px;
 }
 
 .account-info div {
@@ -92,9 +93,10 @@ select {
 
 /* sidebar styles ( Left Side )*/
 #sidebar {
-	float: left;
 	width: 250px;
 	margin: 20px 5px 20px 20px;
+	position: absolute;
+    left: 0;
 }
 
 .profile {
@@ -190,6 +192,7 @@ select {
 /* content styles ( Right Side )*/
 #content {
 	border: 1px solid;
-	float: left;
 	margin: 20px 20px 20px 5px;
+	position: absolute;
+    left: 280px;
 }

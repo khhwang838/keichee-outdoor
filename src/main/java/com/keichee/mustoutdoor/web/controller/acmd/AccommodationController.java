@@ -50,6 +50,12 @@ public class AccommodationController {
 		// 출력해야할 데이터가 있으면 map 에 넣어준다.
 		
 	}
+	@RequestMapping(value="/myAcmd", method = {RequestMethod.GET})
+	public void myAcmd(ModelMap map, HttpSession session) {
+		// call myAcmd.jsp
+		// 출력해야할 데이터가 있으면 map 에 넣어준다.
+		
+	}
 	@RequestMapping(value="/add", method = {RequestMethod.POST})
 	@ResponseBody
 	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {
