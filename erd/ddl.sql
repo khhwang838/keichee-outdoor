@@ -128,6 +128,7 @@ DROP TABLE MO_AcmdTypesRel;
 -- Accommodation
 CREATE TABLE MO_Accommodation (
 	ACMD_UID        VARCHAR(32)   NOT NULL, -- 숙박UID
+	USER_ID         VARCHAR(40)   NOT NULL, -- 사용자ID
 	ACMD_NAME       VARCHAR(100)  NULL,     -- 숙박명
 	ACMD_DESC       VARCHAR(1000) NULL,     -- 숙박설명
 	EMAIL           VARCHAR(100)  NULL,     -- 이메일
@@ -148,7 +149,8 @@ ALTER TABLE MO_Accommodation
 	ADD
 		CONSTRAINT PK_MO_Accommodation -- Accommodation 기본키
 		PRIMARY KEY (
-			ACMD_UID -- 숙박UID
+			ACMD_UID, -- 숙박UID
+			USER_ID   -- 사용자ID
 		);
 
 -- Currency
@@ -186,8 +188,9 @@ ALTER TABLE MO_NationCity
 
 -- Recommend Spots
 CREATE TABLE MO_RecommendSpots (
-	ACMD_UID           VARCHAR(32)   NOT NULL, -- 숙박UID
 	RCMD_PLACE_UID     VARCHAR(32)   NOT NULL, -- 추천장소UID
+	ACMD_UID           VARCHAR(32)   NOT NULL, -- 숙박UID
+	USER_ID            VARCHAR(40)   NOT NULL, -- 사용자ID
 	RCMD_PLACE_NAME    VARCHAR(100)  NULL,     -- 추천장소명
 	RCMD_PLACE_DESC    VARCHAR(1000) NULL,     -- 추천장소설명
 	RCMD_PLACE_IMG_URL VARCHAR(255)  NULL      -- 추천장소이미지URL
@@ -198,8 +201,9 @@ ALTER TABLE MO_RecommendSpots
 	ADD
 		CONSTRAINT PK_MO_RecommendSpots -- Recommend Spots 기본키
 		PRIMARY KEY (
+			RCMD_PLACE_UID, -- 추천장소UID
 			ACMD_UID,       -- 숙박UID
-			RCMD_PLACE_UID  -- 추천장소UID
+			USER_ID         -- 사용자ID
 		);
 
 -- Room Types
@@ -264,8 +268,9 @@ ALTER TABLE MO_SpecialFacilities
 
 -- Accommodation Images
 CREATE TABLE MO_AcmdImages (
-	ACMD_UID  VARCHAR(32)  NOT NULL, -- 숙박UID
 	IMG_UID   VARCHAR(32)  NOT NULL, -- 이미지UID
+	ACMD_UID  VARCHAR(32)  NOT NULL, -- 숙박UID
+	USER_ID   VARCHAR(40)  NOT NULL, -- 사용자ID
 	IMG_URL   VARCHAR(255) NULL,     -- 이미지URL
 	IMG_TITLE VARCHAR(100) NULL,     -- 이미지제목
 	IMG_NO    INTEGER      NULL      -- 이미지번호
@@ -276,14 +281,16 @@ ALTER TABLE MO_AcmdImages
 	ADD
 		CONSTRAINT PK_MO_AcmdImages -- Accommodation Images 기본키
 		PRIMARY KEY (
+			IMG_UID,  -- 이미지UID
 			ACMD_UID, -- 숙박UID
-			IMG_UID   -- 이미지UID
+			USER_ID   -- 사용자ID
 		);
 
 -- Extra Options
 CREATE TABLE MO_ExtraOptions (
-	ACMD_UID        VARCHAR(32)   NOT NULL, -- 숙박UID
 	EXTRA_OPT_UID   VARCHAR(32)   NOT NULL, -- 추가옵션UID
+	ACMD_UID        VARCHAR(32)   NOT NULL, -- 숙박UID
+	USER_ID         VARCHAR(40)   NOT NULL, -- 사용자ID
 	EXTRA_OPT_NAME  VARCHAR(100)  NULL,     -- 추가옵션명
 	EXTRA_OPT_DESC  VARCHAR(1000) NULL,     -- 추가옵션설명
 	EXTRA_OPT_PRICE VARCHAR(10)   NULL,     -- 추가옵션가격
@@ -296,13 +303,15 @@ ALTER TABLE MO_ExtraOptions
 	ADD
 		CONSTRAINT PK_MO_ExtraOptions -- Extra Options 기본키
 		PRIMARY KEY (
+			EXTRA_OPT_UID, -- 추가옵션UID
 			ACMD_UID,      -- 숙박UID
-			EXTRA_OPT_UID  -- 추가옵션UID
+			USER_ID        -- 사용자ID
 		);
 
 -- Policies
 CREATE TABLE MO_Policies (
 	ACMD_UID           VARCHAR(32)   NOT NULL, -- 숙박UID
+	USER_ID            VARCHAR(40)   NOT NULL, -- 사용자ID
 	CHKIN_TIME         VARCHAR(5)    NULL,     -- 체크인시간
 	CHKOUT_TIME        VARCHAR(5)    NULL,     -- 체크아웃시간
 	IMMDT_CFRM_YN      VARCHAR(1)    NULL,     -- 즉석확인여부
@@ -317,7 +326,8 @@ ALTER TABLE MO_Policies
 	ADD
 		CONSTRAINT PK_MO_Policies -- Policies 기본키
 		PRIMARY KEY (
-			ACMD_UID -- 숙박UID
+			ACMD_UID, -- 숙박UID
+			USER_ID   -- 사용자ID
 		);
 
 -- Cancel Policy
@@ -354,8 +364,8 @@ ALTER TABLE MO_PolicyOptions
 CREATE TABLE MO_Reviews (
 	REVIEW_UID   VARCHAR(32)   NOT NULL, -- 리뷰UID
 	ACMD_UID     VARCHAR(32)   NOT NULL, -- 숙박UID
+	USER_ID      VARCHAR(40)   NOT NULL, -- 사용자ID
 	REVIEW_CTNT  VARCHAR(1000) NULL,     -- 리뷰내용
-	USER_ID      VARCHAR(40)   NULL,     -- 사용자ID
 	WRITE_DTTM   VARCHAR(20)   NULL,     -- 작성일시
 	REVIEW_SCORE VARCHAR(3)    NULL      -- 리뷰점수
 );
@@ -366,7 +376,8 @@ ALTER TABLE MO_Reviews
 		CONSTRAINT PK_MO_Reviews -- Reviews 기본키
 		PRIMARY KEY (
 			REVIEW_UID, -- 리뷰UID
-			ACMD_UID    -- 숙박UID
+			ACMD_UID,   -- 숙박UID
+			USER_ID     -- 사용자ID
 		);
 
 -- Rooms
@@ -386,7 +397,8 @@ CREATE TABLE MO_Rooms (
 	BED_CNT            VARCHAR(10)   NULL,     -- 침대개수
 	ROOM_SIZE          INTEGER       NULL,     -- 방사이즈
 	ACMD_UID           VARCHAR(32)   NULL,     -- 숙박UID
-	ROOM_TYPE_UID      VARCHAR(32)   NULL      -- 방타입UID
+	ROOM_TYPE_UID      VARCHAR(32)   NULL,     -- 방타입UID
+	USER_ID            VARCHAR(40)   NULL      -- 사용자ID
 );
 
 -- Rooms
@@ -432,7 +444,8 @@ ALTER TABLE MO_Amenities
 -- Accommodation Facilities Relation
 CREATE TABLE MO_AcmdFacilitiesRel (
 	ACMD_UID VARCHAR(32) NOT NULL, -- 숙박UID
-	FCLT_ID  VARCHAR(40) NOT NULL  -- 숙박시설ID
+	FCLT_ID  VARCHAR(40) NOT NULL, -- 숙박시설ID
+	USER_ID  VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accommodation Facilities Relation
@@ -441,7 +454,8 @@ ALTER TABLE MO_AcmdFacilitiesRel
 		CONSTRAINT PK_MO_AcmdFacilitiesRel -- Accommodation Facilities Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID, -- 숙박UID
-			FCLT_ID   -- 숙박시설ID
+			FCLT_ID,  -- 숙박시설ID
+			USER_ID   -- 사용자ID
 		);
 
 -- Room Amenities
@@ -499,7 +513,8 @@ ALTER TABLE MO_DfltRoomPrice
 -- Accomodation PolicyOption Relation
 CREATE TABLE MO_AcmdPolicyOptionRel (
 	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙박UID
-	PLCY_OPT_UID VARCHAR(32) NOT NULL  -- 정책옵션UID
+	PLCY_OPT_UID VARCHAR(32) NOT NULL, -- 정책옵션UID
+	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accomodation PolicyOption Relation
@@ -508,7 +523,8 @@ ALTER TABLE MO_AcmdPolicyOptionRel
 		CONSTRAINT PK_MO_AcmdPolicyOptionRel -- Accomodation PolicyOption Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID,     -- 숙박UID
-			PLCY_OPT_UID  -- 정책옵션UID
+			PLCY_OPT_UID, -- 정책옵션UID
+			USER_ID       -- 사용자ID
 		);
 
 -- Site Types
@@ -546,8 +562,9 @@ ALTER TABLE MO_DiscountRates
 
 -- Season
 CREATE TABLE MO_Season (
-	ACMD_UID          VARCHAR(32) NOT NULL, -- 숙박UID
 	SEASON_CD         VARCHAR(2)  NOT NULL, -- 시즌코드
+	ACMD_UID          VARCHAR(32) NOT NULL, -- 숙박UID
+	USER_ID           VARCHAR(40) NOT NULL, -- 사용자ID
 	SEASON_START_DATE VARCHAR(10) NULL,     -- 시즌시작일자
 	SEASON_END_DATE   VARCHAR(10) NULL      -- 시즌종료일자
 );
@@ -557,8 +574,9 @@ ALTER TABLE MO_Season
 	ADD
 		CONSTRAINT PK_MO_Season -- Season 기본키
 		PRIMARY KEY (
+			SEASON_CD, -- 시즌코드
 			ACMD_UID,  -- 숙박UID
-			SEASON_CD  -- 시즌코드
+			USER_ID    -- 사용자ID
 		);
 
 -- Activity
@@ -804,7 +822,8 @@ ALTER TABLE MO_UserInfo
 -- Accommodation Themes Relation
 CREATE TABLE MO_AcmdThemesRel (
 	ACMD_UID      VARCHAR(32) NOT NULL, -- 숙박UID
-	ACMD_THEME_ID VARCHAR(40) NOT NULL  -- 숙박테마ID
+	ACMD_THEME_ID VARCHAR(40) NOT NULL, -- 숙박테마ID
+	USER_ID       VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accommodation Themes Relation
@@ -813,13 +832,15 @@ ALTER TABLE MO_AcmdThemesRel
 		CONSTRAINT PK_MO_AcmdThemesRel -- Accommodation Themes Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID,      -- 숙박UID
-			ACMD_THEME_ID  -- 숙박테마ID
+			ACMD_THEME_ID, -- 숙박테마ID
+			USER_ID        -- 사용자ID
 		);
 
 -- Accommodation Special Facilities Relation
 CREATE TABLE MO_AcmdSpecialFacilitiesRel (
 	SPECIAL_FCLT_ID VARCHAR(40) NOT NULL, -- 특수숙박시설ID
-	ACMD_UID        VARCHAR(32) NOT NULL  -- 숙박UID
+	ACMD_UID        VARCHAR(32) NOT NULL, -- 숙박UID
+	USER_ID         VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accommodation Special Facilities Relation
@@ -828,7 +849,8 @@ ALTER TABLE MO_AcmdSpecialFacilitiesRel
 		CONSTRAINT PK_MO_AcmdSpecialFacilitiesRel -- Accommodation Special Facilities Relation 기본키
 		PRIMARY KEY (
 			SPECIAL_FCLT_ID, -- 특수숙박시설ID
-			ACMD_UID         -- 숙박UID
+			ACMD_UID,        -- 숙박UID
+			USER_ID          -- 사용자ID
 		);
 
 -- Accommodation Types
@@ -849,14 +871,16 @@ ALTER TABLE MO_AcmdTypes
 -- Accommodation Types Relation
 CREATE TABLE MO_AcmdTypesRel (
 	ACMD_TYPE_ID VARCHAR(40) NOT NULL, -- 숙박타입ID
-	ACMD_UID     VARCHAR(32) NOT NULL  -- 숙박UID
+	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙박UID
+	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accommodation Types Relation
 ALTER TABLE MO_AcmdTypesRel
 	ADD
-		CONSTRAINT PK_TABLE -- Accommodation Types Relation 기본키
+		CONSTRAINT PK_MO_AcmdTypesRel -- Accommodation Types Relation 기본키
 		PRIMARY KEY (
 			ACMD_TYPE_ID, -- 숙박타입ID
-			ACMD_UID      -- 숙박UID
+			ACMD_UID,     -- 숙박UID
+			USER_ID       -- 사용자ID
 		);
