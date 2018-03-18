@@ -1,4 +1,131 @@
 ﻿-- Accommodation
+DROP TABLE MO_Accommodation;
+
+-- Currency
+DROP TABLE MO_Currency;
+
+-- NationCity
+DROP TABLE MO_NationCity;
+
+-- Recommend Spots
+DROP TABLE MO_RecommendSpots;
+
+-- Room Types
+DROP TABLE MO_RoomTypes;
+
+-- Facilities
+DROP TABLE MO_Facilities;
+
+-- Themes
+DROP TABLE MO_Themes;
+
+-- Special Facilities
+DROP TABLE MO_SpecialFacilities;
+
+-- Accommodation Images
+DROP TABLE MO_AcmdImages;
+
+-- Extra Options
+DROP TABLE MO_ExtraOptions;
+
+-- Policies
+DROP TABLE MO_Policies;
+
+-- Cancel Policy
+DROP TABLE MO_CancelPolicy;
+
+-- Policy Options
+DROP TABLE MO_PolicyOptions;
+
+-- Reviews
+DROP TABLE MO_Reviews;
+
+-- Rooms
+DROP TABLE MO_Rooms;
+
+-- Room Images
+DROP TABLE MO_RoomImages;
+
+-- Amenities
+DROP TABLE MO_Amenities;
+
+-- Accommodation Facilities Relation
+DROP TABLE MO_AcmdFacilitiesRel;
+
+-- Room Amenities
+DROP TABLE MO_RoomAmenities;
+
+-- Special Amenities
+DROP TABLE MO_SpecialAmenities;
+
+-- Default Room Price
+DROP TABLE MO_DfltRoomPrice;
+
+-- Accomodation PolicyOption Relation
+DROP TABLE MO_AcmdPolicyOptionRel;
+
+-- Site Types
+DROP TABLE MO_SiteTypes;
+
+-- Discount Rates
+DROP TABLE MO_DiscountRates;
+
+-- Season
+DROP TABLE MO_Season;
+
+-- Activity
+DROP TABLE MO_Activity;
+
+-- Acvity Types
+DROP TABLE MO_ActivityTypes;
+
+-- Daily Room Info
+DROP TABLE MO_DailyRoomInfo;
+
+-- Activity Images
+DROP TABLE MO_ActivityImages;
+
+-- Acvity Packages
+DROP TABLE MO_ActivityPackages;
+
+-- Activity Package Desc
+DROP TABLE MO_ActivityPackageDesc;
+
+-- Package Operation Times
+DROP TABLE MO_PackageOpTimes;
+
+-- Package Price
+DROP TABLE MO_PackagePrice;
+
+-- Package Discount
+DROP TABLE MO_PackageDiscount;
+
+-- Activity Information
+DROP TABLE MO_ActivityInfo;
+
+-- Activity Package Options
+DROP TABLE MO_ActivityPackageOptions;
+
+-- Activity Policy
+DROP TABLE MO_ActivityPolicy;
+
+-- User Info
+DROP TABLE MO_UserInfo;
+
+-- Accommodation Themes Relation
+DROP TABLE MO_AcmdThemesRel;
+
+-- Accommodation Special Facilities Relation
+DROP TABLE MO_AcmdSpecialFacilitiesRel;
+
+-- Accommodation Types
+DROP TABLE MO_AcmdTypes;
+
+-- Accommodation Types Relation
+DROP TABLE MO_AcmdTypesRel;
+
+
+-- Accommodation
 CREATE TABLE MO_Accommodation (
 	ACMD_UID        VARCHAR(32)   NOT NULL, -- 숙박UID
 	ACMD_NAME       VARCHAR(100)  NULL,     -- 숙박명
