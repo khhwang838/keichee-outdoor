@@ -11,6 +11,7 @@
 <script src="/js/3rd-party/bootstrap-3.3.7.min.js"></script>
 <script src="/js/3rd-party/jquery.timepicker.min.js"></script>
 
+<link rel="stylesheet" href="/css/common.css" />
 <link rel="stylesheet" href="/css/acmd/my.css" />
 <script src="/js/common/common.js"></script>
 <script src="/js/acmd/myAcmd.js"></script>
@@ -29,26 +30,12 @@
 		</div>
 
 		<div class="title">
-			<div class="title-icon inline"></div>
-			<h1 class="inline"></h1>
+			<div class="title-icon inline m-r-20"></div>
+			<h1 class="inline">My Accommodation</h1>
 		</div>
-
+		
 		<div class="container">
-			<div class="title-icon inline m-r-20">&nbsp;</div>
-			<h3 class="inline">My Accommodation</h3>
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#">General Info</a></li>
-				<li><a href="#">Location Settings</a></li>
-				<li><a href="#">Accommodation Details</a></li>
-				<li><a href="#">Accommodation Gallery</a></li>
-				<li><a href="#">Other Options</a></li>
-				<li><a href="#">Policy</a></li>
-			</ul>
-			<br>
-
-			<div class="input-data">
-				<!-- js이용하여 탭 메뉴 별로 html include -->
-			</div>
+			
 		</div>
 
 	</div>

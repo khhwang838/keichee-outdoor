@@ -1,1 +1,23 @@
 @charset "UTF-8";
+
+.mo-tooltip {
+	background: url("/images/help.png") no-repeat;
+	background-size: 15px 15px;
+	width: 15px;
+	height: 15px;
+	vertical-align:middle;
+}
+.t-small {
+	font-size: 13px;
+}
+.menu-path { margin: 0px 20px;}
+
+div.title { margin: 20px;}
+div.title>h1 { vertical-align:middle;}
+.title-icon {
+	background: url("/images/title/outdoor-accommodation.png") no-repeat;
+	background-size: 50px 50px;
+	width: 50px;
+	height: 50px;
+	vertical-align:middle;
+}
