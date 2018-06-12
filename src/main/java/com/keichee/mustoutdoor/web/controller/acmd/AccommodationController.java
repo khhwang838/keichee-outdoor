@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +29,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.keichee.mustoutdoor.config.FileConfig;
 import com.keichee.mustoutdoor.constants.IMessageCode;
+import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.service.AccommodationService;
-import com.keichee.utils.GuidUtils;
 
 @Controller
 @RequestMapping(value="/acmd", method = {RequestMethod.GET, RequestMethod.POST})
@@ -44,7 +47,7 @@ public class AccommodationController {
 	private MessageSource messageSource;
 	
 	
-	@RequestMapping(value="/addAcmd", method = {RequestMethod.GET})
+	@GetMapping("/addAcmd")
 	public void addAcmd(ModelMap map, HttpSession session) {
 		// call addAcmd.jsp
 		// 출력해야할 데이터가 있으면 map 에 넣어준다.
@@ -56,7 +59,7 @@ public class AccommodationController {
 		// 출력해야할 데이터가 있으면 map 에 넣어준다.
 		
 	}
-	@RequestMapping(value="/add", method = {RequestMethod.POST})
+	@PostMapping("/add")
 	@ResponseBody
 	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {
 		
@@ -90,7 +93,7 @@ public class AccommodationController {
 		return resp;
 	}
 	
-	@RequestMapping(value="/delete", method = {RequestMethod.POST})
+	@DeleteMapping(value="/delete")
 	@ResponseBody
 	public Response deleteInfo() {
 		
@@ -110,7 +113,7 @@ public class AccommodationController {
 		return resp;
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@PostMapping("/upload")
 	@ResponseBody
 	public Object uploadFile(MultipartHttpServletRequest request) {
 		String acmdUid = request.getParameter("acmdUid");

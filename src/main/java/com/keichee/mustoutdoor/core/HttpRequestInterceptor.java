@@ -17,7 +17,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.constants.IConstants;
-import com.keichee.utils.GuidUtils;
+import com.keichee.mustoutdoor.utils.GuidUtils;
 
 public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
 

@@ -134,7 +134,7 @@ function addAcmdInit() {
 		let rsTitles = $('#content-l-settings .rs-item input[name="rsTitle"]');
 		let rsDescs = $('#content-l-settings .rs-item textarea[name="rsDesc"]');
 		
-		for ( let idx = 0; idx < rsTitles.length; idx++){
+		for ( var idx = 0; idx < rsTitles.length; idx++){
 			let title = rsTitles[idx].value;
 			let desc = rsDescs[idx].value;
 			

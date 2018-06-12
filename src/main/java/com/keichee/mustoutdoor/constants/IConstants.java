@@ -16,10 +16,11 @@ public interface IConstants {
 	}
 	
 	interface SESSION_INFO{
+		String LOCALE = "locale";
+		String ROLE_ID = "roleId";
 		String GUID = "guid";
 		String USER_ID = "userId";
-		String ROLE_ID = "roleId";
-		String LOCALE = "locale";
+		String USER_NAME = "userName";
 		String PASSWORD = "password";
 	}
 	

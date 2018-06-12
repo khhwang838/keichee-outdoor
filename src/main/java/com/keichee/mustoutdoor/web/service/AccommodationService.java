@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.dao.AccommodationDao;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto;
-import com.keichee.utils.GuidUtils;
 
 @Service
 public class AccommodationService {
