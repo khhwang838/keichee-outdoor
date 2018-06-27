@@ -8,14 +8,14 @@ import com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto;
 
 public interface AccommodationDao {
 
-	public int insertAcmd(AccommodationDto dto);
+	int insertAcmd(AccommodationDto dto);
 	
-	public int updateAcmd(AccommodationDto dto);
+	int updateAcmd(AccommodationDto dto);
 	
-	public int deleteByUid(@Param(value="acmdUid")String acmdUid);
+	int deleteByUid(@Param(value="acmdUid")String acmdUid);
 	
-	public List<AccommodationDto> selectAll();
+	List<AccommodationDto> selectAll();
 
-	public List<AccommodationDto> selectByUid(@Param(value="acmdUid")String acmdUid);
+	List<AccommodationDto> selectByUid(@Param(value="acmdUid")String acmdUid);
 	
 }

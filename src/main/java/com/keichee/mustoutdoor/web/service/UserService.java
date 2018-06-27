@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.web.controller.LoginController;
-import com.keichee.mustoutdoor.web.dao.UserDao;
+import com.keichee.mustoutdoor.web.dao.UserInfoDao;
 import com.keichee.mustoutdoor.web.domain.User;
 
 @Service
@@ -16,7 +16,7 @@ public class UserService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	UserDao userDao;
+    UserInfoDao userInfoDao;
 	
 	public User validateUser(User userInfo) {
 		logger.debug("Validating user, {}", userInfo.getUserId());
@@ -26,7 +26,7 @@ public class UserService {
 
 	public User getUser(User userInfo) {
 		if ( userInfo.getUserId() != null && !userInfo.getUserId().isEmpty() ) {
-			return userDao.selectUserById(userInfo.getUserId());
+			return userInfoDao.selectUserById(userInfo.getUserId());
 		}
 		throw new RuntimeException("Invalid argument.");
 	}
@@ -34,21 +34,21 @@ public class UserService {
 	public int addUser(User userInfo) {
 		if ( userInfo.getUserId() != null ) {
 			userInfo.setSignUpDttm(DateUtils.instance.getCurrentDttmAsUTC());
-			return userDao.insertUser(userInfo);
+			return userInfoDao.insertUser(userInfo);
 		}
 		throw new RuntimeException("Invalid argument.");
 	}
 
 	public int editUser(User userInfo) {
 		if ( userInfo.getUserId() != null ) {
-			return userDao.updateUser(userInfo);
+			return userInfoDao.updateUser(userInfo);
 		}
 		throw new RuntimeException("Invalid argument.");
 	}
 
 	public int delUser(User userInfo) {
 		if ( userInfo.getUserId() != null ) {
-			return userDao.deleteUserById(userInfo.getUserId());
+			return userInfoDao.deleteUserById(userInfo.getUserId());
 		}
 		throw new RuntimeException("Invalid argument.");
 	}
