@@ -1,4 +1,4 @@
 package com.keichee.mustoutdoor.web.dao;
 
-public interface AcitivyPackagesDao {
+public interface ActivityPackagesDao {
 }

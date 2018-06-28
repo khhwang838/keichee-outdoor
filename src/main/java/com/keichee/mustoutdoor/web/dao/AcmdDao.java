@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 
-public interface AccommodationDao {
+public interface AcmdDao {
 
 	int insertAcmd(AcmdDto dto);
 	

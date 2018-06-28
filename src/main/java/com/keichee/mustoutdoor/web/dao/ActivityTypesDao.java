@@ -1,18 +1,18 @@
 package com.keichee.mustoutdoor.web.dao;
 
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import com.keichee.mustoutdoor.web.domain.actv.dto.ActivityTypesDto;
 
-public interface AcitivityTypesDao {
+public interface ActivityTypesDao {
 
-    int insertAcmd(AcitivityTypesDto dto);
+    int insertAcmd(ActivityTypesDto dto);
 
-    int updateAcmd(AcitivityTypesDto dto);
+    int updateAcmd(ActivityTypesDto dto);
 
     int deleteByUid(@Param(value="acmdUid")String acmdUid);
 
-    List<AcitivityTypesDto> selectAll();
+    List<ActivityTypesDto> selectAll();
 
-    List<AcitivityTypesDto> selectByUid(@Param(value="acmdUid")String acmdUid);
+    List<ActivityTypesDto> selectByUid(@Param(value="acmdUid")String acmdUid);
 }

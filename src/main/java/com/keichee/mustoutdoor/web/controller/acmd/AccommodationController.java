@@ -32,7 +32,7 @@ import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
-import com.keichee.mustoutdoor.web.service.AccommodationService;
+import com.keichee.mustoutdoor.web.service.AcmdService;
 
 @RestController
 @RequestMapping(value = "/acmd")
@@ -41,7 +41,7 @@ public class AccommodationController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	private AccommodationService acmdService;
+	private AcmdService acmdService;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
