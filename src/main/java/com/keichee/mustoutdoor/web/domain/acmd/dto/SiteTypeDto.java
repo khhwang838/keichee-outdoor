@@ -1,6 +1,6 @@
 package com.keichee.mustoutdoor.web.domain.acmd.dto;
 
-public class SiteTypesDto {
+public class SiteTypeDto {
 
 	private String siteTypeUid;
 	private String siteTypeName;

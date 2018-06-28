@@ -12,7 +12,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 /**
  * 날짜 관련 유틸
- * @author Kihyun
+ * @author Keichee
  */
 public class DateUtils {
 

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.AccommodationDao">
 
-	<select id="selectAll" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
+	<select id="selectAllByUserId" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AccommodationDto">
 		SELECT 
 			ACMD_UID as acmdUid
 			, ACMD_NAME as acmdName

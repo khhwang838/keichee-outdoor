@@ -9,34 +9,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.config.FileConfig;
 import com.keichee.mustoutdoor.constants.IMessageCode;
 import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.service.AccommodationService;
 
-@Controller
-@RequestMapping(value="/acmd", method = {RequestMethod.GET, RequestMethod.POST})
+@RestController
+@RequestMapping(value = "/acmd")
 public class AccommodationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -45,77 +44,83 @@ public class AccommodationController {
 	private AccommodationService acmdService;
 	@Autowired
 	private MessageSource messageSource;
-	
-	
-	@GetMapping("/addAcmd")
-	public void addAcmd(ModelMap map, HttpSession session) {
-		// call addAcmd.jsp
-		// 출력해야할 데이터가 있으면 map 에 넣어준다.
-		
-	}
-	@RequestMapping(value="/myAcmd", method = {RequestMethod.GET})
-	public void myAcmd(ModelMap map, HttpSession session) {
-		// call myAcmd.jsp
-		// 출력해야할 데이터가 있으면 map 에 넣어준다.
-		
-	}
+	@Autowired
+	private SessionInfo sessionInfo;
+
 	@PostMapping("/add")
-	@ResponseBody
 	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {
-		
-//		logger.debug("File name: {}", acmd.getFeaturedImage().getName());
-		String result = acmdService.add(acmd);
-		
-		Response resp;
-		if ( result != null ) {
-			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+		String userId = sessionInfo.getUserId();
+		String result = acmdService.add(acmd, userId);
+
+		Response<String> resp;
+		if (result != null) {
+			resp = new Response<>(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
 			List<String> respData = new ArrayList<>();
 			respData.add(result);
 			resp.setRespData(respData);
 		} else {
-			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+			resp = new Response<>(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
 		}
 		return resp;
 	}
-	
-	@RequestMapping(value="/update", method = {RequestMethod.POST})
-	@ResponseBody
+
+	@PatchMapping(value = "/update")
 	public Response updateInfo(@RequestBody UIAccommodation acmd, Locale locale) {
-		
-		
 		int result = acmdService.update(acmd);
 		Response resp;
-		if ( result > 0 ) {
-			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		if (result > 0) {
+			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
 		} else {
 			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
 		}
 		return resp;
 	}
-	
-	@DeleteMapping(value="/delete")
-	@ResponseBody
+
+	@SuppressWarnings("unchecked")
+	@GetMapping(value = "/detail/{acmdUid}")
+	public Response detailInfo(@PathVariable String acmdUid, Locale locale) {
+
+		AcmdDto acmdDetail = acmdService.getAcmd(acmdUid);
+		Response resp;
+		if ( acmdDetail != null ){
+			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+			List<AcmdDto> resultData = new ArrayList<>();
+			resultData.add(acmdDetail);
+			resp.setRespData(resultData);
+		} else {
+			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
+		return resp;
+	}
+
+	@SuppressWarnings("unchecked")
+	@GetMapping(value = "/list/{userId}")
+	public Response listInfo(@PathVariable String userId, Locale locale) {
+
+		List<AcmdDto> acmdList = acmdService.getAllAcmdList(userId);
+		
+		Response resp = new Response();
+		if ( acmdList != null && !acmdList.isEmpty() ){
+			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+			resp.setRespData(acmdList);
+		} else {
+			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
+		return resp;
+	}
+
+	@DeleteMapping(value = "/delete")
 	public Response deleteInfo() {
-		
-		
-		
+		// TODO : 삭제 로직 구현 (숙소업체 메인 정보를 제외한 정보들만)
 		Response resp = new Response();
 		return resp;
 	}
-	
-	@RequestMapping(value="/list", method = {RequestMethod.GET})
-	@ResponseBody
-	public Response listInfo() {
-		
-		
-		
-		Response resp = new Response();
-		return resp;
-	}
-	
+
 	@PostMapping("/upload")
-	@ResponseBody
 	public Object uploadFile(MultipartHttpServletRequest request) {
+		// TODO : 실제로 파일을 업로드하는데 저장을 누를때 실제로 파일을 업로드 하도록 변경되어야 함.
+		// 그게 안된다면, 업로드 했다가 저장을 누르지 않은 케이스를 구분해서 주기적으로 삭제해주는 로직이 필요함
+
 		String acmdUid = request.getParameter("acmdUid");
 		String acmdName = request.getParameter("acmdName");
 		Iterator<String> itr = request.getFileNames();
@@ -123,7 +128,7 @@ public class AccommodationController {
 			MultipartFile mpf = request.getFile(itr.next());
 			try {
 				String filename = GuidUtils.instance().createGuid() + mpf.getOriginalFilename().substring(mpf.getOriginalFilename().lastIndexOf("."));
-				
+
 				Files.write(Paths.get(FileConfig.instance().getUploadDestFeatured(), filename), mpf.getBytes(), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
 				acmdService.updateImageUrl(acmdUid, acmdName, filename);
 			} catch (IOException e) {

@@ -1,6 +1,6 @@
 package com.keichee.mustoutdoor.web.domain.acmd.dto;
 
-public class RoomTypesDto {
+public class RoomTypeDto {
 
 	private String roomTypeUid;
 	private String roomTypeName;

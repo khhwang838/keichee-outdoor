@@ -1,5 +1,5 @@
 /**
- * Author : Kihyun Hwang
+ * Author : Keichee
  * Date   : 2016. 12. 2.
  */
 package com.keichee.mustoutdoor.core;

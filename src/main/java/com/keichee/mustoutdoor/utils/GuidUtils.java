@@ -1,5 +1,5 @@
 /**
- * Created on 2016. 11. 26. by Kihyun Hwang
+ * Created on 2016. 11. 26. by Keichee
  */
 package com.keichee.mustoutdoor.utils;
 
