@@ -10,5 +10,5 @@ public interface SpecialFacilitiesDao {
 	
 	int updateSpecialFacility(SpecialFacilitiesDto specialFacility);
 	
-	int deleteSpecialFacility(@Param(value="specialFacilityId") String specialFacilityId);
+	int deleteSpecialFacility(@Param("specialFacilityId") String specialFacilityId);
 }

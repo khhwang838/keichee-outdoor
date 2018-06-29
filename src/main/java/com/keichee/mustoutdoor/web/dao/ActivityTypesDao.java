@@ -10,9 +10,9 @@ public interface ActivityTypesDao {
 
     int updateAcmd(ActivityTypesDto dto);
 
-    int deleteByUid(@Param(value="acmdUid")String acmdUid);
+    int deleteByUid(@Param("acmdUid")String acmdUid);
 
     List<ActivityTypesDto> selectAll();
 
-    List<ActivityTypesDto> selectByUid(@Param(value="acmdUid")String acmdUid);
+    List<ActivityTypesDto> selectByUid(@Param("acmdUid")String acmdUid);
 }

@@ -6,12 +6,12 @@ import com.keichee.mustoutdoor.web.domain.User;
 
 public interface UserInfoDao {
 
-	User selectUserById(@Param(value="userId")String userId);
+	User selectUserById(@Param("userId")String userId);
 	
 	int insertUser(User userInfo);
 	
 	int updateUser(User userInfo);
 
-	int deleteUserById(@Param(value="userId")String userId);
+	int deleteUserById(@Param("userId")String userId);
 	
 }

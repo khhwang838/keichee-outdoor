@@ -12,10 +12,10 @@ public interface AcmdDao {
 	
 	int updateAcmd(AcmdDto dto);
 	
-	int deleteByUid(@Param(value="acmdUid")String acmdUid);
+	int deleteByUid(@Param("acmdUid")String acmdUid);
 	
-	List<AcmdDto> selectAllByUserId(@Param(value="userId")String userId);
+	List<AcmdDto> selectAllByUserId(@Param("userId")String userId);
 
-	AcmdDto selectByUid(@Param(value="acmdUid")String acmdUid);
+	AcmdDto selectByUid(@Param("acmdUid")String acmdUid);
 
 }
