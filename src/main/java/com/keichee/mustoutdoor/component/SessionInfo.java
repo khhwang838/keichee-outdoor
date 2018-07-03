@@ -2,9 +2,9 @@ package com.keichee.mustoutdoor.component;
 
 import java.util.Locale;
 
-import org.apache.log4j.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -22,11 +22,11 @@ public class SessionInfo implements IConstants {
 	final ThreadLocal<Locale> locale = new ThreadLocal<Locale>();
 
 	@Autowired
-	private MessageSource ms;
+	private MessageSource messageSource;
 
 	public String getCodeMessage(String code) {
 		Locale locale = getLocale();
-		return ms.getMessage(code, null, locale);
+		return messageSource.getMessage(code, null, locale);
 	}
 	public String getUserId() {
 		return userId.get();

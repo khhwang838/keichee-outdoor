@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.RcmdSpotsDao">
+
+	<insert id="insertRcmdSpots" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto">
+		INSERT INTO MO_RecommendSpots (RCMD_PLACE_UID, ACMD_UID, USER_ID, RCMD_PLACE_NAME, RCMD_PLACE_DESC, RCMD_PLACE_IMG_URL)
+		VALUES (#{rcmdPlaceUid}, #{acmdUid}, #{userId}, #{rcmdPlaceName}, #{rcmdPlaceDesc, jdbcType=VARCHAR}, #{rcmdPlaceImgUrl, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateRcmdSpots" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto">
+		UPDATE MO_RecommendSpots SET
+		RCMD_PLACE_NAME = #{rcmdPlaceName}
+			<if test="rcmdPlaceDesc != null and rcmdPlaceDesc.length() > 0">
+				, RCMD_PLACE_DESC = #{rcmdPlaceDesc}
+			</if>
+			<if test="rcmdPlaceImgUrl != null and rcmdPlaceImgUrl.length() > 0">
+				, RCMD_PLACE_IMG_URL = #{rcmdPlaceImgUrl}
+			</if>
+		WHERE RCMD_PLACE_UID = #{rcmdPlaceUid}
+	</update>
+	
+	<delete id="deleteRcmdSpotsByAcmdUid">
+		DELETE FROM MO_RecommendSpots WHERE ACMD_UID = #{acmdUid}
+	</delete>
+
+	<delete id="deleteRcmdSpotsByUserId">
+		DELETE FROM MO_RecommendSpots WHERE USER_ID = #{userId}
+	</delete>
+
+	<select id="selectRcmdSpotsByAcmdUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto">
+		SELECT
+			RCMD_PLACE_UID as rcmdPlaceUid
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+			, RCMD_PLACE_NAME as rcmdPlaceName
+			, RCMD_PLACE_DESC as rcmdPlaceDesc
+			, RCMD_PLACE_IMG_URL as rcmdPlaceImgUrl
+		FROM MO_RecommendSpots WHERE ACMD_UID = #{acmdUid}
+	</select>
+
+	<select id="selectRcmdSpotsByUserId" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto">
+		SELECT
+			RCMD_PLACE_UID as rcmdPlaceUid
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+			, RCMD_PLACE_NAME as rcmdPlaceName
+			, RCMD_PLACE_DESC as rcmdPlaceDesc
+			, RCMD_PLACE_IMG_URL as rcmdPlaceImgUrl
+		FROM MO_RecommendSpots WHERE USER_ID = #{userId}
+	</select>
+</mapper>

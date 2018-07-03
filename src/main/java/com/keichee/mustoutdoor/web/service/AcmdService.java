@@ -48,7 +48,7 @@ public class AcmdService {
         int result = acmdDao.insertAcmd(dto);
         if (result > 0) {
             String acmdUid = dto.getAcmdUid();
-            // TODO : RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
+            // RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
             // TODO : Galleries ( how ? )
             // TODO : for-loop 안에서 INSERT하는 것들은 values에 조립하여 한쿼리로 변경
             for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getRecommendSpots()) {

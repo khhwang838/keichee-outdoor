@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.FacilitiesDao">
+
+    <insert id="insertFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+		INSERT INTO MO_Facilities (FCLT_ID, FCLT_NAME, FCLT_IMG_URL)
+		VALUES (#{fcltId}, #{fcltName}, #{fcltImgUrl})
+	</insert>
+
+    <update id="updateFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+        UPDATE MO_Facilities SET
+		FCLT_NAME = #{fcltName}
+			<if test="fcltImgUrl != null and fcltImgUrl.length() > 0">
+				, FCLT_IMG_URL = #{fcltImgUrl}
+			</if>
+        WHERE FCLT_ID = #{fcltId}
+    </update>
+
+    <delete id="deleteFacility">
+		DELETE FROM MO_Facilities WHERE FCLT_ID = #{fcltId}
+	</delete>
+
+	<!-- 관계 테이블 관련 -->
+    <delete id="deleteFacilityByUserId">
+		DELETE FROM MO_Facilities WHERE USER_ID = #{userId}
+	</delete>
+
+    <select id="selectFacilityByAcmdUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+		SELECT
+			RCMD_PLACE_UID as rcmdPlaceUid
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+			, RCMD_PLACE_NAME as rcmdPlaceName
+			, RCMD_PLACE_DESC as rcmdPlaceDesc
+			, RCMD_PLACE_IMG_URL as rcmdPlaceImgUrl
+		FROM MO_Facilities WHERE ACMD_UID = #{acmdUid}
+	</select>
+
+</mapper>

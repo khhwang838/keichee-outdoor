@@ -210,7 +210,7 @@ ALTER TABLE MO_RecommendSpots
 CREATE TABLE MO_RoomTypes (
 	ROOM_TYPE_UID  VARCHAR(32)  NOT NULL, -- 방타입UID
 	ROOM_TYPE_NAME VARCHAR(100) NULL,     -- 방타입명
-	ROOM_TYPE_IMG  VARCHAR(255) NULL      -- 방타입이미지
+	ROOM_TYPE_IMG_URL  VARCHAR(255) NULL      -- 방타입이미지
 );
 
 -- Room Types
@@ -225,7 +225,7 @@ ALTER TABLE MO_RoomTypes
 CREATE TABLE MO_Facilities (
 	FCLT_ID   VARCHAR(40)  NOT NULL, -- 숙박시설ID
 	FCLT_NAME VARCHAR(100) NULL,     -- 숙박시설명
-	FCLT_IMG  VARCHAR(255) NULL      -- 숙박시설이미지
+	FCLT_IMG_URL  VARCHAR(255) NULL      -- 숙박시설이미지
 );
 
 -- Facilities
@@ -240,7 +240,7 @@ ALTER TABLE MO_Facilities
 CREATE TABLE MO_Themes (
 	ACMD_THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
 	ACMD_THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
-	ACMD_THEME_IMG  VARCHAR(255) NULL      -- 숙박테마이미지
+	ACMD_THEME_IMG_URL  VARCHAR(255) NULL      -- 숙박테마이미지
 );
 
 -- Themes
@@ -430,7 +430,7 @@ ALTER TABLE MO_RoomImages
 CREATE TABLE MO_Amenities (
 	AMNY_UID  VARCHAR(32)  NOT NULL, -- 편의시설UID
 	AMNY_NAME VARCHAR(100) NOT NULL, -- 편의시설명
-	AMNY_IMG  VARCHAR(255) NULL      -- 편의시설이미지
+	AMNY_IMG_URL  VARCHAR(255) NULL      -- 편의시설이미지
 );
 
 -- Amenities
@@ -608,7 +608,7 @@ ALTER TABLE MO_Activity
 CREATE TABLE MO_ActivityTypes (
 	ACTV_TYPE_UID  VARCHAR(32)  NOT NULL, -- 액티비티타입UID
 	ACTV_TYPE_NAME VARCHAR(100) NULL,     -- 액티비티타입명
-	ACTV_TYPE_IMG  VARCHAR(255) NULL      -- 액티비티타입이미지
+	ACTV_TYPE_IMG_URL  VARCHAR(255) NULL      -- 액티비티타입이미지
 );
 
 -- Acvity Types
@@ -857,7 +857,7 @@ ALTER TABLE MO_AcmdSpecialFacilitiesRel
 CREATE TABLE MO_AcmdTypes (
 	ACMD_TYPE_ID   VARCHAR(40)  NOT NULL, -- 숙박타입ID
 	ACMD_TYPE_NAME VARCHAR(100) NULL,     -- 숙박타입명
-	ACMD_TYPE_IMG  VARCHAR(255) NULL      -- 숙박타입이미지
+	ACMD_TYPE_IMG_URL  VARCHAR(255) NULL      -- 숙박타입이미지
 );
 
 -- Accommodation Types
