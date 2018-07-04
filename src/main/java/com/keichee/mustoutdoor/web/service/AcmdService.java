@@ -42,12 +42,12 @@ public class AcmdService {
      */
     @Transactional
     public String add(UIAccommodation uiAcmdInfo, String userId) {
-        AcmdDto dto = convertUIAcmdToAcmdDTO(uiAcmdInfo);
-        dto.setAcmdUid(GuidUtils.instance().createGuid());
+        AcmdDto dto = new AcmdDto(uiAcmdInfo);
+        String acmdUid = GuidUtils.instance().createGuid();
+        dto.setAcmdUid(acmdUid);
 
         int result = acmdDao.insertAcmd(dto);
         if (result > 0) {
-            String acmdUid = dto.getAcmdUid();
             // RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
             // TODO : Galleries ( how ? )
             // TODO : for-loop 안에서 INSERT하는 것들은 values에 조립하여 한쿼리로 변경
@@ -57,13 +57,13 @@ public class AcmdService {
                 rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
             }
             for (FacilitiesDto facility : uiAcmdInfo.getFacilities()) {
-                facilitiesDao.insertFacilitiesRel(facility);
+                facilitiesDao.insertAcmdFacilitiesRel(facility);
             }
             for (ThemesDto theme : uiAcmdInfo.getThemes()) {
                 themesDao.insertAcmdThemesRel(theme);
             }
             for (SpecialFacilitiesDto specialFacility : uiAcmdInfo.getSpecialFacilities()) {
-                specialFacilitiesDao.insertSpecialFacility(specialFacility);
+                specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(specialFacility);
             }
             for (ExtraOptionsDto extraOption : uiAcmdInfo.getExtraOptions()) {
                 extraOptionsDao.insertExtraOption(extraOption);
@@ -77,11 +77,6 @@ public class AcmdService {
         return null;
     }
 
-    private AcmdDto convertUIAcmdToAcmdDTO(UIAccommodation in) {
-        AcmdDto dto = new AcmdDto(in);
-        return dto;
-    }
-
     /**
      * 숙소 정보 업데이트
      *
@@ -90,10 +85,65 @@ public class AcmdService {
      */
     @Transactional
     public int update(UIAccommodation uiAcmdInfo) {
-        AcmdDto dto = convertUIAcmdToAcmdDTO(uiAcmdInfo);
+        AcmdDto dto = new AcmdDto(uiAcmdInfo);
         int result = acmdDao.updateAcmd(dto);
 
+        if ( result > 0 ) {
+
+            // TODO : 일부는 업데이트 일부는 삭제 후 재입력
+            for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getRecommendSpots()) {
+                rcmdSpotsDao.updateRcmdSpots(rcmdSpot);
+            }
+            updateAcmdFacilitiesRel(dto.getAcmdUid(), uiAcmdInfo.getFacilities());
+
+            updateAcmdThemesRel(dto.getAcmdUid(), uiAcmdInfo.getThemes());
+
+            updateAcmdSpecialFacilitiesRel(dto.getAcmdUid(), uiAcmdInfo.getSpecialFacilities());
+
+            updateExtraOptions(dto.getAcmdUid(), uiAcmdInfo.getExtraOptions());
+
+            policiesDao.insertPolicy(uiAcmdInfo.getPolicy());
+
+            for (PolicyOptionsDto policyOption : uiAcmdInfo.getPolicyOptions()) {
+                policyOptionsDao.insertPolicyOption(policyOption);
+            }
+        }
         return result;
+    }
+
+    private void updateAcmdFacilitiesRel(String acmdUid, List<FacilitiesDto> facilities) {
+        if ( facilities != null && facilities.size() > 0 ){
+            facilitiesDao.deleteAmcdFacilitiesRelByAcmdUid(acmdUid);
+            for (FacilitiesDto facility : facilities) {
+                facilitiesDao.insertAcmdFacilitiesRel(facility);
+            }
+        }
+    }
+
+    private void updateAcmdThemesRel(String acmdUid, List<ThemesDto> themes) {
+        if ( themes != null && themes.size() > 0 ) {
+            themesDao.deleteAcmdThemesRelByAcmdId(acmdUid);
+            for (ThemesDto theme : themes) {
+                themesDao.insertAcmdThemesRel(theme);
+            }
+        }
+    }
+
+    private void updateAcmdSpecialFacilitiesRel(String acmdUid, List<SpecialFacilitiesDto> specialFacilities) {
+        if ( specialFacilities != null && specialFacilities.size() > 0 ){
+            specialFacilitiesDao.deleteAcmdSpecialFacilitiesRelByAmcdUid(acmdUid);
+            for (SpecialFacilitiesDto specialFacility : specialFacilities) {
+                specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(specialFacility);
+            }
+        }
+    }
+    private void updateExtraOptions(String acmdUid, List<ExtraOptionsDto> extraOptions) {
+        if ( extraOptions != null && extraOptions.size() > 0 ) {
+            extraOptionsDao.deleteExtraOptionsByAcmdUid(acmdUid);
+            for (ExtraOptionsDto extraOption : extraOptions) {
+                extraOptionsDao.insertExtraOption(extraOption);
+            }
+        }
     }
 
     /**

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.ExtraOptionsDao">
+
+    <insert id="insertExtraOption">
+		INSERT INTO MO_ExtraOptions (EXTRA_OPT_UID, ACMD_UID, USER_ID, EXTRA_OPT_NAME, EXTRA_OPT_DESC, EXTRA_OPT_PRICE, CHOICE_MAX_CNT, VISIT_PAY_YN)
+		VALUES (#{extraOptUid}, #{acmdUid}, #{userId}, #{extraOptName}, #{extraOptDesc, jdbcType=VARCHAR}, #{extraOptPrice}, #{choiceMaxCnt}, #{visitPayYn})
+	</insert>
+
+    <insert id="insertExtraOptions">
+        INSERT INTO MO_ExtraOptions (EXTRA_OPT_UID, ACMD_UID, USER_ID, EXTRA_OPT_NAME, EXTRA_OPT_DESC, EXTRA_OPT_PRICE,
+        CHOICE_MAX_CNT, VISIT_PAY_YN)
+        VALUES
+        <foreach collection="list" open="" close="" separator=",">
+            (#{item.extraOptUid}, #{item.acmdUid}, #{item.userId}, #{item.extraOptName},
+            #{item.extraOptDesc, jdbcType=VARCHAR}, #{item.extraOptPrice}, #{item.choiceMaxCnt}, #{item.visitPayYn})
+        </foreach>
+    </insert>
+
+    <delete id="deleteExtraOptionsByAcmdUid">
+		DELETE FROM MO_ExtraOptions WHERE ACMD_UID = #{acmdUid}
+	</delete>
+
+</mapper>

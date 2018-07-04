@@ -238,9 +238,9 @@ ALTER TABLE MO_Facilities
 
 -- Themes
 CREATE TABLE MO_Themes (
-	ACMD_THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
-	ACMD_THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
-	ACMD_THEME_IMG_URL  VARCHAR(255) NULL      -- 숙박테마이미지
+	THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
+	THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
+	THEME_IMG_URL  VARCHAR(255) NULL      -- 숙박테마이미지
 );
 
 -- Themes
@@ -248,7 +248,7 @@ ALTER TABLE MO_Themes
 	ADD
 		CONSTRAINT PK_MO_Themes -- Themes 기본키
 		PRIMARY KEY (
-			ACMD_THEME_ID -- 숙박테마ID
+			THEME_ID -- 숙박테마ID
 		);
 
 -- Special Facilities
@@ -822,7 +822,7 @@ ALTER TABLE MO_UserInfo
 -- Accommodation Themes Relation
 CREATE TABLE MO_AcmdThemesRel (
 	ACMD_UID      VARCHAR(32) NOT NULL, -- 숙박UID
-	ACMD_THEME_ID VARCHAR(40) NOT NULL, -- 숙박테마ID
+	THEME_ID      VARCHAR(40) NOT NULL, -- 숙박테마ID
 	USER_ID       VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
@@ -832,7 +832,7 @@ ALTER TABLE MO_AcmdThemesRel
 		CONSTRAINT PK_MO_AcmdThemesRel -- Accommodation Themes Relation 기본키
 		PRIMARY KEY (
 			ACMD_UID,      -- 숙박UID
-			ACMD_THEME_ID, -- 숙박테마ID
+			THEME_ID, -- 숙박테마ID
 			USER_ID        -- 사용자ID
 		);
 

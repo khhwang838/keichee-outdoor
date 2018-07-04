@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao">
+
+    <insert id="insertFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+		INSERT INTO MO_SpecialFacilities (FCLT_ID, FCLT_NAME, FCLT_IMG_URL)
+		VALUES (#{fcltId}, #{fcltName}, #{fcltImgUrl})
+	</insert>
+
+    <update id="updateFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+        UPDATE MO_SpecialFacilities SET
+        FCLT_NAME = #{fcltName}
+        <if test="fcltImgUrl != null and fcltImgUrl.length() > 0">
+            , FCLT_IMG_URL = #{fcltImgUrl}
+        </if>
+        WHERE FCLT_ID = #{fcltId}
+    </update>
+
+    <delete id="deleteFacility">
+		DELETE FROM MO_SpecialFacilities WHERE FCLT_ID = #{fcltId}
+	</delete>
+
+    <!-- 관계 테이블 관련 -->
+    <insert id="insertAmcdSpecialFacilitiesRel">
+		INSERT INTO MO_AcmdSpecialFacilitiesRel (ACMD_UID, FCLT_ID, USER_ID)
+		VALUES (#{acmdUid}, #{fcltId}, #{userId})
+	</insert>
+
+    <insert id="insertAcmdSpecialFacilitiesRels">
+        INSERT INTO MO_AcmdSpecialFacilitiesRel(ACMD_UID, SPECIAL_FCLT_ID, USER_ID)
+        VALUES
+        <foreach item="item" collection="list" open="" close="" separator=",">
+            (#{item.acmdUid}, #{item.specialFcltId}, #{item.userId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAcmdSpecialFacilitiesRelByAcmdUid">
+		DELETE FROM MO_AcmdSpecialFacilitiesRel
+		WHERE ACMD_UID = #{acmdUid}
+	</delete>
+
+    <delete id="deleteAcmdSpecialFacilitiesRelByUserId">
+		DELETE FROM MO_AcmdSpecialFacilitiesRel
+		WHERE USER_ID = #{userId}
+	</delete>
+</mapper>

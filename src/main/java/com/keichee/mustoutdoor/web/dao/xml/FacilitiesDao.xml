@@ -22,19 +22,27 @@
 	</delete>
 
 	<!-- 관계 테이블 관련 -->
-    <delete id="deleteFacilityByUserId">
-		DELETE FROM MO_Facilities WHERE USER_ID = #{userId}
+    <insert id="insertAmcdFacilitiesRel" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
+		INSERT INTO MO_AcmdFacilitiesRel (ACMD_UID, FCLT_ID, USER_ID)
+		VALUES (#{acmdUid}, #{fcltId}, #{userId})
+
+	</insert>
+
+    <insert id="insertAmcdFacilitiesRels" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
+		INSERT INTO MO_AcmdFacilitiesRel(ACMD_UID, FCLT_ID, USER_ID)
+		VALUES
+		<foreach item="item" collection="list" open="" close="" separator=",">
+		(#{item.acmdUid}, #{item.fcltId}, #{item.userId})
+		</foreach>
+	</insert>
+
+	<delete id="deleteAmcdFacilitiesRelByAcmdUid">
+		DELETE FROM MO_AcmdFacilitiesRel
+		WHERE ACMD_UID = #{acmdUid}
 	</delete>
 
-    <select id="selectFacilityByAcmdUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
-		SELECT
-			RCMD_PLACE_UID as rcmdPlaceUid
-			, ACMD_UID as acmdUid
-			, USER_ID as userId
-			, RCMD_PLACE_NAME as rcmdPlaceName
-			, RCMD_PLACE_DESC as rcmdPlaceDesc
-			, RCMD_PLACE_IMG_URL as rcmdPlaceImgUrl
-		FROM MO_Facilities WHERE ACMD_UID = #{acmdUid}
-	</select>
-
+	<delete id="deleteAmcdFacilitiesRelByUserId">
+		DELETE FROM MO_AcmdFacilitiesRel
+		WHERE USER_ID = #{userId}
+	</delete>
 </mapper>

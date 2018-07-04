@@ -14,11 +14,11 @@ public interface FacilitiesDao {
     int deleteFacility(@Param("facilityId") String facilityId);
 
     // 관계 테이블 관련
-    int insertFacilitiesRel(FacilitiesDto facility);
+    int insertAcmdFacilitiesRel(FacilitiesDto facility);
 
-    int insertFacilitiresRels(@Param("facilities") List<FacilitiesDto> facilities);
+    int insertAmcdFacilitiresRels(@Param("facilities") List<FacilitiesDto> facilities);
 
-    int deleteFacilitiesRelByAcmdUid(@Param("acmdUid") String acmdUid);
+    int deleteAmcdFacilitiesRelByAcmdUid(@Param("acmdUid") String acmdUid);
 
-    int deleteFacilitiesRelByUserId(@Param("userId") String userId);
+    int deleteAcmdFacilitiesRelByUserId(@Param("userId") String userId);
 }
