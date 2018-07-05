@@ -17,7 +17,7 @@ DROP TABLE MO_RoomTypes;
 DROP TABLE MO_Facilities;
 
 -- Themes
-DROP TABLE MO_Themes;
+DROP TABLE MO_AcmdThemes;
 
 -- Special Facilities
 DROP TABLE MO_SpecialFacilities;
@@ -237,16 +237,16 @@ ALTER TABLE MO_Facilities
 		);
 
 -- Themes
-CREATE TABLE MO_Themes (
-	THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
-	THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
-	THEME_IMG_URL  VARCHAR(255) NULL      -- 숙박테마이미지
+CREATE TABLE MO_AcmdThemes (
+	ACMD_THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
+	ACMD_THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
+	ACMD_THEME_IMG_URL  VARCHAR(255) NULL      -- 숙박테마이미지
 );
 
 -- Themes
-ALTER TABLE MO_Themes
+ALTER TABLE MO_AcmdThemes
 	ADD
-		CONSTRAINT PK_MO_Themes -- Themes 기본키
+		CONSTRAINT PK_MO_AcmdThemes -- Themes 기본키
 		PRIMARY KEY (
 			THEME_ID -- 숙박테마ID
 		);

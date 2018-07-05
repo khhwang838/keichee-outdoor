@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.AcmdThemesDao">
+
+    <insert id="insertAcmdType" >
+		INSERT INTO MO_AcmdTypes (ACMD_TYPE_ID, ACMD_TYPE_NAME, ACMD_TYPE_IMG_URL)
+		VALUES (#{acmdTypeId}, #{acmdTypeName}, #{acmdTypeImgUrl})
+	</insert>
+
+    <update id="updateAcmdType" >
+        UPDATE MO_AcmdTypes SET
+		ACMD_TYPE_NAME = #{acmdTypeName}
+			<if test="acmdTypeImgUrl != null and acmdTypeImgUrl.length() > 0">
+				, ACMD_TYPE_IMG_URL = #{acmdTypemgUrl}
+			</if>
+        WHERE ACMD_TYPE_ID = #{acmdTypeId}
+    </update>
+
+    <delete id="deleteAcmdTypeById">
+		DELETE FROM MO_AcmdTypes WHERE ACMD_TYPE_ID = #{acmdTypeId}
+	</delete>
+
+	<!-- 관계 테이블 관련 -->
+    <insert id="insertAcmdTypesRel" >
+		INSERT INTO MO_AcmdTypesRel (ACMD_UID, ACMD_TYPE_ID, USER_ID)
+		VALUES (#{acmdUid}, #{acmdTypeId}, #{userId})
+
+	</insert>
+
+    <insert id="insertAcmdTypesRels" >
+		INSERT INTO MO_AcmdTypesRel(ACMD_UID, ACMD_TYPE_ID, USER_ID)
+		VALUES
+		<foreach item="item" collection="list" open="" close="" separator=",">
+		(#{item.acmdUid}, #{item.acmdTypeId}, #{item.userId})
+		</foreach>
+	</insert>
+
+	<delete id="deleteAcmdTypesRelByAcmdUid">
+		DELETE FROM MO_AcmdTypesRel
+		WHERE ACMD_UID = #{acmdUid}
+	</delete>
+
+	<delete id="deleteAcmdTypesRelByUserId">
+		DELETE FROM MO_AcmdTypesRel
+		WHERE USER_ID = #{userId}
+	</delete>
+
+	<select id="selectTypesByAcmdUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdTypesDto">
+		SELECT
+			t.ACMD_TYPE_ID as acmdTypeId
+			, t.ACMD_TYPE_NAME as acmdTypeName
+			, t.ACMD_TYPE_IMG_URL as acmdTypeImgUrl
+		FROM MO_AcmdTypesRel r, MO_AcmdTypes t
+		WHERE r.ACMD_UID = #{acmdUid}
+			AND r.ACMD_TYPE_ID = t.ACMD_TYPE_ID
+	</select>
+</mapper>

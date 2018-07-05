@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.keichee.mustoutdoor.web.dao.AcmdTypesDao;
 import com.keichee.mustoutdoor.web.dao.CancelPolicyDao;
 import com.keichee.mustoutdoor.web.dao.FacilitiesDao;
-import com.keichee.mustoutdoor.web.dao.ThemesDao;
+import com.keichee.mustoutdoor.web.dao.AcmdThemesDao;
 
 /**
  * 기본 정보 입력을 위한 어드민용 컨트롤러
@@ -22,7 +22,7 @@ public class AdminController {
 	@Autowired
 	private FacilitiesDao facilitiesDao;
 	@Autowired
-	private ThemesDao themesDao;
+	private AcmdThemesDao acmdThemesDao;
 	@Autowired
 	private CancelPolicyDao cancelPolicyDao;
 	

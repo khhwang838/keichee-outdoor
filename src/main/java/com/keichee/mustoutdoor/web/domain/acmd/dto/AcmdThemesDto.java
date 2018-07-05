@@ -7,8 +7,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AcmdTypesDto {
-    private String acmdTypeId;
-    private String acmdTypeName;
-    private String acmdTypeImgUrl;
+public class AcmdThemesDto {
+
+	private String acmdThemeUid;
+	private String acmdUid;
+	private String acmdThemeName;
+	private String acmdThemeImgUrl;
+	
 }

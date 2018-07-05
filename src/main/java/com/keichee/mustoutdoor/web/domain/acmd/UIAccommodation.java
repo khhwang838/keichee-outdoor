@@ -15,10 +15,10 @@ public class UIAccommodation {
 
     private AcmdDto acmd;
     private NationCityDto nationCity;
-    private List<AcmdTypeDto> types;
+    private List<AcmdTypesDto> types;
     private List<RecommendSpotsDto> recommendSpots;
     private List<FacilitiesDto> facilities;
-    private List<ThemesDto> themes;
+    private List<AcmdThemesDto> themes;
     private List<SpecialFacilitiesDto> specialFacilities;
     private List<ExtraOptionsDto> extraOptions;
     private PoliciesDto policy;

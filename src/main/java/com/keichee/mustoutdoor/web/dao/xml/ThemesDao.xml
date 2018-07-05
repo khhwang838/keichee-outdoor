@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.keichee.mustoutdoor.web.dao.ThemesDao">
+<mapper namespace="com.keichee.mustoutdoor.web.dao.AcmdThemesDao">
 
     <insert id="insertTheme" >
 		INSERT INTO MO_Themes (THEME_ID, THEME_NAME, THEME_IMG_URL)
@@ -23,13 +23,13 @@
 
 	<!-- 관계 테이블 관련 -->
     <insert id="insertAcmdThemesRel" >
-		INSERT INTO MO_AcmdFacilitiesRel (ACMD_UID, THEME_ID, USER_ID)
+		INSERT INTO MO_AcmdThemesRel (ACMD_UID, THEME_ID, USER_ID)
 		VALUES (#{acmdUid}, #{themeId}, #{userId})
 
 	</insert>
 
     <insert id="insertAcmdThemesRels" >
-		INSERT INTO MO_AcmdFacilitiesRel(ACMD_UID, THEME_ID, USER_ID)
+		INSERT INTO MO_AcmdThemesRel(ACMD_UID, THEME_ID, USER_ID)
 		VALUES
 		<foreach item="item" collection="list" open="" close="" separator=",">
 		(#{item.acmdUid}, #{item.themeId}, #{item.userId})
@@ -37,12 +37,12 @@
 	</insert>
 
 	<delete id="deleteAcmdThemesRelByAcmdUid">
-		DELETE FROM MO_AcmdFacilitiesRel
+		DELETE FROM MO_AcmdThemesRel
 		WHERE ACMD_UID = #{acmdUid}
 	</delete>
 
 	<delete id="deleteAcmdThemesRelByUserId">
-		DELETE FROM MO_AcmdFacilitiesRel
+		DELETE FROM MO_AcmdThemesRel
 		WHERE USER_ID = #{userId}
 	</delete>
 </mapper>

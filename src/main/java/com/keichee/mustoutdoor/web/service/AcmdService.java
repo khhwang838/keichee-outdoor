@@ -20,11 +20,13 @@ public class AcmdService {
     @Autowired
     private AcmdDao acmdDao;
     @Autowired
+    private AcmdTypesDao acmdTypesDao;
+    @Autowired
     private RcmdSpotsDao rcmdSpotsDao;
     @Autowired
     private FacilitiesDao facilitiesDao;
     @Autowired
-    private ThemesDao themesDao;
+    private AcmdThemesDao acmdThemesDao;
     @Autowired
     private SpecialFacilitiesDao specialFacilitiesDao;
     @Autowired
@@ -59,8 +61,8 @@ public class AcmdService {
             for (FacilitiesDto facility : uiAcmdInfo.getFacilities()) {
                 facilitiesDao.insertAcmdFacilitiesRel(facility);
             }
-            for (ThemesDto theme : uiAcmdInfo.getThemes()) {
-                themesDao.insertAcmdThemesRel(theme);
+            for (AcmdThemesDto theme : uiAcmdInfo.getThemes()) {
+                acmdThemesDao.insertAcmdThemesRel(theme);
             }
             for (SpecialFacilitiesDto specialFacility : uiAcmdInfo.getSpecialFacilities()) {
                 specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(specialFacility);
@@ -120,11 +122,11 @@ public class AcmdService {
         }
     }
 
-    private void updateAcmdThemesRel(String acmdUid, List<ThemesDto> themes) {
+    private void updateAcmdThemesRel(String acmdUid, List<AcmdThemesDto> themes) {
         if ( themes != null && themes.size() > 0 ) {
-            themesDao.deleteAcmdThemesRelByAcmdId(acmdUid);
-            for (ThemesDto theme : themes) {
-                themesDao.insertAcmdThemesRel(theme);
+            acmdThemesDao.deleteAcmdThemesRelByAcmdId(acmdUid);
+            for (AcmdThemesDto theme : themes) {
+                acmdThemesDao.insertAcmdThemesRel(theme);
             }
         }
     }
@@ -164,6 +166,13 @@ public class AcmdService {
      */
     public List<AcmdDto> getAllAcmdList(String userId) {
         List<AcmdDto> acmdList = acmdDao.selectAllByUserId(userId);
+        for ( AcmdDto dto : acmdList) {
+
+            acmdTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
+            acmdThemesDao.selectThemesByAcmdUid(dto.getAcmdUid());
+
+
+        }
 
         return acmdList;
     }
