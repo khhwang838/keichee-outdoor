@@ -22,7 +22,6 @@ import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.constants.IConstants;
 import com.keichee.mustoutdoor.constants.IMessageCode;
 import com.keichee.mustoutdoor.exception.LoginException;
-import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.User;
 import com.keichee.mustoutdoor.web.service.UserService;
@@ -56,7 +55,7 @@ public class LoginController {
 		User user = userService.validateUser(userInfo);
 		logger.debug("user: {}",user);
 		if (user != null) {
-			session.setAttribute("signUpMonth", DateUtils.instance.getUtcToLocal(user.getSignUpDttm()).split(" ")[0]);
+			session.setAttribute("signUpMonth", user.getSignUpDttm().getMonthValue());
 			session.setAttribute("profileImgUrl", getProfileImgUrl(user.getProfileImgUrl()) );
 			session.setAttribute(IConstants.SESSION_INFO.USER_ID, user.getUserId());
 			session.setAttribute(IConstants.SESSION_INFO.USER_NAME, user.getUserName());

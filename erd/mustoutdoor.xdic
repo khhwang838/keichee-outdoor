@@ -34,7 +34,7 @@
   <term name="편의시설" physicalName="AMNY" physicalDescription="편의시설"/>
   <term name="특수" physicalName="SPECIAL" physicalDescription="특수"/>
   <term name="정책" physicalName="PLCY" physicalDescription="정책"/>
-  <term name="숙박" physicalName="ACMD" physicalDescription="숙박"/>
+  <term name="숙소" physicalName="ACMD" physicalDescription="숙박"/>
   <term name="결제" physicalName="PAY" physicalDescription="결제"/>
   <term name="여부" physicalName="YN" physicalDescription="여부"/>
   <term name="옵션" physicalName="OPT" physicalDescription="옵션"/>

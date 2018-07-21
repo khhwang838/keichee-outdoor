@@ -10,12 +10,11 @@ import lombok.ToString;
 public class PoliciesDto {
 
 	private String acmdUid;
-	private String chkinTime;	// HH:mm
-	private String chkoutTime;	// HH:mm
+	private String chkinTime;	// HH:mm (24hrs)
+	private String chkoutTime;	// HH:mm (24hrs)
 	private String immdtCfrmYn;
-	private String cfrmReqTime;	// hours (represent days as hours)
-	private String immdtCfrmMsg;
-	private String cfrmReqTimeMsg;
+	private String cfrmReqTime;	// hours (몇시간 이내에 확인해줄 수 있는지)
+	private String cfrmMsg;
 	private String rsrvAbleDays;	// 0: available today, 1 ~ 15: available in advaance of specific days
 	private String rsrvAbleDaysMsg;
 	

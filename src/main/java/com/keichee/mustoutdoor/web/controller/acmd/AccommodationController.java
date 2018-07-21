@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,17 +26,17 @@ import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.config.FileConfig;
 import com.keichee.mustoutdoor.constants.IMessageCode;
 import com.keichee.mustoutdoor.utils.GuidUtils;
-import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.service.AcmdService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/acmd")
 public class AccommodationController {
-
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private AcmdService acmdService;
@@ -47,9 +45,11 @@ public class AccommodationController {
 	@Autowired
 	private SessionInfo sessionInfo;
 
-	@PostMapping("/add")
+	@PostMapping
 	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {
 		String userId = sessionInfo.getUserId();
+		// TODO : 필수값 검사
+		
 		String result = acmdService.add(acmd, userId);
 
 		Response<String> resp;
@@ -64,7 +64,7 @@ public class AccommodationController {
 		return resp;
 	}
 
-	@PatchMapping(value = "/update")
+	@PatchMapping
 	public Response updateInfo(@RequestBody UIAccommodation acmd, Locale locale) {
 		int result = acmdService.update(acmd);
 		Response resp;
@@ -77,7 +77,7 @@ public class AccommodationController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@GetMapping(value = "/detail/{acmdUid}")
+	@GetMapping(value = "/{acmdUid}")
 	public Response detailInfo(@PathVariable String acmdUid, Locale locale) {
 
 		AcmdDto acmdDetail = acmdService.getAcmd(acmdUid);
@@ -109,7 +109,7 @@ public class AccommodationController {
 		return resp;
 	}
 
-	@DeleteMapping(value = "/delete")
+	@DeleteMapping
 	public Response deleteInfo() {
 		// TODO : 삭제 로직 구현 (숙소업체 메인 정보를 제외한 정보들만)
 		Response resp = new Response();

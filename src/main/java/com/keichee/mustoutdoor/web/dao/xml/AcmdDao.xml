@@ -4,8 +4,8 @@
 <mapper namespace="com.keichee.mustoutdoor.web.dao.AcmdDao">
 
 	<insert id="insertAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto">
-		INSERT INTO MO_ACCOMMODATION (ACMD_UID, ACMD_NAME, ACMD_DESC, EMAIL, CONTACT, IMG_URL, ACMD_ADDR, ACMD_ALTD, ACMD_LGTD, DIRECTION, CITY_UID, CRC_NATION_CD, CANCEL_PLCY_UID)
-		VALUES (#{acmdUid}, #{acmdName}, #{acmdDesc, jdbcType=VARCHAR}, #{email}, #{contact}, #{imgUrl, jdbcType=VARCHAR}, #{acmdAddr}, #{acmdAltd}, #{acmdLgtd}, #{direction}, #{cityUid}, #{crcNationCd}, #{cancelPlcyUid})
+		INSERT INTO MO_ACCOMMODATION (ACMD_UID, USER_ID, ACMD_NAME, ACMD_DESC, EMAIL, CONTACT, IMG_URL, ACMD_ADDR, ACMD_ALTD, ACMD_LGTD, DIRECTION, CITY_UID, CRC_NATION_CD, CANCEL_PLCY_UID)
+		VALUES (#{acmdUid}, #{userId}, #{acmdName}, #{acmdDesc, jdbcType=VARCHAR}, #{email}, #{contact}, #{imgUrl, jdbcType=VARCHAR}, #{acmdAddr}, #{acmdAltd}, #{acmdLgtd}, #{direction}, #{cityUid}, #{crcNationCd}, #{cancelPlcyUid})
 	</insert>
 	
 	<update id="updateAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto">

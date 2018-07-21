@@ -14,7 +14,7 @@ public class ExtraOptionsDto {
 	private String extraOptName;
 	private String extraOptDesc;
 	private String extraOptPrice;
-	private String choiceMaxCnt;
+	private String maxItems;
 	private String visitPayYn;
 	
 }

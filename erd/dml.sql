@@ -1,8 +1,5 @@
-INSERT INTO MO_USERINFO 
-(USER_ID, PASSWORD, USER_NAME, LOCK_YN, SIGNUP_DTTM) 
-VALUES (
-'admin', '1234', '관리자', 'N', '2018-01-01 00:00:00'
-);
+INSERT INTO MO_USERINFO (USER_ID, PASSWORD, USER_NAME, LOCK_YN, SIGNUP_DTTM) 
+VALUES ('admin', '1234', '관리자', 'N', current_timestamp);
 
 INSERT INTO MO_NationCity
 VALUES (1, 'KR', 'South Korea', '', '', 'KWJ', '광주')

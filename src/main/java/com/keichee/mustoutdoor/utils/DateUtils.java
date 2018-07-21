@@ -2,6 +2,9 @@ package com.keichee.mustoutdoor.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -73,9 +76,9 @@ public class DateUtils {
 	 * 현재 시간을 UTC 시간으로 반환
 	 * @return dttm23
 	 */
-	public String getCurrentDttmAsUTC() {
-		DateTime dt = new DateTime(DateTimeZone.UTC);
-		return dt.toString();
+	public LocalDateTime getCurrentDttmAsUTC() {
+		LocalDateTime dt = LocalDateTime.now(ZoneOffset.UTC);
+		return dt;
 	}
 	/**
 	 * 로컬 시간을 UTC 시간으로 변경
