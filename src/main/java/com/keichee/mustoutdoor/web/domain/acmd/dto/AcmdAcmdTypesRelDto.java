@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AcmdTypesRelDto {
+public class AcmdAcmdTypesRelDto {
     private String acmdTypeId;
     private String acmdUid;
     private String userId;
