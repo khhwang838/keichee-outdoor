@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.PoliciesDao">
+
+    <insert id="insertPolicy" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.PoliciesDto">
+		INSERT INTO MO_Policies 
+		(ACMD_UID,USER_ID,CHKIN_TIME,CHKOUT_TIME,IMMDT_CFRM_YN,CFRM_REQ_TIME,CFRM_MSG,RSRV_ABLE_DAYS,RSRV_ABLE_DAYS_MSG)
+		VALUES (#{acmdUid}, #{userId}, #{chkinTime}, #{chkoutTime}, #{immdtCfrmYn}, #{cfrmReqTime},#{cfrmMsg},#{rsrvAbleDays},#{rsrvAbleDaysMsg})
+	</insert>
+
+    <update id="updatePolicy" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.PoliciesDto">
+        UPDATE MO_Policies SET
+	        IMMDT_CFRM_YN = #{immdtCfrmYn}
+	        , RSRV_ABLE_DAYS = #{rsrvAbleDays}
+	        <if test="chkinTime != null and chkinTime.length() > 0">
+			, CHKIN_TIME = #{chkinTime}
+			</if>
+			<if test="chkoutTime != null and chkoutTime.length() > 0">
+			, CHKOUT_TIME = #{chkoutTime}
+			</if>
+			<if test="cfrmReqTime != null and cfrmReqTime.length() > 0">
+			, CFRM_REQ_TIME = #{cfrmReqTime}
+			</if>
+			<if test="cfrmMsg != null and cfrmMsg.length() > 0">
+			, CFRM_MSG = #{cfrmMsg}
+			</if>
+			<if test="rsrvAbleDaysMsg != null and rsrvAbleDaysMsg.length() > 0">
+			, RSRV_ABLE_DAYS_MSG = #{rsrvAbleDaysMsg}
+			</if>
+        WHERE ACMD_UID = #{acmdUid} and USER_ID = #{userId}
+    </update>
+
+    <delete id="deletePolicy">
+		DELETE FROM MO_Policies WHERE ACMD_UID = #{acmdUid} and USER_ID = #{userId}
+	</delete>
+	
+	<select id="selectPolicy">
+		SELECT 
+			ACMD_UID 			as acmdUid,
+			USER_ID 			as userId,
+			CHKIN_TIME 			as chkinTime,
+			CHKOUT_TIME 		as chkoutTime,
+			IMMDT_CFRM_YN 		as immdtCfrmYn,
+			CFRM_REQ_TIME 		as cfrmReqTime,
+			CFRM_MSG 			as cfrmMsg,
+			RSRV_ABLE_DAYS 		as rsrvAbleDays,
+			RSRV_ABLE_DAYS_MSG 	as rsrvAbleDaysMsg
+		FROM MO_Policies
+		WHERE ACMD_UID = #{acmdUid}
+	</select>
+</mapper>

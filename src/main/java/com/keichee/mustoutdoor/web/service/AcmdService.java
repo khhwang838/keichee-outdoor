@@ -2,16 +2,32 @@ package com.keichee.mustoutdoor.web.service;
 
 import java.util.List;
 
-import com.keichee.mustoutdoor.web.dao.*;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.*;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.utils.GuidUtils;
+import com.keichee.mustoutdoor.web.dao.AcmdDao;
+import com.keichee.mustoutdoor.web.dao.AcmdThemesDao;
+import com.keichee.mustoutdoor.web.dao.AcmdTypesDao;
+import com.keichee.mustoutdoor.web.dao.ExtraOptionsDao;
+import com.keichee.mustoutdoor.web.dao.FacilitiesDao;
+import com.keichee.mustoutdoor.web.dao.PoliciesDao;
+import com.keichee.mustoutdoor.web.dao.PolicyOptionsDao;
+import com.keichee.mustoutdoor.web.dao.RcmdSpotsDao;
+import com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdSpecialFacilitiesRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.ExtraOptionsDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.PoliciesDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto;
 
 /**
  * 숙소 정보 생성/수정/조회/삭제 서비스
@@ -50,38 +66,78 @@ public class AcmdService {
 		dto.setUserId(userId);
 		String acmdUid = GuidUtils.instance().createGuid();
 		dto.setAcmdUid(acmdUid);
-
+		dto.setUserId(userId);
+		dto.setActiveYn("Y");
+		dto.setCreateDttm(DateUtils.instance.getCurrentDttmAsUTC());
+		dto.setUpdateDttm(DateUtils.instance.getCurrentDttmAsUTC());
+		
 		int result = acmdDao.insertAcmd(dto);
 		if (result > 0) {
 			// RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
 			// TODO : Galleries ( how ? )
 			// TODO : for-loop 안에서 INSERT하는 것들은 values에 조립하여 한쿼리로 변경
-			for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRecommendSpots()) {
-				if ( StringUtils.isEmpty(rcmdSpot.getRcmdPlaceName()) ) continue;
-				rcmdSpot.setRcmdPlaceUid(GuidUtils.instance().createGuid());
-				rcmdSpot.setAcmdUid(acmdUid);
-				rcmdSpot.setUserId(userId);
-				rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
+			if (uiAcmdInfo.getUiLocation() != null && uiAcmdInfo.getUiLocation().getRcmdSpots() != null) {
+				for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRcmdSpots()) {
+					if (StringUtils.isEmpty(rcmdSpot.getRcmdPlaceName()))
+						continue;
+					rcmdSpot.setRcmdPlaceUid(GuidUtils.instance().createGuid());
+					rcmdSpot.setAcmdUid(acmdUid);
+					rcmdSpot.setUserId(userId);
+					rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
+				}
 			}
-			for (FacilitiesDto facility : uiAcmdInfo.getUiDetails().getFacilities()) {
-				facilitiesDao.insertAcmdFacilitiesRel(facility);
+			if (uiAcmdInfo.getUiDetails() != null && uiAcmdInfo.getUiDetails().getFcltIds() != null) {
+				for (String fcltId : uiAcmdInfo.getUiDetails().getFcltIds()) {
+					facilitiesDao.insertAcmdFacilitiesRel(new AcmdFacilitiesRelDto(acmdUid, userId, fcltId));
+				}
 			}
-			for (AcmdThemesDto theme : uiAcmdInfo.getUiDetails().getThemes()) {
-				acmdThemesDao.insertAcmdThemesRel(theme);
+			if (uiAcmdInfo.getUiDetails() != null && uiAcmdInfo.getUiDetails().getThemeIds() != null) {
+				for (String themeId : uiAcmdInfo.getUiDetails().getThemeIds()) {
+					acmdThemesDao.insertAcmdThemesRel(new AcmdThemesRelDto(acmdUid, userId, themeId));
+				}
 			}
-			for (SpecialFacilitiesDto specialFacility : uiAcmdInfo.getUiDetails().getSpecialFacilities()) {
-				specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(specialFacility);
+			if (uiAcmdInfo.getUiDetails() != null && uiAcmdInfo.getUiDetails().getSpecialFcltIds() != null) {
+				for (String specialFcltId : uiAcmdInfo.getUiDetails().getSpecialFcltIds()) {
+					specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(new AcmdSpecialFacilitiesRelDto(acmdUid, userId, specialFcltId));
+				}
 			}
-			for (ExtraOptionsDto extraOption : uiAcmdInfo.getUiOtherOptions().getExtraOptions()) {
-				extraOptionsDao.insertExtraOption(extraOption);
+			if (uiAcmdInfo.getUiOtherOptions() != null && uiAcmdInfo.getUiOtherOptions().getExtraOptions() != null) {
+				for (ExtraOptionsDto extraOption : uiAcmdInfo.getUiOtherOptions().getExtraOptions()) {
+					extraOptionsDao.insertExtraOption(extraOption);
+				}
 			}
-			policiesDao.insertPolicy(uiAcmdInfo.getUiPolicy().getPolicy());
-			for (PolicyOptionsDto policyOption : uiAcmdInfo.getUiPolicy().getPolicyOptions()) {
-				policyOptionsDao.insertPolicyOption(policyOption);
+			if (uiAcmdInfo.getUiPolicy() != null && uiAcmdInfo.getUiPolicy().getPolicy() != null) {
+				PoliciesDto policy = uiAcmdInfo.getUiPolicy().getPolicy();
+				policy.setAcmdUid(acmdUid);
+				policy.setUserId(userId);
+				policiesDao.insertPolicy(uiAcmdInfo.getUiPolicy().getPolicy());
+				if (uiAcmdInfo.getUiPolicy().getPolicyOptions() != null) {
+					for (PolicyOptionsDto policyOption : uiAcmdInfo.getUiPolicy().getPolicyOptions()) {
+						String plcyOptUid = GuidUtils.instance().createGuid();
+						policyOption.setPlcyOptUid(plcyOptUid);
+						policyOptionsDao.insertPolicyOption(policyOption);
+						policyOptionsDao.insertAcmdPolicyOptionRel(new AcmdPolicyOptionRelDto(acmdUid, userId, plcyOptUid));
+					}
+				}
 			}
+			
+			addImages(uiAcmdInfo);
+			
 			return dto.getAcmdUid();
 		}
 		return "Failed to create an Accommodation.";
+	}
+
+	/**
+	 * @param acmd
+	 * @return
+	 */
+	public int addImages(UIAccommodation acmd) {
+		// TODO : 이미지 저장
+		
+		
+		
+		return 1;
 	}
 
 	/**
@@ -91,21 +147,21 @@ public class AcmdService {
 	 * @return
 	 */
 	@Transactional
-	public int update(UIAccommodation uiAcmdInfo) {
+	public int update(UIAccommodation uiAcmdInfo, String userId) {
 		AcmdDto dto = new AcmdDto(uiAcmdInfo);
 		int result = acmdDao.updateAcmd(dto);
 
 		if (result > 0) {
 
 			// TODO : 일부는 업데이트 일부는 삭제 후 재입력
-			for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRecommendSpots()) {
+			for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRcmdSpots()) {
 				rcmdSpotsDao.updateRcmdSpots(rcmdSpot);
 			}
-			updateAcmdFacilitiesRel(dto.getAcmdUid(), uiAcmdInfo.getUiDetails().getFacilities());
+			updateAcmdFacilitiesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getFcltIds());
 
-			updateAcmdThemesRel(dto.getAcmdUid(), uiAcmdInfo.getUiDetails().getThemes());
+			updateAcmdThemesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getThemeIds());
 
-			updateAcmdSpecialFacilitiesRel(dto.getAcmdUid(), uiAcmdInfo.getUiDetails().getSpecialFacilities());
+			updateAcmdSpecialFacilitiesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getSpecialFcltIds());
 
 			updateExtraOptions(dto.getAcmdUid(), uiAcmdInfo.getUiOtherOptions().getExtraOptions());
 
@@ -118,29 +174,29 @@ public class AcmdService {
 		return result;
 	}
 
-	private void updateAcmdFacilitiesRel(String acmdUid, List<FacilitiesDto> facilities) {
-		if (facilities != null && facilities.size() > 0) {
+	private void updateAcmdFacilitiesRel(String acmdUid, String userId, List<String> fcltIds) {
+		if (fcltIds != null) {
 			facilitiesDao.deleteAmcdFacilitiesRelByAcmdUid(acmdUid);
-			for (FacilitiesDto facility : facilities) {
-				facilitiesDao.insertAcmdFacilitiesRel(facility);
+			for (String facilityId : fcltIds) {
+				facilitiesDao.insertAcmdFacilitiesRel(new AcmdFacilitiesRelDto(acmdUid, userId, facilityId));
 			}
 		}
 	}
 
-	private void updateAcmdThemesRel(String acmdUid, List<AcmdThemesDto> themes) {
-		if (themes != null && themes.size() > 0) {
+	private void updateAcmdThemesRel(String acmdUid, String userId, List<String> themeIds) {
+		if (themeIds != null) {
 			acmdThemesDao.deleteAcmdThemesRelByAcmdId(acmdUid);
-			for (AcmdThemesDto theme : themes) {
-				acmdThemesDao.insertAcmdThemesRel(theme);
+			for (String themeId : themeIds) {
+				acmdThemesDao.insertAcmdThemesRel(new AcmdThemesRelDto(acmdUid, userId, themeId));
 			}
 		}
 	}
 
-	private void updateAcmdSpecialFacilitiesRel(String acmdUid, List<SpecialFacilitiesDto> specialFacilities) {
-		if (specialFacilities != null && specialFacilities.size() > 0) {
+	private void updateAcmdSpecialFacilitiesRel(String acmdUid, String userId, List<String> specialFcltIds) {
+		if (specialFcltIds != null) {
 			specialFacilitiesDao.deleteAcmdSpecialFacilitiesRelByAmcdUid(acmdUid);
-			for (SpecialFacilitiesDto specialFacility : specialFacilities) {
-				specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(specialFacility);
+			for (String specialFcltId : specialFcltIds) {
+				specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(new AcmdSpecialFacilitiesRelDto(acmdUid, userId, specialFcltId));
 			}
 		}
 	}

@@ -23,16 +23,16 @@
 
 	<!-- 관계 테이블 관련 -->
     <insert id="insertAcmdThemesRel" >
-		INSERT INTO MO_AcmdThemesRel (ACMD_UID, THEME_ID, USER_ID)
-		VALUES (#{acmdUid}, #{themeId}, #{userId})
+		INSERT INTO MO_AcmdThemesRel (ACMD_UID, ACMD_THEME_ID, USER_ID)
+		VALUES (#{acmdUid}, #{acmdThemeId}, #{userId})
 
 	</insert>
 
     <insert id="insertAcmdThemesRels" >
-		INSERT INTO MO_AcmdThemesRel(ACMD_UID, THEME_ID, USER_ID)
+		INSERT INTO MO_AcmdThemesRel(ACMD_UID, ACMD_THEME_ID, USER_ID)
 		VALUES
 		<foreach item="item" collection="list" open="" close="" separator=",">
-		(#{item.acmdUid}, #{item.themeId}, #{item.userId})
+		(#{item.acmdUid}, #{item.acmdThemeId}, #{item.userId})
 		</foreach>
 	</insert>
 

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class Image {
 	
-	private MultipartFile file;
+	private MultipartFile image;
 	private String title;
-	
+	private String desc;
 }

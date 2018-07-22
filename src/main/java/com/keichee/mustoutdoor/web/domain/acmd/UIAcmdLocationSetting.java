@@ -22,5 +22,5 @@ public class UIAcmdLocationSetting {
 	private String acmdAltd;
 	private String acmdLgtd;
 	private String direction;
-	private List<RecommendSpotsDto> recommendSpots;
+	private List<RecommendSpotsDto> rcmdSpots;
 }

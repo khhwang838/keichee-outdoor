@@ -18,15 +18,13 @@ public class AcmdDto {
 	private String userId;
 	private String acmdName;
 	private String acmdDesc;
-	private String email;
-	private String contact;
 	private String imgUrl;
 	private String acmdAddr;
 	private String acmdAltd;
 	private String acmdLgtd;
 	private String direction;
 	private String acmdAvgScore;
-	private String cityUid;
+	private String cityNo;
 	private String crcNationCd;
 	private String crcUnit;
 	private String cancelPlcyUid;

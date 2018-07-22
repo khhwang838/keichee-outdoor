@@ -136,8 +136,6 @@ CREATE TABLE MO_Accommodation (
 	USER_ID         VARCHAR(40)   NOT NULL, -- 사용자ID
 	ACMD_NAME       VARCHAR(100)  NOT NULL, -- 숙소명
 	ACMD_DESC       VARCHAR(1000) NULL,     -- 숙소설명
-	EMAIL           VARCHAR(100)  NULL,     -- 이메일
-	CONTACT         VARCHAR(20)   NULL,     -- 연락처
 	IMG_URL         VARCHAR(255)  NULL,     -- 이미지URL
 	ACMD_ADDR       VARCHAR(255)  NOT NULL, -- 숙박주소
 	ACMD_ALTD       VARCHAR(255)  NULL,     -- 숙박위도
@@ -176,12 +174,6 @@ COMMENT ON COLUMN MO_Accommodation.ACMD_NAME IS '숙소명';
 
 -- 숙소설명
 COMMENT ON COLUMN MO_Accommodation.ACMD_DESC IS '숙소설명';
-
--- 이메일
-COMMENT ON COLUMN MO_Accommodation.EMAIL IS '이메일';
-
--- 연락처
-COMMENT ON COLUMN MO_Accommodation.CONTACT IS '연락처';
 
 -- 이미지URL
 COMMENT ON COLUMN MO_Accommodation.IMG_URL IS '이미지URL';
@@ -1817,6 +1809,8 @@ CREATE TABLE MO_UserInfo (
 	USER_ID              VARCHAR(40)  NOT NULL, -- 사용자ID
 	USER_NAME            VARCHAR(100) NULL,     -- 사용자명
 	PASSWORD             VARCHAR(512) NULL,     -- 비밀번호
+	EMAIL                VARCHAR(100) NULL,     -- 이메일
+	CONTACT              VARCHAR(20)  NULL,     -- 연락처
 	PROFILE_IMG_URL      VARCHAR(255) NULL,     -- 프로필이미지URL
 	PASSWORD_ERROR_COUNT VARCHAR(10)  NULL,     -- 비밀번호오류횟수
 	LOCK_YN              VARCHAR(1)   NULL,     -- 잠금여부
@@ -1843,6 +1837,12 @@ COMMENT ON COLUMN MO_UserInfo.USER_NAME IS '사용자명';
 
 -- 비밀번호
 COMMENT ON COLUMN MO_UserInfo.PASSWORD IS '비밀번호';
+
+-- 이메일
+COMMENT ON COLUMN MO_UserInfo.EMAIL IS '이메일';
+
+-- 연락처
+COMMENT ON COLUMN MO_UserInfo.CONTACT IS '연락처';
 
 -- 프로필이미지URL
 COMMENT ON COLUMN MO_UserInfo.PROFILE_IMG_URL IS '프로필이미지URL';
@@ -2072,7 +2072,3 @@ COMMENT ON COLUMN MO_ActvActvRel.USER_ID IS '사용자ID';
 
 -- Activity ActivityType Relation 기본키
 -- COMMENT ON CONSTRAINT MO_ActvActvRel.PK_MO_ActvActvRel IS 'Activity ActivityType Relation 기본키';
-
-
--- TODO : 기본키 인덱스 생성을 별도로 해줘야 하는건지 확인 필요 (많은 데이터를 입력한 후 조회 시간이 오래 걸리는지??)
--- 시간이 오래걸릴 경우 PK에 대한 인덱스 생성해줘야함 

@@ -1,5 +1,6 @@
 package com.keichee.mustoutdoor.web.dao;
 
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,7 @@ public interface FacilitiesDao {
     int deleteFacility(@Param("facilityId") String facilityId);
 
     // 관계 테이블 관련
-    int insertAcmdFacilitiesRel(FacilitiesDto facility);
+    int insertAcmdFacilitiesRel(AcmdFacilitiesRelDto acmdFcltRel);
 
     int insertAmcdFacilitiresRels(@Param("facilities") List<FacilitiesDto> facilities);
 

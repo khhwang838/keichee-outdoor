@@ -1,9 +1,11 @@
 package com.keichee.mustoutdoor.web.dao;
 
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
 
 public interface AcmdThemesDao {
 
@@ -20,7 +22,7 @@ public interface AcmdThemesDao {
     List<AcmdThemesDto> selectThemesByUserId(@Param("userId") String userId);
 
     // Relation Table
-    int insertAcmdThemesRel(AcmdThemesDto theme);
+    int insertAcmdThemesRel(AcmdThemesRelDto theme);
 
     int deleteAcmdThemesRelByThemeId(@Param("acmdThemeId")String acmdThemeId);
 

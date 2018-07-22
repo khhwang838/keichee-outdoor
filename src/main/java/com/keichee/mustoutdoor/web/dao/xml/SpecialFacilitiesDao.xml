@@ -3,28 +3,28 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao">
 
-    <insert id="insertFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
-		INSERT INTO MO_SpecialFacilities (FCLT_ID, FCLT_NAME, FCLT_IMG_URL)
-		VALUES (#{fcltId}, #{fcltName}, #{fcltImgUrl})
+    <insert id="insertSpecialFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto">
+		INSERT INTO MO_SpecialFacilities (SPECIAL_FCLT_ID, SPECIAL_FCLT_NAME, SPECIAL_FCLT_DESC)
+		VALUES (#{specialFcltId}, #{specialFcltName}, #{specialFcltDesc})
 	</insert>
 
-    <update id="updateFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.FacilitiesDto">
+    <update id="updateSpecialFacility" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto">
         UPDATE MO_SpecialFacilities SET
-        FCLT_NAME = #{fcltName}
-        <if test="fcltImgUrl != null and fcltImgUrl.length() > 0">
-            , FCLT_IMG_URL = #{fcltImgUrl}
+        SPECIAL_FCLT_NAME = #{specialFcltName}
+        <if test="specialFcltDesc != null and specialFcltDesc.length() > 0">
+            , SPECIAL_FCLT_DESC = #{specialFcltDesc}
         </if>
-        WHERE FCLT_ID = #{fcltId}
+        WHERE SPECIAL_FCLT_ID = #{specialFcltId}
     </update>
 
-    <delete id="deleteFacility">
-		DELETE FROM MO_SpecialFacilities WHERE FCLT_ID = #{fcltId}
+    <delete id="deleteSpecialFacility">
+		DELETE FROM MO_SpecialFacilities WHERE SPECIAL_FCLT_ID = #{specialFcltId}
 	</delete>
 
     <!-- 관계 테이블 관련 -->
-    <insert id="insertAmcdSpecialFacilitiesRel">
-		INSERT INTO MO_AcmdSpecialFacilitiesRel (ACMD_UID, FCLT_ID, USER_ID)
-		VALUES (#{acmdUid}, #{fcltId}, #{userId})
+    <insert id="insertAcmdSpecialFacilitiesRel">
+		INSERT INTO MO_AcmdSpecialFacilitiesRel (ACMD_UID, SPECIAL_FCLT_ID, USER_ID)
+		VALUES (#{acmdUid}, #{specialFcltId}, #{userId})
 	</insert>
 
     <insert id="insertAcmdSpecialFacilitiesRels">

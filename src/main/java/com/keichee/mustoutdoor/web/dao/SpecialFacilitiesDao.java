@@ -1,12 +1,11 @@
 package com.keichee.mustoutdoor.web.dao;
 
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdSpecialFacilitiesRelDto;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdSpecialFacilitiesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto;
-
-import java.util.List;
 
 public interface SpecialFacilitiesDao {
 
@@ -14,12 +13,12 @@ public interface SpecialFacilitiesDao {
 
     int updateSpecialFacility(SpecialFacilitiesDto specialFacility);
 
-    int deleteSpecialFacility(@Param("specialFacilityId") String specialFacilityId);
+    int deleteSpecialFacility(@Param("specialFcltId") String specialFacilityId);
 
     // 관계 테이블 관련 쿼리
-    int insertAcmdSpecialFacilitiesRel(SpecialFacilitiesDto specialFacility);
+    int insertAcmdSpecialFacilitiesRel(AcmdSpecialFacilitiesRelDto acmdSpecialFcltRel);
 
-    int insertAcmdSpecialFacilitiesRels(List<AcmdSpecialFacilitiesRelDto> acmdSpecialFacilitiesRelDtoList);
+    int insertAcmdSpecialFacilitiesRels(List<AcmdSpecialFacilitiesRelDto> acmdSpecialFcltRelDtoList);
 
     int deleteAcmdSpecialFacilitiesRelByAmcdUid(@Param("acmdUid") String acmdUid);
 

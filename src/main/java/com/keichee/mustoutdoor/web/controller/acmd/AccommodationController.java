@@ -45,10 +45,23 @@ public class AccommodationController {
 	@Autowired
 	private SessionInfo sessionInfo;
 
+	/**
+	 * 싱글페이지로 갈 경우 이 콘트롤러를 사용해야함. 파일을 동시에 보내줘야하므로 form-data로 전송.
+	 * 이미지 저장과 텍스트 정보 저장을 분리할 경우, 
+	 * 최소화된 필수정보만 먼저 입력받고 후에 이미지를 저장할 수 있도록 하면 컨트롤러 두 개로 나눠서 처리 가능. 
+	 * @param acmd
+	 * @param locale
+	 * @return
+	 */
 	@PostMapping
-	public Response insertInfo(@RequestBody UIAccommodation acmd, Locale locale) {
+	public Response insertAcmdInfo(UIAccommodation acmd, Locale locale) {
 		String userId = sessionInfo.getUserId();
 		// TODO : 필수값 검사
+		if ( userId == null ) userId = "tester";
+		
+		log.debug("featured image file name: {}", acmd.getUiGeneralInfo().getFeaturedImage().getOriginalFilename());
+		log.debug("rcmd image[0] file name: {}", acmd.getUiLocation().getRcmdSpots().get(0).getRcmdPlaceImage().getOriginalFilename());
+		
 		
 		String result = acmdService.add(acmd, userId);
 
@@ -65,8 +78,11 @@ public class AccommodationController {
 	}
 
 	@PatchMapping
-	public Response updateInfo(@RequestBody UIAccommodation acmd, Locale locale) {
-		int result = acmdService.update(acmd);
+	public Response updateAcmdInfo(@RequestBody UIAccommodation acmd, Locale locale) {
+		
+		String userId = sessionInfo.getUserId();
+		
+		int result = acmdService.update(acmd, userId);
 		Response resp;
 		if (result > 0) {
 			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
@@ -78,7 +94,7 @@ public class AccommodationController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/{acmdUid}")
-	public Response detailInfo(@PathVariable String acmdUid, Locale locale) {
+	public Response getAcmdDetailInfo(@PathVariable String acmdUid, Locale locale) {
 
 		AcmdDto acmdDetail = acmdService.getAcmd(acmdUid);
 		Response resp;
@@ -95,7 +111,7 @@ public class AccommodationController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/{userId}")
-	public Response listInfo(@PathVariable String userId, Locale locale) {
+	public Response listAcmdInfo(@PathVariable String userId, Locale locale) {
 
 		List<AcmdDto> acmdList = acmdService.getAllAcmdList(userId);
 		
@@ -110,12 +126,29 @@ public class AccommodationController {
 	}
 
 	@DeleteMapping
-	public Response deleteInfo() {
+	public Response deleteAcmdInfo() {
 		// TODO : 삭제 로직 구현 (숙소업체 메인 정보를 제외한 정보들만)
 		Response resp = new Response();
 		return resp;
 	}
 
+	@PostMapping(value = "/images")
+	public Response saveImages(UIAccommodation acmdImages, Locale locale){
+		
+		log.debug("featured image file name: {}", acmdImages.getUiGeneralInfo().getFeaturedImage().getOriginalFilename());
+		log.debug("rcmd image[0] file name: {}", acmdImages.getUiLocation().getRcmdSpots().get(0).getRcmdPlaceImage().getOriginalFilename());
+		
+		int result = acmdService.addImages(acmdImages);
+		
+		Response resp;
+		if (result > 0) {
+			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+		} else {
+			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
+		return resp;
+	}
+	
 	@PostMapping("/upload")
 	public Object uploadFile(MultipartHttpServletRequest request) {
 		// TODO : 실제로 파일을 업로드하는데 저장을 누를때 실제로 파일을 업로드 하도록 변경되어야 함.

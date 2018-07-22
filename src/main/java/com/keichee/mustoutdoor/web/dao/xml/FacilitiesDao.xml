@@ -22,13 +22,13 @@
 	</delete>
 
 	<!-- 관계 테이블 관련 -->
-    <insert id="insertAmcdFacilitiesRel" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
+    <insert id="insertAcmdFacilitiesRel" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
 		INSERT INTO MO_AcmdFacilitiesRel (ACMD_UID, FCLT_ID, USER_ID)
 		VALUES (#{acmdUid}, #{fcltId}, #{userId})
 
 	</insert>
 
-    <insert id="insertAmcdFacilitiesRels" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
+    <insert id="insertAcmdFacilitiesRels" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto">
 		INSERT INTO MO_AcmdFacilitiesRel(ACMD_UID, FCLT_ID, USER_ID)
 		VALUES
 		<foreach item="item" collection="list" open="" close="" separator=",">
@@ -36,12 +36,12 @@
 		</foreach>
 	</insert>
 
-	<delete id="deleteAmcdFacilitiesRelByAcmdUid">
+	<delete id="deleteAcmdFacilitiesRelByAcmdUid">
 		DELETE FROM MO_AcmdFacilitiesRel
 		WHERE ACMD_UID = #{acmdUid}
 	</delete>
 
-	<delete id="deleteAmcdFacilitiesRelByUserId">
+	<delete id="deleteAcmdFacilitiesRelByUserId">
 		DELETE FROM MO_AcmdFacilitiesRel
 		WHERE USER_ID = #{userId}
 	</delete>

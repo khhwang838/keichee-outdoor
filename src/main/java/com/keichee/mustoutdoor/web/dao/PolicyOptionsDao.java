@@ -1,5 +1,6 @@
 package com.keichee.mustoutdoor.web.dao;
 
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,9 +12,18 @@ public interface PolicyOptionsDao {
 
     int updatePolicyOption(PolicyOptionsDto policyOption);
 
-    int deletePolicyOption(@Param("plcyOptionUid") String plcyOptionUid);
+    int deletePolicyOption(@Param("plcyOptUid") String plcyOptUid);
 
     // Relation table join
-    List<PolicyOptionsDto> selectPolicyOptions(@Param("acmdUid") String acmdUid);
+    List<PolicyOptionsDto> selectPolicyOptions(@Param("acmdUid") String acmdUid, @Param("userId") String userId);
 
+    int insertAcmdPolicyOptionRel(AcmdPolicyOptionRelDto acmdPlcyOptRelDto);
+    
+    int insertAcmdPolicyOptionRels(List<AcmdPolicyOptionRelDto> acmdPlcyOptRelDto);
+    
+    int deleteAcmdPolicyOptionRelByAcmdUid(@Param("acmdUid") String acmdUid);
+    
+    int deleteAcmdPolicyOptionRelByUserId(@Param("userId") String userId);
+    
+    
 }
