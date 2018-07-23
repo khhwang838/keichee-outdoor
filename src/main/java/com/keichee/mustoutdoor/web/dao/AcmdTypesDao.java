@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Deprecated
 public interface AcmdTypesDao {
 
     int insertAcmdType(AcmdTypesDto acmdType);

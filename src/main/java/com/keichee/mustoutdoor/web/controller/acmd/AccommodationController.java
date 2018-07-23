@@ -28,9 +28,11 @@ import com.keichee.mustoutdoor.constants.IMessageCode;
 import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
+import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.service.AcmdService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -53,30 +55,32 @@ public class AccommodationController {
 	 * @param locale
 	 * @return
 	 */
+	@ApiOperation("숙소 생성")
 	@PostMapping
 	public Response insertAcmdInfo(UIAccommodation acmd, Locale locale) {
-		String userId = sessionInfo.getUserId();
-		// TODO : 필수값 검사
-		if ( userId == null ) userId = "tester";
 		
-		log.debug("featured image file name: {}", acmd.getUiGeneralInfo().getFeaturedImage().getOriginalFilename());
-		log.debug("rcmd image[0] file name: {}", acmd.getUiLocation().getRcmdSpots().get(0).getRcmdPlaceImage().getOriginalFilename());
-		
-		
-		String result = acmdService.add(acmd, userId);
-
-		Response<String> resp;
-		if (result != null) {
-			resp = new Response<>(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
-			List<String> respData = new ArrayList<>();
-			respData.add(result);
-			resp.setRespData(respData);
-		} else {
-			resp = new Response<>(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
-		}
-		return resp;
+		log.debug("{} {}", acmd.getUiGeneralInfo().getTitle(), acmd.getUiGeneralInfo().getDesc());
+		return null;
+//		String userId = sessionInfo.getUserId();
+//		// TODO : 필수값 검사
+//		if ( userId == null ) userId = "tester";
+//		
+//		
+//		String result = acmdService.add(acmd, userId);
+//
+//		Response<String> resp;
+//		if (result != null) {
+//			resp = new Response<>(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+//			List<String> respData = new ArrayList<>();
+//			respData.add(result);
+//			resp.setRespData(respData);
+//		} else {
+//			resp = new Response<>(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+//		}
+//		return resp;
 	}
 
+	@ApiOperation("숙소 정보 업데이트")
 	@PatchMapping
 	public Response updateAcmdInfo(@RequestBody UIAccommodation acmd, Locale locale) {
 		
@@ -93,14 +97,15 @@ public class AccommodationController {
 	}
 
 	@SuppressWarnings("unchecked")
+	@ApiOperation("숙소 상세 정보 조회")
 	@GetMapping(value = "/{acmdUid}")
 	public Response getAcmdDetailInfo(@PathVariable String acmdUid, Locale locale) {
 
-		AcmdDto acmdDetail = acmdService.getAcmd(acmdUid);
+		UIAcmd acmdDetail = acmdService.getAcmd(acmdUid);
 		Response resp;
 		if ( acmdDetail != null ){
 			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
-			List<AcmdDto> resultData = new ArrayList<>();
+			List<UIAcmd> resultData = new ArrayList<>();
 			resultData.add(acmdDetail);
 			resp.setRespData(resultData);
 		} else {
@@ -110,10 +115,11 @@ public class AccommodationController {
 	}
 
 	@SuppressWarnings("unchecked")
+	@ApiOperation("사용자의 숙소 목록 조회")
 	@GetMapping(value = "/list/{userId}")
 	public Response listAcmdInfo(@PathVariable String userId, Locale locale) {
 
-		List<AcmdDto> acmdList = acmdService.getAllAcmdList(userId);
+		List<UIAcmd> acmdList = acmdService.getAllAcmdList(userId);
 		
 		Response resp = new Response();
 		if ( acmdList != null && !acmdList.isEmpty() ){
@@ -125,6 +131,7 @@ public class AccommodationController {
 		return resp;
 	}
 
+	@ApiOperation("숙소 삭제")
 	@DeleteMapping
 	public Response deleteAcmdInfo() {
 		// TODO : 삭제 로직 구현 (숙소업체 메인 정보를 제외한 정보들만)
@@ -132,6 +139,7 @@ public class AccommodationController {
 		return resp;
 	}
 
+	@ApiOperation("이미지 저장")
 	@PostMapping(value = "/images")
 	public Response saveImages(UIAccommodation acmdImages, Locale locale){
 		
@@ -149,6 +157,7 @@ public class AccommodationController {
 		return resp;
 	}
 	
+	@ApiOperation("이미지 업로드")
 	@PostMapping("/upload")
 	public Object uploadFile(MultipartHttpServletRequest request) {
 		// TODO : 실제로 파일을 업로드하는데 저장을 누를때 실제로 파일을 업로드 하도록 변경되어야 함.

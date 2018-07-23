@@ -1,5 +1,6 @@
 package com.keichee.mustoutdoor.web.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,23 +12,26 @@ import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.dao.AcmdDao;
 import com.keichee.mustoutdoor.web.dao.AcmdThemesDao;
-import com.keichee.mustoutdoor.web.dao.AcmdTypesDao;
 import com.keichee.mustoutdoor.web.dao.ExtraOptionsDao;
 import com.keichee.mustoutdoor.web.dao.FacilitiesDao;
 import com.keichee.mustoutdoor.web.dao.PoliciesDao;
 import com.keichee.mustoutdoor.web.dao.PolicyOptionsDao;
 import com.keichee.mustoutdoor.web.dao.RcmdSpotsDao;
+import com.keichee.mustoutdoor.web.dao.RoomTypesDao;
 import com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
+import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdSpecialFacilitiesRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.ExtraOptionsDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.PoliciesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypeDto;
 
 /**
  * 숙소 정보 생성/수정/조회/삭제 서비스
@@ -37,8 +41,6 @@ public class AcmdService {
 
 	@Autowired
 	private AcmdDao acmdDao;
-	@Autowired
-	private AcmdTypesDao acmdTypesDao;
 	@Autowired
 	private RcmdSpotsDao rcmdSpotsDao;
 	@Autowired
@@ -53,7 +55,9 @@ public class AcmdService {
 	private PoliciesDao policiesDao;
 	@Autowired
 	private PolicyOptionsDao policyOptionsDao;
-
+	@Autowired
+	private RoomTypesDao roomTypesDao;
+	
 	/**
 	 * 숙소 정보 생성
 	 *
@@ -226,16 +230,16 @@ public class AcmdService {
 	 *
 	 * @return
 	 */
-	public List<AcmdDto> getAllAcmdList(String userId) {
+	public List<UIAcmd> getAllAcmdList(String userId) {
+		List<UIAcmd> result = new ArrayList<>();
+		
 		List<AcmdDto> acmdList = acmdDao.selectAllByUserId(userId);
 		for (AcmdDto dto : acmdList) {
-
-			acmdTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
-			acmdThemesDao.selectThemesByAcmdUid(dto.getAcmdUid());
-
+			List<RoomTypeDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
+			List<AcmdThemesDto> acmdThemes = acmdThemesDao.selectThemesByAcmdUid(dto.getAcmdUid());
+			result.add(new UIAcmd(dto, acmdThemes, roomTypes));
 		}
-
-		return acmdList;
+		return result;
 	}
 
 	/**
@@ -244,9 +248,14 @@ public class AcmdService {
 	 * @param acmdUid
 	 * @return
 	 */
-	public AcmdDto getAcmd(String acmdUid) {
+	public UIAcmd getAcmd(String acmdUid) {
 		AcmdDto acmdDetail = acmdDao.selectByUid(acmdUid);
-		return acmdDetail;
+		// TODO : theme	정보 조회
+		List<AcmdThemesDto> themes = null;
+		// TODO : room type 정보 조회
+		List<RoomTypeDto> roomTypes = null;
+		
+		return new UIAcmd(acmdDetail, themes, roomTypes);
 	}
 
 	public int updateImageUrl(String acmdUid, String acmdName, String filename) {
