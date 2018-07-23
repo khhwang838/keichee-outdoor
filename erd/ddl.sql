@@ -356,9 +356,9 @@ COMMENT ON COLUMN MO_RecommendSpots.RCMD_PLACE_IMG_URL IS '추천장소이미지
 
 -- Room Types
 CREATE TABLE MO_RoomTypes (
-	ROOM_TYPE_UID  VARCHAR(32)  NOT NULL, -- 방타입UID
-	ROOM_TYPE_NAME VARCHAR(100) NULL,     -- 방타입명
-	ROOM_TYPE_IMG  VARCHAR(255) NULL      -- 방타입이미지
+	ROOM_TYPE_ID      VARCHAR(40)  NOT NULL, -- 방타입ID
+	ROOM_TYPE_NAME    VARCHAR(100) NULL,     -- 방타입명
+	ROOM_TYPE_IMG_URL VARCHAR(255) NULL      -- 방타입이미지URL
 );
 
 -- Room Types
@@ -366,20 +366,20 @@ ALTER TABLE MO_RoomTypes
 	ADD
 		CONSTRAINT PK_MO_RoomTypes -- Room Types 기본키
 		PRIMARY KEY (
-			ROOM_TYPE_UID -- 방타입UID
+			ROOM_TYPE_ID -- 방타입ID
 		);
 
 -- Room Types
 COMMENT ON TABLE MO_RoomTypes IS 'Room Types';
 
--- 방타입UID
-COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_UID IS '방타입UID';
+-- 방타입ID
+COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_ID IS '방타입ID';
 
 -- 방타입명
 COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_NAME IS '방타입명';
 
--- 방타입이미지
-COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_IMG IS '방타입이미지';
+-- 방타입이미지URL
+COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_IMG_URL IS '방타입이미지URL';
 
 -- Room Types 기본키
 -- COMMENT ON INDEX PK_MO_RoomTypes IS 'Room Types 기본키';
@@ -389,9 +389,9 @@ COMMENT ON COLUMN MO_RoomTypes.ROOM_TYPE_IMG IS '방타입이미지';
 
 -- Facilities
 CREATE TABLE MO_Facilities (
-	FCLT_ID   VARCHAR(40)  NOT NULL, -- 숙박시설ID
-	FCLT_NAME VARCHAR(100) NULL,     -- 숙박시설명
-	FCLT_IMG  VARCHAR(255) NULL      -- 숙박시설이미지
+	FCLT_ID      VARCHAR(40)  NOT NULL, -- 숙박시설ID
+	FCLT_NAME    VARCHAR(100) NULL,     -- 숙박시설명
+	FCLT_IMG_URL VARCHAR(255) NULL      -- 숙박시설이미지URL
 );
 
 -- Facilities
@@ -411,8 +411,8 @@ COMMENT ON COLUMN MO_Facilities.FCLT_ID IS '숙박시설ID';
 -- 숙박시설명
 COMMENT ON COLUMN MO_Facilities.FCLT_NAME IS '숙박시설명';
 
--- 숙박시설이미지
-COMMENT ON COLUMN MO_Facilities.FCLT_IMG IS '숙박시설이미지';
+-- 숙박시설이미지URL
+COMMENT ON COLUMN MO_Facilities.FCLT_IMG_URL IS '숙박시설이미지URL';
 
 -- Facilities 기본키
 -- COMMENT ON INDEX PK_MO_Facilities IS 'Facilities 기본키';
@@ -422,9 +422,9 @@ COMMENT ON COLUMN MO_Facilities.FCLT_IMG IS '숙박시설이미지';
 
 -- Themes
 CREATE TABLE MO_Themes (
-	ACMD_THEME_ID   VARCHAR(40)  NOT NULL, -- 숙박테마ID
-	ACMD_THEME_NAME VARCHAR(100) NULL,     -- 숙박테마명
-	ACMD_THEME_IMG  VARCHAR(255) NULL      -- 숙박테마이미지
+	ACMD_THEME_ID      VARCHAR(40)  NOT NULL, -- 숙박테마ID
+	ACMD_THEME_NAME    VARCHAR(100) NULL,     -- 숙박테마명
+	ACMD_THEME_IMG_URL VARCHAR(255) NULL      -- 숙소테마이미지URL
 );
 
 -- Themes
@@ -444,8 +444,8 @@ COMMENT ON COLUMN MO_Themes.ACMD_THEME_ID IS '숙박테마ID';
 -- 숙박테마명
 COMMENT ON COLUMN MO_Themes.ACMD_THEME_NAME IS '숙박테마명';
 
--- 숙박테마이미지
-COMMENT ON COLUMN MO_Themes.ACMD_THEME_IMG IS '숙박테마이미지';
+-- 숙소테마이미지URL
+COMMENT ON COLUMN MO_Themes.ACMD_THEME_IMG_URL IS '숙소테마이미지URL';
 
 -- Themes 기본키
 -- COMMENT ON INDEX PK_MO_Themes IS 'Themes 기본키';
@@ -681,7 +681,7 @@ COMMENT ON COLUMN MO_CancelPolicy.CANCEL_PLCY_DESC IS '취소정책설명';
 
 -- Policy Options
 CREATE TABLE MO_PolicyOptions (
-	PLCY_OPT_UID  VARCHAR(32)   NOT NULL, -- 정책옵션UID
+	PLCY_OPT_ID   VARCHAR(40)   NOT NULL, -- 정책옵션ID
 	PLCY_OPT_NAME VARCHAR(100)  NULL,     -- 정책옵션명
 	PLCY_OPT_DESC VARCHAR(1000) NULL      -- 정책옵션설명
 );
@@ -691,14 +691,14 @@ ALTER TABLE MO_PolicyOptions
 	ADD
 		CONSTRAINT PK_MO_PolicyOptions -- Policy Options 기본키
 		PRIMARY KEY (
-			PLCY_OPT_UID -- 정책옵션UID
+			PLCY_OPT_ID -- 정책옵션ID
 		);
 
 -- Policy Options
 COMMENT ON TABLE MO_PolicyOptions IS 'Policy Options';
 
--- 정책옵션UID
-COMMENT ON COLUMN MO_PolicyOptions.PLCY_OPT_UID IS '정책옵션UID';
+-- 정책옵션ID
+COMMENT ON COLUMN MO_PolicyOptions.PLCY_OPT_ID IS '정책옵션ID';
 
 -- 정책옵션명
 COMMENT ON COLUMN MO_PolicyOptions.PLCY_OPT_NAME IS '정책옵션명';
@@ -765,7 +765,7 @@ CREATE TABLE MO_Rooms (
 	ROOM_NAME          VARCHAR(100)  NULL,     -- 방명
 	ROOM_DESC          VARCHAR(1000) NULL,     -- 방설명
 	IMG_URL            VARCHAR(255)  NULL,     -- 이미지URL
-	SITE_TYPE_UID      VARCHAR(32)   NULL,     -- 사이트타입UID
+	SITE_TYPE_ID       VARCHAR(40)   NULL,     -- 사이트타입ID
 	ROOM_CNT           VARCHAR(10)   NULL,     -- 방개수
 	MAX_PPL_CNT        VARCHAR(10)   NULL,     -- 최대인원수
 	EXTRA_PPL_CNT      VARCHAR(10)   NULL,     -- 추가인원수
@@ -776,7 +776,7 @@ CREATE TABLE MO_Rooms (
 	BED_CNT            VARCHAR(10)   NULL,     -- 침대개수
 	ROOM_SIZE          INTEGER       NULL,     -- 방사이즈
 	ACMD_UID           VARCHAR(32)   NULL,     -- 숙소UID
-	ROOM_TYPE_UID      VARCHAR(32)   NULL,     -- 방타입UID
+	ROOM_TYPE_ID       VARCHAR(40)   NULL,     -- 방타입ID
 	USER_ID            VARCHAR(40)   NULL      -- 사용자ID
 );
 
@@ -803,8 +803,8 @@ COMMENT ON COLUMN MO_Rooms.ROOM_DESC IS '방설명';
 -- 이미지URL
 COMMENT ON COLUMN MO_Rooms.IMG_URL IS '이미지URL';
 
--- 사이트타입UID
-COMMENT ON COLUMN MO_Rooms.SITE_TYPE_UID IS '사이트타입UID';
+-- 사이트타입ID
+COMMENT ON COLUMN MO_Rooms.SITE_TYPE_ID IS '사이트타입ID';
 
 -- 방개수
 COMMENT ON COLUMN MO_Rooms.ROOM_CNT IS '방개수';
@@ -836,8 +836,8 @@ COMMENT ON COLUMN MO_Rooms.ROOM_SIZE IS 'UNIT = SQUARE METER';
 -- 숙소UID
 COMMENT ON COLUMN MO_Rooms.ACMD_UID IS '숙소UID';
 
--- 방타입UID
-COMMENT ON COLUMN MO_Rooms.ROOM_TYPE_UID IS '방타입UID';
+-- 방타입ID
+COMMENT ON COLUMN MO_Rooms.ROOM_TYPE_ID IS '방타입ID';
 
 -- 사용자ID
 COMMENT ON COLUMN MO_Rooms.USER_ID IS '사용자ID';
@@ -888,9 +888,9 @@ COMMENT ON COLUMN MO_RoomImages.IMG_TITLE IS '이미지제목';
 
 -- Amenities
 CREATE TABLE MO_Amenities (
-	AMNY_UID  VARCHAR(32)  NOT NULL, -- 편의시설UID
-	AMNY_NAME VARCHAR(100) NOT NULL, -- 편의시설명
-	AMNY_IMG  VARCHAR(255) NULL      -- 편의시설이미지
+	AMNY_ID      VARCHAR(40)  NOT NULL, -- 편의시설ID
+	AMNY_NAME    VARCHAR(100) NOT NULL, -- 편의시설명
+	AMNY_IMG_URL VARCHAR(255) NULL      -- 편의시설이미지URL
 );
 
 -- Amenities
@@ -898,20 +898,20 @@ ALTER TABLE MO_Amenities
 	ADD
 		CONSTRAINT PK_MO_Amenities -- Amenities 기본키
 		PRIMARY KEY (
-			AMNY_UID -- 편의시설UID
+			AMNY_ID -- 편의시설ID
 		);
 
 -- Amenities
 COMMENT ON TABLE MO_Amenities IS 'Amenities';
 
--- 편의시설UID
-COMMENT ON COLUMN MO_Amenities.AMNY_UID IS '편의시설UID';
+-- 편의시설ID
+COMMENT ON COLUMN MO_Amenities.AMNY_ID IS '편의시설ID';
 
 -- 편의시설명
 COMMENT ON COLUMN MO_Amenities.AMNY_NAME IS '편의시설명';
 
--- 편의시설이미지
-COMMENT ON COLUMN MO_Amenities.AMNY_IMG IS '편의시설이미지';
+-- 편의시설이미지URL
+COMMENT ON COLUMN MO_Amenities.AMNY_IMG_URL IS '편의시설이미지URL';
 
 -- Amenities 기본키
 -- COMMENT ON INDEX PK_MO_Amenities IS 'Amenities 기본키';
@@ -957,7 +957,7 @@ COMMENT ON COLUMN MO_AcmdFacilitiesRel.USER_ID IS '사용자ID';
 -- Room Amenities
 CREATE TABLE MO_RoomAmenities (
 	ROOM_UID VARCHAR(32) NOT NULL, -- 방UID
-	AMNY_UID VARCHAR(32) NOT NULL  -- 편의시설UID
+	AMNY_ID  VARCHAR(40) NOT NULL  -- 편의시설ID
 );
 
 -- Room Amenities
@@ -966,7 +966,7 @@ ALTER TABLE MO_RoomAmenities
 		CONSTRAINT PK_MO_RoomAmenities -- Room Amenities 기본키
 		PRIMARY KEY (
 			ROOM_UID, -- 방UID
-			AMNY_UID  -- 편의시설UID
+			AMNY_ID   -- 편의시설ID
 		);
 
 -- Room Amenities
@@ -975,8 +975,8 @@ COMMENT ON TABLE MO_RoomAmenities IS 'Room Amenities';
 -- 방UID
 COMMENT ON COLUMN MO_RoomAmenities.ROOM_UID IS '방UID';
 
--- 편의시설UID
-COMMENT ON COLUMN MO_RoomAmenities.AMNY_UID IS '편의시설UID';
+-- 편의시설ID
+COMMENT ON COLUMN MO_RoomAmenities.AMNY_ID IS '편의시설ID';
 
 -- Room Amenities 기본키
 -- COMMENT ON INDEX PK_MO_RoomAmenities IS 'Room Amenities 기본키';
@@ -1077,9 +1077,9 @@ COMMENT ON COLUMN MO_DfltRoomPrice.SAT_PRICE IS '토요일가격';
 
 -- Accomodation PolicyOption Relation
 CREATE TABLE MO_AcmdPolicyOptionRel (
-	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙소UID
-	PLCY_OPT_UID VARCHAR(32) NOT NULL, -- 정책옵션UID
-	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
+	ACMD_UID    VARCHAR(32) NOT NULL, -- 숙소UID
+	PLCY_OPT_ID VARCHAR(40) NOT NULL, -- 정책옵션ID
+	USER_ID     VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accomodation PolicyOption Relation
@@ -1087,9 +1087,9 @@ ALTER TABLE MO_AcmdPolicyOptionRel
 	ADD
 		CONSTRAINT PK_MO_AcmdPolicyOptionRel -- Accomodation PolicyOption Relation 기본키
 		PRIMARY KEY (
-			ACMD_UID,     -- 숙소UID
-			PLCY_OPT_UID, -- 정책옵션UID
-			USER_ID       -- 사용자ID
+			ACMD_UID,    -- 숙소UID
+			PLCY_OPT_ID, -- 정책옵션ID
+			USER_ID      -- 사용자ID
 		);
 
 -- Accomodation PolicyOption Relation
@@ -1098,8 +1098,8 @@ COMMENT ON TABLE MO_AcmdPolicyOptionRel IS 'Accomodation PolicyOption Relation';
 -- 숙소UID
 COMMENT ON COLUMN MO_AcmdPolicyOptionRel.ACMD_UID IS '숙소UID';
 
--- 정책옵션UID
-COMMENT ON COLUMN MO_AcmdPolicyOptionRel.PLCY_OPT_UID IS '정책옵션UID';
+-- 정책옵션ID
+COMMENT ON COLUMN MO_AcmdPolicyOptionRel.PLCY_OPT_ID IS '정책옵션ID';
 
 -- 사용자ID
 COMMENT ON COLUMN MO_AcmdPolicyOptionRel.USER_ID IS '사용자ID';
@@ -1112,7 +1112,7 @@ COMMENT ON COLUMN MO_AcmdPolicyOptionRel.USER_ID IS '사용자ID';
 
 -- Site Types
 CREATE TABLE MO_SiteTypes (
-	SITE_TYPE_UID  VARCHAR(32)  NOT NULL, -- 사이트타입UID
+	SITE_TYPE_ID   VARCHAR(40)  NOT NULL, -- 사이트타입ID
 	SITE_TYPE_NAME VARCHAR(100) NULL      -- 사이트타입명
 );
 
@@ -1121,14 +1121,14 @@ ALTER TABLE MO_SiteTypes
 	ADD
 		CONSTRAINT PK_MO_SiteTypes -- Site Types 기본키
 		PRIMARY KEY (
-			SITE_TYPE_UID -- 사이트타입UID
+			SITE_TYPE_ID -- 사이트타입ID
 		);
 
 -- Site Types
 COMMENT ON TABLE MO_SiteTypes IS 'Site Types';
 
--- 사이트타입UID
-COMMENT ON COLUMN MO_SiteTypes.SITE_TYPE_UID IS '사이트타입UID';
+-- 사이트타입ID
+COMMENT ON COLUMN MO_SiteTypes.SITE_TYPE_ID IS '사이트타입ID';
 
 -- 사이트타입명
 COMMENT ON COLUMN MO_SiteTypes.SITE_TYPE_NAME IS '사이트타입명';
@@ -1320,9 +1320,9 @@ COMMENT ON COLUMN MO_Activity.UPDATE_DTTM IS '수정일시';
 
 -- Acvity Types
 CREATE TABLE MO_ActivityTypes (
-	ACTV_TYPE_UID  VARCHAR(32)  NOT NULL, -- 액티비티타입UID
-	ACTV_TYPE_NAME VARCHAR(100) NULL,     -- 액티비티타입명
-	ACTV_TYPE_IMG  VARCHAR(255) NULL      -- 액티비티타입이미지
+	ACTV_TYPE_ID      VARCHAR(40)  NOT NULL, -- 액티비티타입ID
+	ACTV_TYPE_NAME    VARCHAR(100) NULL,     -- 액티비티타입명
+	ACTV_TYPE_IMG_URL VARCHAR(255) NULL      -- 액티비티타입이미지URL
 );
 
 -- Acvity Types
@@ -1330,20 +1330,20 @@ ALTER TABLE MO_ActivityTypes
 	ADD
 		CONSTRAINT PK_MO_ActivityTypes -- Acvity Types 기본키
 		PRIMARY KEY (
-			ACTV_TYPE_UID -- 액티비티타입UID
+			ACTV_TYPE_ID -- 액티비티타입ID
 		);
 
 -- Acvity Types
 COMMENT ON TABLE MO_ActivityTypes IS 'Acvity Types';
 
--- 액티비티타입UID
-COMMENT ON COLUMN MO_ActivityTypes.ACTV_TYPE_UID IS '액티비티타입UID';
+-- 액티비티타입ID
+COMMENT ON COLUMN MO_ActivityTypes.ACTV_TYPE_ID IS '액티비티타입ID';
 
 -- 액티비티타입명
 COMMENT ON COLUMN MO_ActivityTypes.ACTV_TYPE_NAME IS '액티비티타입명';
 
--- 액티비티타입이미지
-COMMENT ON COLUMN MO_ActivityTypes.ACTV_TYPE_IMG IS '액티비티타입이미지';
+-- 액티비티타입이미지URL
+COMMENT ON COLUMN MO_ActivityTypes.ACTV_TYPE_IMG_URL IS '액티비티타입이미지URL';
 
 -- Acvity Types 기본키
 -- COMMENT ON INDEX PK_MO_ActivityTypes IS 'Acvity Types 기본키';
@@ -1937,9 +1937,9 @@ COMMENT ON COLUMN MO_AcmdSpecialFacilitiesRel.USER_ID IS '사용자ID';
 
 -- Accommodation Types
 CREATE TABLE MO_AcmdTypes (
-	ACMD_TYPE_ID   VARCHAR(40)  NOT NULL, -- 숙소타입ID
-	ACMD_TYPE_NAME VARCHAR(100) NULL,     -- 숙소타입명
-	ACMD_TYPE_IMG  VARCHAR(255) NULL      -- 숙소타입이미지
+	ACMD_TYPE_ID      VARCHAR(40)  NOT NULL, -- 숙소타입ID
+	ACMD_TYPE_NAME    VARCHAR(100) NULL,     -- 숙소타입명
+	ACMD_TYPE_IMG_URL VARCHAR(255) NULL      -- 숙소타입이미지URL
 );
 
 -- Accommodation Types
@@ -1959,8 +1959,8 @@ COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_ID IS '숙소타입ID';
 -- 숙소타입명
 COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_NAME IS '숙소타입명';
 
--- 숙소타입이미지
-COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_IMG IS '숙소타입이미지';
+-- 숙소타입이미지URL
+COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_IMG_URL IS '숙소타입이미지URL';
 
 -- Accommodation Types 기본키
 -- COMMENT ON INDEX PK_MO_AcmdTypes IS 'Accommodation Types 기본키';
@@ -2005,9 +2005,9 @@ COMMENT ON COLUMN MO_AcmdTypesRel.USER_ID IS '사용자ID';
 
 -- Accommodation Activity Relation
 CREATE TABLE MO_AcmdActvRel (
-	ACMD_UID      VARCHAR(32) NOT NULL, -- 숙소UID
-	ACTV_TYPE_UID VARCHAR(32) NOT NULL, -- 액티비티타입UID
-	USER_ID       VARCHAR(40) NOT NULL  -- 사용자ID
+	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙소UID
+	ACTV_TYPE_ID VARCHAR(40) NOT NULL, -- 액티비티타입ID
+	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Accommodation Activity Relation
@@ -2015,9 +2015,9 @@ ALTER TABLE MO_AcmdActvRel
 	ADD
 		CONSTRAINT PK_MO_AcmdActvRel -- Accommodation Activity Relation 기본키
 		PRIMARY KEY (
-			ACMD_UID,      -- 숙소UID
-			ACTV_TYPE_UID, -- 액티비티타입UID
-			USER_ID        -- 사용자ID
+			ACMD_UID,     -- 숙소UID
+			ACTV_TYPE_ID, -- 액티비티타입ID
+			USER_ID       -- 사용자ID
 		);
 
 -- Accommodation Activity Relation
@@ -2026,8 +2026,8 @@ COMMENT ON TABLE MO_AcmdActvRel IS 'Accommodation Activity Relation';
 -- 숙소UID
 COMMENT ON COLUMN MO_AcmdActvRel.ACMD_UID IS '숙소UID';
 
--- 액티비티타입UID
-COMMENT ON COLUMN MO_AcmdActvRel.ACTV_TYPE_UID IS '액티비티타입UID';
+-- 액티비티타입ID
+COMMENT ON COLUMN MO_AcmdActvRel.ACTV_TYPE_ID IS '액티비티타입ID';
 
 -- 사용자ID
 COMMENT ON COLUMN MO_AcmdActvRel.USER_ID IS '사용자ID';
@@ -2040,9 +2040,9 @@ COMMENT ON COLUMN MO_AcmdActvRel.USER_ID IS '사용자ID';
 
 -- Activity ActivityType Relation
 CREATE TABLE MO_ActvActvRel (
-	ACTV_UID      VARCHAR(32) NOT NULL, -- 액티비티UID
-	ACTV_TYPE_UID VARCHAR(32) NOT NULL, -- 액티비티타입UID
-	USER_ID       VARCHAR(40) NOT NULL  -- 사용자ID
+	ACTV_UID     VARCHAR(32) NOT NULL, -- 액티비티UID
+	ACTV_TYPE_ID VARCHAR(40) NOT NULL, -- 액티비티타입ID
+	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
 );
 
 -- Activity ActivityType Relation
@@ -2050,9 +2050,9 @@ ALTER TABLE MO_ActvActvRel
 	ADD
 		CONSTRAINT PK_MO_ActvActvRel -- Activity ActivityType Relation 기본키
 		PRIMARY KEY (
-			ACTV_UID,      -- 액티비티UID
-			ACTV_TYPE_UID, -- 액티비티타입UID
-			USER_ID        -- 사용자ID
+			ACTV_UID,     -- 액티비티UID
+			ACTV_TYPE_ID, -- 액티비티타입ID
+			USER_ID       -- 사용자ID
 		);
 
 -- Activity ActivityType Relation
@@ -2061,8 +2061,8 @@ COMMENT ON TABLE MO_ActvActvRel IS 'Activity ActivityType Relation';
 -- 액티비티UID
 COMMENT ON COLUMN MO_ActvActvRel.ACTV_UID IS '액티비티UID';
 
--- 액티비티타입UID
-COMMENT ON COLUMN MO_ActvActvRel.ACTV_TYPE_UID IS '액티비티타입UID';
+-- 액티비티타입ID
+COMMENT ON COLUMN MO_ActvActvRel.ACTV_TYPE_ID IS '액티비티타입ID';
 
 -- 사용자ID
 COMMENT ON COLUMN MO_ActvActvRel.USER_ID IS '사용자ID';
@@ -2072,3 +2072,8 @@ COMMENT ON COLUMN MO_ActvActvRel.USER_ID IS '사용자ID';
 
 -- Activity ActivityType Relation 기본키
 -- COMMENT ON CONSTRAINT MO_ActvActvRel.PK_MO_ActvActvRel IS 'Activity ActivityType Relation 기본키';
+
+
+
+-- TODO : 기본키 인덱스 생성을 별도로 해줘야 하는건지 확인 필요 (많은 데이터를 입력한 후 조회 시간이 오래 걸리는지??)
+-- 시간이 오래걸릴 경우 PK에 대한 인덱스 생성해줘야함 
