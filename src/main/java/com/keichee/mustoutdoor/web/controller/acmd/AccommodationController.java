@@ -83,6 +83,8 @@ public class AccommodationController {
 	public Response updateAcmdInfo(@RequestBody UIAccommodation acmd, Locale locale) {
 		
 		String userId = sessionInfo.getUserId();
+		// TODO : delete
+		if ( userId == null ) {	userId = "tester";}
 		
 		int result = acmdService.update(acmd, userId);
 		Response resp;

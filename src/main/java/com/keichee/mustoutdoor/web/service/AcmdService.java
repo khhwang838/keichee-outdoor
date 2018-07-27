@@ -259,9 +259,9 @@ public class AcmdService {
 	public UIAcmd getAcmd(String acmdUid) {
 		AcmdDto acmdDetail = acmdDao.selectByUid(acmdUid);
 		// TODO : theme 정보 조회
-		List<AcmdThemesDto> themes = null;
+		List<AcmdThemesDto> themes = acmdThemesDao.selectThemesByAcmdUid(acmdUid);
 		// TODO : room type 정보 조회
-		List<RoomTypesDto> roomTypes = null;
+		List<RoomTypesDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(acmdUid);
 
 		return new UIAcmd(acmdDetail, themes, roomTypes);
 	}

@@ -9,8 +9,7 @@ import lombok.ToString;
 @ToString
 public class AcmdThemesDto {
 
-	private String acmdThemeUid;
-	private String acmdUid;
+	private String acmdThemeId;
 	private String acmdThemeName;
 	private String acmdThemeImgUrl;
 	
