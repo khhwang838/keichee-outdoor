@@ -229,8 +229,8 @@ public class AcmdService {
 	 * @return
 	 */
 	@Transactional
-	public int delete(AcmdDto dto) {
-		int result = acmdDao.inActivate(dto.getAcmdUid());
+	public int inactivate(String acmdUid) {
+		int result = acmdDao.inactivate(acmdUid);
 		return result;
 	}
 

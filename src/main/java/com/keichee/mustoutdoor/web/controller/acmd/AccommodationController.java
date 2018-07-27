@@ -29,7 +29,6 @@ import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.service.AcmdService;
 
 import io.swagger.annotations.ApiOperation;
@@ -60,9 +59,12 @@ public class AccommodationController {
 	public Response insertAcmdInfo(UIAccommodation acmd, Locale locale) {
 		
 		String userId = sessionInfo.getUserId();
-		// TODO : 필수값 검사
+		// TODO : delete
 		if ( userId == null ) userId = "tester";
 		
+		if (!checkRequiredParams(acmd)){
+			return new Response<>(IMessageCode.ERROR.E0002, messageSource.getMessage(IMessageCode.ERROR.E0002, null, locale));
+		}
 		
 		String result = acmdService.add(acmd, userId);
 
@@ -84,7 +86,11 @@ public class AccommodationController {
 		
 		String userId = sessionInfo.getUserId();
 		// TODO : delete
-		if ( userId == null ) {	userId = "tester";}
+		if ( userId == null ) userId = "tester";
+		
+		if (!checkRequiredParams(acmd)){
+			return new Response<>(IMessageCode.ERROR.E0002, messageSource.getMessage(IMessageCode.ERROR.E0002, null, locale));
+		}
 		
 		int result = acmdService.update(acmd, userId);
 		Response resp;
@@ -94,6 +100,11 @@ public class AccommodationController {
 			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
 		}
 		return resp;
+	}
+
+	private boolean checkRequiredParams(UIAccommodation acmd) {
+		// TODO : 최소한의 필수 파라미터 검사
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,11 +142,16 @@ public class AccommodationController {
 		return resp;
 	}
 
-	@ApiOperation("숙소 삭제")
-	@DeleteMapping
-	public Response deleteAcmdInfo() {
-		// TODO : 삭제 로직 구현 (숙소업체 메인 정보를 제외한 정보들만)
+	@ApiOperation("숙소 비활성화")
+	@DeleteMapping("/{acmdUid}")
+	public Response deleteAcmdInfo(@PathVariable String acmdUid, Locale locale) {
 		Response resp = new Response();
+		int result = acmdService.inactivate(acmdUid);
+		if ( result > 0 ){
+			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+		} else {
+			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
 		return resp;
 	}
 

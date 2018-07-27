@@ -78,7 +78,7 @@
 		FROM MO_ACCOMMODATION WHERE ACMD_UID = #{acmdUid}
 	</select>
 	
-	<update id="inActivate">
+	<update id="inactivate">
 		UPDATE MO_ACCOMMODATION SET ACTIVE_YN = 'N', UPDATE_DTTM = current_timestamp 
 		WHERE ACMD_UID = #{acmdUid}
 	</update>

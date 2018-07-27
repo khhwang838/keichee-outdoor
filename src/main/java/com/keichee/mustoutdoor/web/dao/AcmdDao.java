@@ -18,7 +18,7 @@ public interface AcmdDao {
 
 	AcmdDto selectByUid(@Param("acmdUid")String acmdUid);
 	
-	int inActivate(@Param("acmdUid")String acmdUid);
+	int inactivate(@Param("acmdUid")String acmdUid);
 	
 	int activate(@Param("acmdUid")String acmdUid);
 
