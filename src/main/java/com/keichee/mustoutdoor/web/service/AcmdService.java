@@ -229,8 +229,8 @@ public class AcmdService {
 	 * @return
 	 */
 	@Transactional
-	public int inactivate(String acmdUid) {
-		int result = acmdDao.inactivate(acmdUid);
+	public int updateActivation(String acmdUid, String activeYn) {
+		int result = acmdDao.updateActivateYn(acmdUid, activeYn);
 		return result;
 	}
 

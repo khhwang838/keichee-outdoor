@@ -11,7 +11,6 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -143,10 +142,10 @@ public class AccommodationController {
 	}
 
 	@ApiOperation("숙소 비활성화")
-	@DeleteMapping("/{acmdUid}")
-	public Response deleteAcmdInfo(@PathVariable String acmdUid, Locale locale) {
+	@PatchMapping("/inactivate/{acmdUid}")
+	public Response inactivate(@PathVariable String acmdUid, Locale locale) {
 		Response resp = new Response();
-		int result = acmdService.inactivate(acmdUid);
+		int result = acmdService.updateActivation(acmdUid, "N");
 		if ( result > 0 ){
 			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
 		} else {
@@ -155,6 +154,19 @@ public class AccommodationController {
 		return resp;
 	}
 
+	@ApiOperation("숙소 비활성화")
+	@PatchMapping("/activate/{acmdUid}")
+	public Response activate(@PathVariable String acmdUid, Locale locale) {
+		Response resp = new Response();
+		int result = acmdService.updateActivation(acmdUid, "Y");
+		if ( result > 0 ){
+			resp = new Response<>(IMessageCode.SUCCESS.S0001,  messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+		} else {
+			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
+		return resp;
+	}
+	
 	@ApiOperation("이미지 저장")
 	@PostMapping(value = "/images")
 	public Response saveImages(UIAccommodation acmdImages, Locale locale){
