@@ -2,9 +2,11 @@ package com.keichee.mustoutdoor.web.dao;
 
 import java.util.List;
 
-import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypeDto;
+import org.apache.ibatis.annotations.Param;
+
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypesDto;
 
 public interface RoomTypesDao {
 
-	List<RoomTypeDto> selectTypesByAcmdUid(String acmdUid);
+	List<RoomTypesDto> selectTypesByAcmdUid(@Param(value = "acmdUid") String acmdUid);
 }

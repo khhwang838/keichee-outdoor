@@ -13,8 +13,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class SpecialFacilitiesDto {
 
-	private String specialFcltId;
+	private String specialFcltUid;
 	private String specialFcltName;
 	private String specialFcltDesc;
+	private String acmdUid;
+	private String userId;
 	
 }

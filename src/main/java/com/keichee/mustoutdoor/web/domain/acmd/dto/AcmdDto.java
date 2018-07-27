@@ -6,12 +6,14 @@ import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class AcmdDto {
 
 	private String acmdUid;
@@ -27,12 +29,11 @@ public class AcmdDto {
 	private String cityNo;
 	private String crcNationCd;
 	private String crcUnit;
-	private String cancelPlcyUid;
+	private String cancelPlcyId;
 	private String activeYn;
 	private LocalDateTime createDttm;
 	private LocalDateTime updateDttm;
 	
-	public AcmdDto() {}
 	public AcmdDto(UIAccommodation ui) {
 		this.acmdUid = GuidUtils.instance().createGuid();
 		this.acmdName = ui.getUiGeneralInfo().getTitle();

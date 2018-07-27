@@ -7,10 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PolicyOptionsDto {
+public class RoomTypesDto {
 
-	private String plcyOptUid;
-	private String plcyOptName;
-	private String plcyOptDesc;
+	private String roomTypeUid;
+	private String roomTypeName;
+	private String roomTypeImg;
 	
 }

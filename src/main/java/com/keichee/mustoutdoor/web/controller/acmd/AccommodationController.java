@@ -59,25 +59,23 @@ public class AccommodationController {
 	@PostMapping
 	public Response insertAcmdInfo(UIAccommodation acmd, Locale locale) {
 		
-		log.debug("{} {}", acmd.getUiGeneralInfo().getTitle(), acmd.getUiGeneralInfo().getDesc());
-		return null;
-//		String userId = sessionInfo.getUserId();
-//		// TODO : 필수값 검사
-//		if ( userId == null ) userId = "tester";
-//		
-//		
-//		String result = acmdService.add(acmd, userId);
-//
-//		Response<String> resp;
-//		if (result != null) {
-//			resp = new Response<>(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
-//			List<String> respData = new ArrayList<>();
-//			respData.add(result);
-//			resp.setRespData(respData);
-//		} else {
-//			resp = new Response<>(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
-//		}
-//		return resp;
+		String userId = sessionInfo.getUserId();
+		// TODO : 필수값 검사
+		if ( userId == null ) userId = "tester";
+		
+		
+		String result = acmdService.add(acmd, userId);
+
+		Response<String> resp;
+		if (result != null) {
+			resp = new Response<>(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
+			List<String> respData = new ArrayList<>();
+			respData.add(result);
+			resp.setRespData(respData);
+		} else {
+			resp = new Response<>(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
+		}
+		return resp;
 	}
 
 	@ApiOperation("숙소 정보 업데이트")

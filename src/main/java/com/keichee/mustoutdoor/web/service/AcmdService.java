@@ -24,14 +24,14 @@ import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdSpecialFacilitiesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.ExtraOptionsDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.PoliciesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypeDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypesDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto;
 
 /**
  * 숙소 정보 생성/수정/조회/삭제 서비스
@@ -57,7 +57,7 @@ public class AcmdService {
 	private PolicyOptionsDao policyOptionsDao;
 	@Autowired
 	private RoomTypesDao roomTypesDao;
-	
+
 	/**
 	 * 숙소 정보 생성
 	 *
@@ -74,7 +74,7 @@ public class AcmdService {
 		dto.setActiveYn("Y");
 		dto.setCreateDttm(DateUtils.instance.getCurrentDttmAsUTC());
 		dto.setUpdateDttm(DateUtils.instance.getCurrentDttmAsUTC());
-		
+
 		int result = acmdDao.insertAcmd(dto);
 		if (result > 0) {
 			// RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
@@ -100,9 +100,10 @@ public class AcmdService {
 					acmdThemesDao.insertAcmdThemesRel(new AcmdThemesRelDto(acmdUid, userId, themeId));
 				}
 			}
-			if (uiAcmdInfo.getUiDetails() != null && uiAcmdInfo.getUiDetails().getSpecialFcltIds() != null) {
-				for (String specialFcltId : uiAcmdInfo.getUiDetails().getSpecialFcltIds()) {
-					specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(new AcmdSpecialFacilitiesRelDto(acmdUid, userId, specialFcltId));
+			if (uiAcmdInfo.getUiDetails() != null && uiAcmdInfo.getUiDetails().getSpecialFclts() != null) {
+				for (SpecialFacilitiesDto specialFclt : uiAcmdInfo.getUiDetails().getSpecialFclts()) {
+					specialFacilitiesDao.insertSpecialFacility(
+							new SpecialFacilitiesDto(GuidUtils.instance().createGuid(), specialFclt.getSpecialFcltName(), specialFclt.getSpecialFcltDesc(), acmdUid, userId));
 				}
 			}
 			if (uiAcmdInfo.getUiOtherOptions() != null && uiAcmdInfo.getUiOtherOptions().getExtraOptions() != null) {
@@ -124,9 +125,9 @@ public class AcmdService {
 					}
 				}
 			}
-			
+
 			addImages(uiAcmdInfo);
-			
+
 			return dto.getAcmdUid();
 		}
 		return "Failed to create an Accommodation.";
@@ -138,9 +139,7 @@ public class AcmdService {
 	 */
 	public int addImages(UIAccommodation acmd) {
 		// TODO : 이미지 저장
-		
-		
-		
+
 		return 1;
 	}
 
@@ -157,15 +156,13 @@ public class AcmdService {
 
 		if (result > 0) {
 
-			// TODO : 일부는 업데이트 일부는 삭제 후 재입력
-			for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRcmdSpots()) {
-				rcmdSpotsDao.updateRcmdSpots(rcmdSpot);
-			}
+			updateRecommendSpots(dto.getAcmdUid(), userId, uiAcmdInfo.getUiLocation().getRcmdSpots());
+
 			updateAcmdFacilitiesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getFcltIds());
 
 			updateAcmdThemesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getThemeIds());
 
-			updateAcmdSpecialFacilitiesRel(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getSpecialFcltIds());
+			updateSpecialFacilities(dto.getAcmdUid(), userId, uiAcmdInfo.getUiDetails().getSpecialFclts());
 
 			updateExtraOptions(dto.getAcmdUid(), uiAcmdInfo.getUiOtherOptions().getExtraOptions());
 
@@ -176,6 +173,17 @@ public class AcmdService {
 			}
 		}
 		return result;
+	}
+
+	private void updateRecommendSpots(String acmdUid, String userId, List<RecommendSpotsDto> rcmdSpots) {
+		if (rcmdSpots != null && rcmdSpots.size() > 0) {
+			rcmdSpotsDao.deleteRcmdSpotsByAcmdUid(acmdUid);
+			for (RecommendSpotsDto rcmdSpot : rcmdSpots) {
+				rcmdSpot.setAcmdUid(acmdUid);
+				rcmdSpot.setUserId(userId);
+				rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
+			}
+		}
 	}
 
 	private void updateAcmdFacilitiesRel(String acmdUid, String userId, List<String> fcltIds) {
@@ -196,11 +204,11 @@ public class AcmdService {
 		}
 	}
 
-	private void updateAcmdSpecialFacilitiesRel(String acmdUid, String userId, List<String> specialFcltIds) {
-		if (specialFcltIds != null) {
-			specialFacilitiesDao.deleteAcmdSpecialFacilitiesRelByAmcdUid(acmdUid);
-			for (String specialFcltId : specialFcltIds) {
-				specialFacilitiesDao.insertAcmdSpecialFacilitiesRel(new AcmdSpecialFacilitiesRelDto(acmdUid, userId, specialFcltId));
+	private void updateSpecialFacilities(String acmdUid, String userId, List<SpecialFacilitiesDto> specialFclts) {
+		if (specialFclts != null) {
+			specialFacilitiesDao.deleteSpecialFacilitiesByAmcdUid(acmdUid);
+			for (SpecialFacilitiesDto specialFclt : specialFclts) {
+				specialFacilitiesDao.insertSpecialFacility(new SpecialFacilitiesDto(GuidUtils.instance().createGuid(), specialFclt.getSpecialFcltName(), specialFclt.getSpecialFcltDesc(), acmdUid, userId));
 			}
 		}
 	}
@@ -232,10 +240,10 @@ public class AcmdService {
 	 */
 	public List<UIAcmd> getAllAcmdList(String userId) {
 		List<UIAcmd> result = new ArrayList<>();
-		
+
 		List<AcmdDto> acmdList = acmdDao.selectAllByUserId(userId);
 		for (AcmdDto dto : acmdList) {
-			List<RoomTypeDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
+			List<RoomTypesDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
 			List<AcmdThemesDto> acmdThemes = acmdThemesDao.selectThemesByAcmdUid(dto.getAcmdUid());
 			result.add(new UIAcmd(dto, acmdThemes, roomTypes));
 		}
@@ -250,11 +258,11 @@ public class AcmdService {
 	 */
 	public UIAcmd getAcmd(String acmdUid) {
 		AcmdDto acmdDetail = acmdDao.selectByUid(acmdUid);
-		// TODO : theme	정보 조회
+		// TODO : theme 정보 조회
 		List<AcmdThemesDto> themes = null;
 		// TODO : room type 정보 조회
-		List<RoomTypeDto> roomTypes = null;
-		
+		List<RoomTypesDto> roomTypes = null;
+
 		return new UIAcmd(acmdDetail, themes, roomTypes);
 	}
 

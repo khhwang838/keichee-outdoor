@@ -17,31 +17,8 @@
         WHERE SPECIAL_FCLT_ID = #{specialFcltId}
     </update>
 
-    <delete id="deleteSpecialFacility">
-		DELETE FROM MO_SpecialFacilities WHERE SPECIAL_FCLT_ID = #{specialFcltId}
+    <delete id="deleteSpecialFacilitiesByAmcdUid">
+		DELETE FROM MO_SpecialFacilities WHERE ACMD_UID = #{acmdUid}
 	</delete>
 
-    <!-- 관계 테이블 관련 -->
-    <insert id="insertAcmdSpecialFacilitiesRel">
-		INSERT INTO MO_AcmdSpecialFacilitiesRel (ACMD_UID, SPECIAL_FCLT_ID, USER_ID)
-		VALUES (#{acmdUid}, #{specialFcltId}, #{userId})
-	</insert>
-
-    <insert id="insertAcmdSpecialFacilitiesRels">
-        INSERT INTO MO_AcmdSpecialFacilitiesRel(ACMD_UID, SPECIAL_FCLT_ID, USER_ID)
-        VALUES
-        <foreach item="item" collection="list" open="" close="" separator=",">
-            (#{item.acmdUid}, #{item.specialFcltId}, #{item.userId})
-        </foreach>
-    </insert>
-
-    <delete id="deleteAcmdSpecialFacilitiesRelByAcmdUid">
-		DELETE FROM MO_AcmdSpecialFacilitiesRel
-		WHERE ACMD_UID = #{acmdUid}
-	</delete>
-
-    <delete id="deleteAcmdSpecialFacilitiesRelByUserId">
-		DELETE FROM MO_AcmdSpecialFacilitiesRel
-		WHERE USER_ID = #{userId}
-	</delete>
 </mapper>

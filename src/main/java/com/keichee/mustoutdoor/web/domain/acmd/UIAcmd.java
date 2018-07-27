@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypeDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypesDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +21,6 @@ public class UIAcmd {
 
 	private AcmdDto acmdDto;
 	private List<AcmdThemesDto> acmdThemes;
-	private List<RoomTypeDto> roomTypes;
+	private List<RoomTypesDto> roomTypes;
 
 }
