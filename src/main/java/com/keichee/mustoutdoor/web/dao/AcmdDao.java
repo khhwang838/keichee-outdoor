@@ -17,5 +17,9 @@ public interface AcmdDao {
 	List<AcmdDto> selectAllByUserId(@Param("userId")String userId);
 
 	AcmdDto selectByUid(@Param("acmdUid")String acmdUid);
+	
+	int inActivate(@Param("acmdUid")String acmdUid);
+	
+	int activate(@Param("acmdUid")String acmdUid);
 
 }

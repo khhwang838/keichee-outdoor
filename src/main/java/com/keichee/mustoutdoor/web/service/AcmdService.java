@@ -228,8 +228,9 @@ public class AcmdService {
 	 * @param dto
 	 * @return
 	 */
+	@Transactional
 	public int delete(AcmdDto dto) {
-		int result = acmdDao.deleteByUid(dto.getAcmdUid());
+		int result = acmdDao.inActivate(dto.getAcmdUid());
 		return result;
 	}
 
@@ -240,7 +241,7 @@ public class AcmdService {
 	 */
 	public List<UIAcmd> getAllAcmdList(String userId) {
 		List<UIAcmd> result = new ArrayList<>();
-
+		// TODO : theme, room type 정보 한번에 조회
 		List<AcmdDto> acmdList = acmdDao.selectAllByUserId(userId);
 		for (AcmdDto dto : acmdList) {
 			List<RoomTypesDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(dto.getAcmdUid());
@@ -257,10 +258,9 @@ public class AcmdService {
 	 * @return
 	 */
 	public UIAcmd getAcmd(String acmdUid) {
+		// TODO : theme, room type 정보 한번에 조회
 		AcmdDto acmdDetail = acmdDao.selectByUid(acmdUid);
-		// TODO : theme 정보 조회
 		List<AcmdThemesDto> themes = acmdThemesDao.selectThemesByAcmdUid(acmdUid);
-		// TODO : room type 정보 조회
 		List<RoomTypesDto> roomTypes = roomTypesDao.selectTypesByAcmdUid(acmdUid);
 
 		return new UIAcmd(acmdDetail, themes, roomTypes);

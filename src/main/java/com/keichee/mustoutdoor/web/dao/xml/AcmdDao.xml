@@ -77,4 +77,15 @@
 			, UPDATE_DTTM as updateDttm
 		FROM MO_ACCOMMODATION WHERE ACMD_UID = #{acmdUid}
 	</select>
+	
+	<update id="inActivate">
+		UPDATE MO_ACCOMMODATION SET ACTIVE_YN = 'N', UPDATE_DTTM = current_timestamp 
+		WHERE ACMD_UID = #{acmdUid}
+	</update>
+	
+	<update id="activate">
+		UPDATE MO_ACCOMMODATION SET ACTIVE_YN = 'Y', UPDATE_DTTM = current_timestamp 
+		WHERE ACMD_UID = #{acmdUid}
+	</update>
+	
 </mapper>
