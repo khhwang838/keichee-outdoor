@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping(value = "/acmd")
-public class AccommodationController {
+public class AcmdController {
 
 	@Autowired
 	private AcmdService acmdService;
