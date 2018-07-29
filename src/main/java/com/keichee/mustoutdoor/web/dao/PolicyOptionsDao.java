@@ -1,29 +1,22 @@
 package com.keichee.mustoutdoor.web.dao;
 
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto;
 
 public interface PolicyOptionsDao {
 
+	List<PolicyOptionsDto> selectPolicyOptions(@Param("acmdUid") String acmdUid, @Param("userId") String userId);
+	
     int insertPolicyOption(PolicyOptionsDto policyOption);
 
     int updatePolicyOption(PolicyOptionsDto policyOption);
 
     int deletePolicyOption(@Param("plcyOptUid") String plcyOptUid);
 
-    // Relation table join
-    List<PolicyOptionsDto> selectPolicyOptions(@Param("acmdUid") String acmdUid, @Param("userId") String userId);
-
-    int insertAcmdPolicyOptionRel(AcmdPolicyOptionRelDto acmdPlcyOptRelDto);
+    int deletePolicyOptionsByAcmdUid(@Param("acmdUid") String acmdUid);
     
-    int insertAcmdPolicyOptionRels(List<AcmdPolicyOptionRelDto> acmdPlcyOptRelDto);
-    
-    int deleteAcmdPolicyOptionRelByAcmdUid(@Param("acmdUid") String acmdUid);
-    
-    int deleteAcmdPolicyOptionRelByUserId(@Param("userId") String userId);
-    
-    
+    int deletePolicyOptionsByUserId(@Param("userId") String userId);
 }

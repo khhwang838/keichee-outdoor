@@ -3,6 +3,17 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.PolicyOptionsDao">
 
+	<select id="selectPolicyOptions">
+		SELECT 
+			PLCY_OPT_UID 	as plcyOptUid
+			, PLCY_OPT_NAME 	as plcyOptName
+			, PLCY_OPT_DESC	as plcyOptDesc
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+		FROM MO_PolicyOptions a
+		WHERE ACMD_UID = #{acmdUid} and USER_ID = #{userId}
+	</select>
+	
     <insert id="insertPolicyOption" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto">
 		INSERT INTO MO_PolicyOptions 
 			(PLCY_OPT_UID, PLCY_OPT_NAME, PLCY_OPT_DESC)
@@ -24,39 +35,11 @@
 		DELETE FROM MO_PolicyOptions WHERE PLCY_OPT_UID = #{plcyOptUid}
 	</delete>
 	
-	<select id="selectPolicyOptions">
-		SELECT 
-			PLCY_OPT_UID 	as plcyOptUid,
-			PLCY_OPT_NAME 	as plcyOptName,
-			PLCY_OPT_DESC	as plcyOptDesc
-		FROM MO_PolicyOptions a, MO_AcmdPolicyOptionRel b
-		WHERE b.ACMD_UID = #{acmdUid} and b.USER_ID = #{userId}
-			and b.PLCY_OPT_UID = a.PLCY_OPT_UID
-	</select>
-	
-	<!-- 관계 테이블 관련 -->
-    <insert id="insertAcmdPolicyOptionRel" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto">
-		INSERT INTO MO_AcmdPolicyOptionRel (ACMD_UID, PLCY_OPT_UID, USER_ID)
-		VALUES (#{acmdUid}, #{plcyOptUid}, #{userId})
-
-	</insert>
-
-    <insert id="insertAcmdPolicyOptionRels" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto">
-		INSERT INTO MO_AcmdPolicyOptionRel(ACMD_UID, PLCY_OPT_UID, USER_ID)
-		VALUES
-		<foreach item="item" collection="list" open="" close="" separator=",">
-		(#{item.acmdUid}, #{item.plcyOptUid}, #{item.userId})
-		</foreach>
-	</insert>
-
-	<delete id="deleteAcmdPolicyOptionRelByAcmdUid">
-		DELETE FROM MO_AcmdPolicyOptionRel
-		WHERE ACMD_UID = #{acmdUid}
-	</delete>
-
-	<delete id="deleteAcmdPolicyOptionRelByUserId">
-		DELETE FROM MO_AcmdPolicyOptionRel
-		WHERE USER_ID = #{userId}
+	<delete id="deletePolicyOptionsByAcmdUid">
+		DELETE FROM MO_PolicyOptions WHERE ACMD_UID = #{acmdUid}
 	</delete>
 	
+	<delete id="deletePolicyOptionsByUserId">
+		DELETE FROM MO_PolicyOptions WHERE USER_ID = #{userId}
+	</delete>
 </mapper>

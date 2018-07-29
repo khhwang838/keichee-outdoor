@@ -9,6 +9,8 @@ import lombok.ToString;
 @ToString
 public class PolicyOptionsDto {
 
+	private String acmdUid;
+	private String userId;
 	private String plcyOptUid;
 	private String plcyOptName;
 	private String plcyOptDesc;

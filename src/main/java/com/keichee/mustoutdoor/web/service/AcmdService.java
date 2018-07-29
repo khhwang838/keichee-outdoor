@@ -21,9 +21,9 @@ import com.keichee.mustoutdoor.web.dao.RoomTypesDao;
 import com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
+import com.keichee.mustoutdoor.web.domain.acmd.UIAcmdPolicy;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
-import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdPolicyOptionRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.ExtraOptionsDto;
@@ -120,8 +120,9 @@ public class AcmdService {
 					for (PolicyOptionsDto policyOption : uiAcmdInfo.getUiPolicy().getPolicyOptions()) {
 						String plcyOptUid = GuidUtils.instance().createGuid();
 						policyOption.setPlcyOptUid(plcyOptUid);
+						policyOption.setAcmdUid(acmdUid);
+						policyOption.setUserId(userId);
 						policyOptionsDao.insertPolicyOption(policyOption);
-						policyOptionsDao.insertAcmdPolicyOptionRel(new AcmdPolicyOptionRelDto(acmdUid, userId, plcyOptUid));
 					}
 				}
 			}
@@ -166,13 +167,27 @@ public class AcmdService {
 
 			updateExtraOptions(dto.getAcmdUid(), uiAcmdInfo.getUiOtherOptions().getExtraOptions());
 
-			policiesDao.insertPolicy(uiAcmdInfo.getUiPolicy().getPolicy());
-
-			for (PolicyOptionsDto policyOption : uiAcmdInfo.getUiPolicy().getPolicyOptions()) {
-				policyOptionsDao.insertPolicyOption(policyOption);
-			}
+			updatePolicies(dto.getAcmdUid(), userId, uiAcmdInfo.getUiPolicy());
+			
 		}
 		return result;
+	}
+
+	private void updatePolicies(String acmdUid, String userId, UIAcmdPolicy uiPolicy) {
+		PoliciesDto policy = uiPolicy.getPolicy();
+		policy.setAcmdUid(acmdUid);
+		policy.setUserId(userId);
+		int updated = policiesDao.updatePolicy(policy);
+		if ( updated == 0 ) {
+			policiesDao.insertPolicy(policy);
+		}
+		
+		policyOptionsDao.deletePolicyOptionsByAcmdUid(acmdUid);
+		for (PolicyOptionsDto policyOption : uiPolicy.getPolicyOptions()) {
+			policyOption.setAcmdUid(acmdUid);
+			policyOption.setUserId(userId);
+			policyOptionsDao.insertPolicyOption(policyOption);
+		}
 	}
 
 	private void updateRecommendSpots(String acmdUid, String userId, List<RecommendSpotsDto> rcmdSpots) {

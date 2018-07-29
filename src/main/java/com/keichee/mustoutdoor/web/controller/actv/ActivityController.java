@@ -1,7 +1,5 @@
 package com.keichee.mustoutdoor.web.controller.actv;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.keichee.mustoutdoor.web.controller.LoginController;
 import com.keichee.mustoutdoor.web.domain.Response;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping(value="/actv", method = {RequestMethod.GET, RequestMethod.POST})
 public class ActivityController {
-
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@PostMapping(value="/add")
 	@ResponseBody
