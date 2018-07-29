@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.keichee.mustoutdoor.component.FileHandler;
 import com.keichee.mustoutdoor.component.SessionInfo;
 import com.keichee.mustoutdoor.config.FileConfig;
 import com.keichee.mustoutdoor.constants.IMessageCode;
@@ -44,6 +45,8 @@ public class AcmdController {
 	private MessageSource messageSource;
 	@Autowired
 	private SessionInfo sessionInfo;
+	@Autowired
+	private FileHandler fileHandler;
 
 	/**
 	 * 싱글페이지로 갈 경우 이 콘트롤러를 사용해야함. 파일을 동시에 보내줘야하므로 form-data로 전송.
@@ -174,12 +177,11 @@ public class AcmdController {
 		log.debug("featured image file name: {}", acmdImages.getUiGeneralInfo().getFeaturedImage().getOriginalFilename());
 		log.debug("rcmd image[0] file name: {}", acmdImages.getUiLocation().getRcmdSpots().get(0).getRcmdPlaceImage().getOriginalFilename());
 		
-		int result = acmdService.addImages(acmdImages);
-		
 		Response resp;
-		if (result > 0) {
+		try {
+			fileHandler.addImages(acmdImages);
 			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
-		} else {
+		} catch (Exception e) {
 			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
 		}
 		return resp;

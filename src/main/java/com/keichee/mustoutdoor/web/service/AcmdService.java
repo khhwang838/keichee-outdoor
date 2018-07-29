@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.keichee.mustoutdoor.component.FileHandler;
 import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.dao.AcmdDao;
@@ -57,6 +58,8 @@ public class AcmdService {
 	private PolicyOptionsDao policyOptionsDao;
 	@Autowired
 	private RoomTypesDao roomTypesDao;
+	@Autowired
+	private FileHandler fileHandler;
 
 	/**
 	 * 숙소 정보 생성
@@ -78,7 +81,6 @@ public class AcmdService {
 		int result = acmdDao.insertAcmd(dto);
 		if (result > 0) {
 			// RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
-			// TODO : Galleries ( how ? )
 			// TODO : for-loop 안에서 INSERT하는 것들은 values에 조립하여 한쿼리로 변경
 			if (uiAcmdInfo.getUiLocation() != null && uiAcmdInfo.getUiLocation().getRcmdSpots() != null) {
 				for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRcmdSpots()) {
@@ -126,22 +128,11 @@ public class AcmdService {
 					}
 				}
 			}
-
-			addImages(uiAcmdInfo);
+			fileHandler.addImages(uiAcmdInfo);
 
 			return dto.getAcmdUid();
 		}
 		return "Failed to create an Accommodation.";
-	}
-
-	/**
-	 * @param acmd
-	 * @return
-	 */
-	public int addImages(UIAccommodation acmd) {
-		// TODO : 이미지 저장
-
-		return 1;
 	}
 
 	/**
