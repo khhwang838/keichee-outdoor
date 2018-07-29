@@ -3,7 +3,7 @@
 
 <mapper namespace="com.keichee.mustoutdoor.web.dao.PolicyOptionsDao">
 
-	<select id="selectPolicyOptions">
+	<select id="selectPolicyOptions" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto">
 		SELECT 
 			PLCY_OPT_UID 	as plcyOptUid
 			, PLCY_OPT_NAME 	as plcyOptName
@@ -16,8 +16,8 @@
 	
     <insert id="insertPolicyOption" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto">
 		INSERT INTO MO_PolicyOptions 
-			(PLCY_OPT_UID, PLCY_OPT_NAME, PLCY_OPT_DESC)
-		VALUES (#{plcyOptUid}, #{plcyOptName}, #{plcyOptDesc})
+			(ACMD_UID, USER_ID, PLCY_OPT_UID, PLCY_OPT_NAME, PLCY_OPT_DESC)
+		VALUES (#{acmdUid}, #{userId}, #{plcyOptUid}, #{plcyOptName}, #{plcyOptDesc})
 	</insert>
 
     <update id="updatePolicyOption" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.PolicyOptionsDto">
@@ -28,7 +28,9 @@
 			<if test="plcyOptDesc != null and plcyOptDesc.length() > 0">
 			, PLCY_OPT_DESC = #{plcyOptDesc}
 			</if>
-        WHERE PLCY_OPT_UID = #{plcyOptUid}
+        WHERE PLCY_OPT_UID = #{plcyOptUid} 
+        	and ACMD_UID = #{acmdUid} 
+        	and USER_ID = #{userId}
     </update>
 
     <delete id="deletePolicyOption">
