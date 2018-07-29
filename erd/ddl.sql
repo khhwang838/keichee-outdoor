@@ -61,9 +61,6 @@ DROP TABLE MO_SpecialAmenities;
 -- Default Room Price
 DROP TABLE MO_DfltRoomPrice;
 
--- Accomodation PolicyOption Relation
-DROP TABLE MO_AcmdPolicyOptionRel;
-
 -- Site Types
 DROP TABLE MO_SiteTypes;
 
@@ -114,12 +111,6 @@ DROP TABLE MO_UserInfo;
 
 -- Accommodation Themes Relation
 DROP TABLE MO_AcmdThemesRel;
-
--- Accommodation Types (deprecated)
-DROP TABLE MO_AcmdTypes;
-
--- Accommodation Types Relation (deprecated)
-DROP TABLE MO_AcmdTypesRel;
 
 -- Accommodation Activity Relation
 DROP TABLE MO_AcmdActvRel;
@@ -689,6 +680,8 @@ COMMENT ON COLUMN MO_CancelPolicy.CANCEL_PLCY_DESC IS '취소정책설명';
 -- Policy Options
 CREATE TABLE MO_PolicyOptions (
 	PLCY_OPT_UID  VARCHAR(32)   NOT NULL, -- 정책옵션UID
+	ACMD_UID      VARCHAR(32)   NOT NULL, -- 숙소UID
+	USER_ID       VARCHAR(40)   NOT NULL, -- 사용자ID
 	PLCY_OPT_NAME VARCHAR(100)  NULL,     -- 정책옵션명
 	PLCY_OPT_DESC VARCHAR(1000) NULL      -- 정책옵션설명
 );
@@ -698,7 +691,9 @@ ALTER TABLE MO_PolicyOptions
 	ADD
 		CONSTRAINT PK_MO_PolicyOptions -- Policy Options 기본키
 		PRIMARY KEY (
-			PLCY_OPT_UID -- 정책옵션UID
+			PLCY_OPT_UID, -- 정책옵션UID
+			ACMD_UID,     -- 숙소UID
+			USER_ID       -- 사용자ID
 		);
 
 -- Policy Options
@@ -706,6 +701,12 @@ COMMENT ON TABLE MO_PolicyOptions IS 'Policy Options';
 
 -- 정책옵션UID
 COMMENT ON COLUMN MO_PolicyOptions.PLCY_OPT_UID IS '정책옵션UID';
+
+-- 숙소UID
+COMMENT ON COLUMN MO_PolicyOptions.ACMD_UID IS '숙소UID';
+
+-- 사용자ID
+COMMENT ON COLUMN MO_PolicyOptions.USER_ID IS '사용자ID';
 
 -- 정책옵션명
 COMMENT ON COLUMN MO_PolicyOptions.PLCY_OPT_NAME IS '정책옵션명';
@@ -1081,41 +1082,6 @@ COMMENT ON COLUMN MO_DfltRoomPrice.SAT_PRICE IS '토요일가격';
 
 -- Default Room Price 기본키
 -- COMMENT ON CONSTRAINT MO_DfltRoomPrice.PK_MO_DfltRoomPrice IS 'Default Room Price 기본키';
-
--- Accomodation PolicyOption Relation
-CREATE TABLE MO_AcmdPolicyOptionRel (
-	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙소UID
-	PLCY_OPT_UID VARCHAR(32) NOT NULL, -- 정책옵션UID
-	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
-);
-
--- Accomodation PolicyOption Relation
-ALTER TABLE MO_AcmdPolicyOptionRel
-	ADD
-		CONSTRAINT PK_MO_AcmdPolicyOptionRel -- Accomodation PolicyOption Relation 기본키
-		PRIMARY KEY (
-			ACMD_UID,     -- 숙소UID
-			PLCY_OPT_UID, -- 정책옵션UID
-			USER_ID       -- 사용자ID
-		);
-
--- Accomodation PolicyOption Relation
-COMMENT ON TABLE MO_AcmdPolicyOptionRel IS 'Accomodation PolicyOption Relation';
-
--- 숙소UID
-COMMENT ON COLUMN MO_AcmdPolicyOptionRel.ACMD_UID IS '숙소UID';
-
--- 정책옵션UID
-COMMENT ON COLUMN MO_AcmdPolicyOptionRel.PLCY_OPT_UID IS '정책옵션UID';
-
--- 사용자ID
-COMMENT ON COLUMN MO_AcmdPolicyOptionRel.USER_ID IS '사용자ID';
-
--- Accomodation PolicyOption Relation 기본키
--- COMMENT ON INDEX PK_MO_AcmdPolicyOptionRel IS 'Accomodation PolicyOption Relation 기본키';
-
--- Accomodation PolicyOption Relation 기본키
--- COMMENT ON CONSTRAINT MO_AcmdPolicyOptionRel.PK_MO_AcmdPolicyOptionRel IS 'Accomodation PolicyOption Relation 기본키';
 
 -- Site Types
 CREATE TABLE MO_SiteTypes (
@@ -1906,74 +1872,6 @@ COMMENT ON COLUMN MO_AcmdThemesRel.USER_ID IS '사용자ID';
 
 -- Accommodation Themes Relation 기본키
 -- COMMENT ON CONSTRAINT MO_AcmdThemesRel.PK_MO_AcmdThemesRel IS 'Accommodation Themes Relation 기본키';
-
--- Accommodation Types (deprecated)
-CREATE TABLE MO_AcmdTypes (
-	ACMD_TYPE_ID      VARCHAR(40)  NOT NULL, -- 숙소타입ID
-	ACMD_TYPE_NAME    VARCHAR(100) NULL,     -- 숙소타입명
-	ACMD_TYPE_IMG_URL VARCHAR(255) NULL      -- 숙소타입이미지URL
-);
-
--- Accommodation Types (deprecated)
-ALTER TABLE MO_AcmdTypes
-	ADD
-		CONSTRAINT PK_MO_AcmdTypes -- Accommodation Types (deprecated) 기본키
-		PRIMARY KEY (
-			ACMD_TYPE_ID -- 숙소타입ID
-		);
-
--- Accommodation Types (deprecated)
-COMMENT ON TABLE MO_AcmdTypes IS 'Accommodation Types (deprecated)';
-
--- 숙소타입ID
-COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_ID IS '숙소타입ID';
-
--- 숙소타입명
-COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_NAME IS '숙소타입명';
-
--- 숙소타입이미지URL
-COMMENT ON COLUMN MO_AcmdTypes.ACMD_TYPE_IMG_URL IS '숙소타입이미지URL';
-
--- Accommodation Types (deprecated) 기본키
--- COMMENT ON INDEX PK_MO_AcmdTypes IS 'Accommodation Types (deprecated) 기본키';
-
--- Accommodation Types (deprecated) 기본키
--- COMMENT ON CONSTRAINT MO_AcmdTypes.PK_MO_AcmdTypes IS 'Accommodation Types (deprecated) 기본키';
-
--- Accommodation Types Relation (deprecated)
-CREATE TABLE MO_AcmdTypesRel (
-	ACMD_TYPE_ID VARCHAR(40) NOT NULL, -- 숙소타입ID
-	ACMD_UID     VARCHAR(32) NOT NULL, -- 숙소UID
-	USER_ID      VARCHAR(40) NOT NULL  -- 사용자ID
-);
-
--- Accommodation Types Relation (deprecated)
-ALTER TABLE MO_AcmdTypesRel
-	ADD
-		CONSTRAINT PK_MO_AcmdTypesRel -- Accommodation Types Relation (deprecated) 기본키
-		PRIMARY KEY (
-			ACMD_TYPE_ID, -- 숙소타입ID
-			ACMD_UID,     -- 숙소UID
-			USER_ID       -- 사용자ID
-		);
-
--- Accommodation Types Relation (deprecated)
-COMMENT ON TABLE MO_AcmdTypesRel IS 'Accommodation Types Relation (deprecated)';
-
--- 숙소타입ID
-COMMENT ON COLUMN MO_AcmdTypesRel.ACMD_TYPE_ID IS '숙소타입ID';
-
--- 숙소UID
-COMMENT ON COLUMN MO_AcmdTypesRel.ACMD_UID IS '숙소UID';
-
--- 사용자ID
-COMMENT ON COLUMN MO_AcmdTypesRel.USER_ID IS '사용자ID';
-
--- Accommodation Types Relation (deprecated) 기본키
--- COMMENT ON INDEX PK_MO_AcmdTypesRel IS 'Accommodation Types Relation (deprecated) 기본키';
-
--- Accommodation Types Relation (deprecated) 기본키
--- COMMENT ON CONSTRAINT MO_AcmdTypesRel.PK_MO_AcmdTypesRel IS 'Accommodation Types Relation (deprecated) 기본키';
 
 -- Accommodation Activity Relation
 CREATE TABLE MO_AcmdActvRel (
