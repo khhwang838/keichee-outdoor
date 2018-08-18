@@ -1,11 +1,6 @@
 package com.keichee.mustoutdoor.web.controller.acmd;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,14 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.keichee.mustoutdoor.component.FileHandler;
 import com.keichee.mustoutdoor.component.SessionInfo;
-import com.keichee.mustoutdoor.config.FileConfig;
 import com.keichee.mustoutdoor.constants.IMessageCode;
-import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.domain.Response;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
@@ -45,8 +35,6 @@ public class AcmdController {
 	private MessageSource messageSource;
 	@Autowired
 	private SessionInfo sessionInfo;
-	@Autowired
-	private FileHandler fileHandler;
 
 	/**
 	 * 싱글페이지로 갈 경우 이 콘트롤러를 사용해야함. 파일을 동시에 보내줘야하므로 form-data로 전송.
@@ -157,7 +145,7 @@ public class AcmdController {
 		return resp;
 	}
 
-	@ApiOperation("숙소 비활성화")
+	@ApiOperation("숙소 활성화")
 	@PatchMapping("/activate/{acmdUid}")
 	public Response activate(@PathVariable String acmdUid, Locale locale) {
 		Response resp = new Response();
@@ -170,46 +158,4 @@ public class AcmdController {
 		return resp;
 	}
 	
-	@ApiOperation("이미지 저장")
-	@PostMapping(value = "/images")
-	public Response saveImages(UIAccommodation acmdImages, Locale locale){
-		
-		log.debug("featured image file name: {}", acmdImages.getUiGeneralInfo().getFeaturedImage().getOriginalFilename());
-		log.debug("rcmd image[0] file name: {}", acmdImages.getUiLocation().getRcmdSpots().get(0).getRcmdPlaceImage().getOriginalFilename());
-		
-		Response resp;
-		try {
-			fileHandler.addImages(acmdImages);
-			resp = new Response(IMessageCode.SUCCESS.S0001, messageSource.getMessage(IMessageCode.SUCCESS.S0001, null, locale));
-		} catch (Exception e) {
-			resp = new Response(IMessageCode.ERROR.E0001, messageSource.getMessage(IMessageCode.ERROR.E0001, null, locale));
-		}
-		return resp;
-	}
-	
-	@ApiOperation("이미지 업로드")
-	@PostMapping("/upload")
-	public Object uploadFile(MultipartHttpServletRequest request) {
-		// TODO : 실제로 파일을 업로드하는데 저장을 누를때 실제로 파일을 업로드 하도록 변경되어야 함.
-		// 그게 안된다면, 업로드 했다가 저장을 누르지 않은 케이스를 구분해서 주기적으로 삭제해주는 로직이 필요함
-
-		String acmdUid = request.getParameter("acmdUid");
-		String acmdName = request.getParameter("acmdName");
-		Iterator<String> itr = request.getFileNames();
-		if (itr.hasNext()) {
-			MultipartFile mpf = request.getFile(itr.next());
-			try {
-				String filename = GuidUtils.instance().createGuid() + mpf.getOriginalFilename().substring(mpf.getOriginalFilename().lastIndexOf("."));
-
-				Files.write(Paths.get(FileConfig.instance().getUploadDestFeatured(), filename), mpf.getBytes(), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-				acmdService.updateImageUrl(acmdUid, acmdName, filename);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }

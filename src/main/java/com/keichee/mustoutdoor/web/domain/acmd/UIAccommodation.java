@@ -8,7 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UIAccommodation {
-
+	
+	private String acmdUid;
     private UIAcmdGeneralInfo uiGeneralInfo;
     private UIAcmdLocationSetting uiLocation;
     private UIAcmdAcmdDetails uiDetails;

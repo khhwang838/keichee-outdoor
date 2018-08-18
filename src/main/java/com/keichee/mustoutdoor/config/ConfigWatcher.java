@@ -1,17 +1,83 @@
 package com.keichee.mustoutdoor.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+
 import org.springframework.stereotype.Component;
 
-@Component
-public class ConfigWatcher {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-	private final static Logger logger = LoggerFactory.getLogger(ConfigWatcher.class);
+@Slf4j
+@Getter
+@Setter
+//@Component
+@AllArgsConstructor
+public class ConfigWatcher implements Runnable {
+	// TODO : 컴포넌트로 지정해도 기동 잘 되도록 수정 필요 
+	private WatchService watchService;
 	
 	public ConfigWatcher() {
-		// TODO : config 파일들을 등록하여 변경 시마다 config 컴포넌트들의 설정값 변경
+		
+		Path path1 = null;
+		Path path2 = null;
+		Path path3 = null;
+
+		try {
+			watchService = FileSystems.getDefault().newWatchService();
+
+			path1 = checkAndCreateDir(FileConfig.instance.getUploadDestGallery());
+			path1.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+			path2 = checkAndCreateDir(FileConfig.instance.getUploadDestRcmdSpots());
+			path2.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+			path3 = checkAndCreateDir(FileConfig.instance.getUploadDestGallery());
+			path3.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+		} catch (IOException e) {
+			log.error("Failed to register 'files.config' watch service. e-msg: {}", e.toString());
+		}
+		run();
 	}
-	
-	// TODO : 외부 컴포넌트에서 watcher에 파일을 등록할 수 있도록 API 제공
+	@Override
+	public void run() {
+		WatchKey key;
+		try {
+			while ((key = watchService.take()) != null) {
+				
+			    for (WatchEvent<?> event : key.pollEvents()) {
+			        //process
+			    	if ( StandardWatchEventKinds.ENTRY_MODIFY == event.kind() ) {
+			    		FileConfig.instance.load();
+			    	}
+			    }
+			    key.reset();
+			}
+		} catch (InterruptedException e) {
+			log.error("File config watch service is interrupted. e-msg: {}", e.toString());
+		}
+				
+	}
+	private Path checkAndCreateDir(String dir) {
+		Path path = new File(dir).toPath();
+		if (!Files.exists(path)) {
+			try {
+				log.debug("Creating dir : {}", path);
+				Files.createDirectories(path);
+			} catch (IOException e) {
+				log.error("e-msg:{}, dir:{}", e.toString(), dir);
+			}
+		}
+		return path;
+	}
 }

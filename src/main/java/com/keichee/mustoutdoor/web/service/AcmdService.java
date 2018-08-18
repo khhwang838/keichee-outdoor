@@ -1,5 +1,6 @@
 package com.keichee.mustoutdoor.web.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +8,13 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.keichee.mustoutdoor.component.FileHandler;
 import com.keichee.mustoutdoor.utils.DateUtils;
 import com.keichee.mustoutdoor.utils.GuidUtils;
 import com.keichee.mustoutdoor.web.dao.AcmdDao;
+import com.keichee.mustoutdoor.web.dao.AcmdImagesDao;
 import com.keichee.mustoutdoor.web.dao.AcmdThemesDao;
 import com.keichee.mustoutdoor.web.dao.ExtraOptionsDao;
 import com.keichee.mustoutdoor.web.dao.FacilitiesDao;
@@ -20,11 +23,14 @@ import com.keichee.mustoutdoor.web.dao.PolicyOptionsDao;
 import com.keichee.mustoutdoor.web.dao.RcmdSpotsDao;
 import com.keichee.mustoutdoor.web.dao.RoomTypesDao;
 import com.keichee.mustoutdoor.web.dao.SpecialFacilitiesDao;
+import com.keichee.mustoutdoor.web.domain.acmd.GalleryImage;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAccommodation;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAcmd;
+import com.keichee.mustoutdoor.web.domain.acmd.UIAcmdGallery;
 import com.keichee.mustoutdoor.web.domain.acmd.UIAcmdPolicy;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdFacilitiesRelDto;
+import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdImagesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdThemesRelDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.ExtraOptionsDto;
@@ -34,14 +40,19 @@ import com.keichee.mustoutdoor.web.domain.acmd.dto.RecommendSpotsDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.RoomTypesDto;
 import com.keichee.mustoutdoor.web.domain.acmd.dto.SpecialFacilitiesDto;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 숙소 정보 생성/수정/조회/삭제 서비스
  */
+@Slf4j
 @Service
 public class AcmdService {
 
 	@Autowired
 	private AcmdDao acmdDao;
+	@Autowired
+	private AcmdImagesDao acmdImagesDao;
 	@Autowired
 	private RcmdSpotsDao rcmdSpotsDao;
 	@Autowired
@@ -70,18 +81,26 @@ public class AcmdService {
 	@Transactional
 	public String add(UIAccommodation uiAcmdInfo, String userId) {
 		AcmdDto dto = new AcmdDto(uiAcmdInfo);
-		dto.setUserId(userId);
 		String acmdUid = GuidUtils.instance().createGuid();
 		dto.setAcmdUid(acmdUid);
 		dto.setUserId(userId);
 		dto.setActiveYn("Y");
 		dto.setCreateDttm(DateUtils.instance.getCurrentDttmAsUTC());
-		dto.setUpdateDttm(DateUtils.instance.getCurrentDttmAsUTC());
+		dto.setUpdateDttm(dto.getCreateDttm());
 
+		MultipartFile featuredImage = uiAcmdInfo.getUiGeneralInfo().getFeaturedImage();
+		if (featuredImage != null) {
+			String featuredImageUrl = null;
+			try {
+				featuredImageUrl = fileHandler.uploadFeaturedImage(featuredImage, acmdUid);
+			} catch (IllegalStateException | IOException e) {
+				log.error("Failed to upload featured image. [userId: {}, acmdUid: {}]", userId, acmdUid);
+			}
+			dto.setImgUrl(featuredImageUrl);
+		}
 		int result = acmdDao.insertAcmd(dto);
 		if (result > 0) {
 			// RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
-			// TODO : for-loop 안에서 INSERT하는 것들은 values에 조립하여 한쿼리로 변경
 			if (uiAcmdInfo.getUiLocation() != null && uiAcmdInfo.getUiLocation().getRcmdSpots() != null) {
 				for (RecommendSpotsDto rcmdSpot : uiAcmdInfo.getUiLocation().getRcmdSpots()) {
 					if (StringUtils.isEmpty(rcmdSpot.getRcmdPlaceName()))
@@ -89,6 +108,16 @@ public class AcmdService {
 					rcmdSpot.setRcmdPlaceUid(GuidUtils.instance().createGuid());
 					rcmdSpot.setAcmdUid(acmdUid);
 					rcmdSpot.setUserId(userId);
+					MultipartFile rcmdSpotImage = rcmdSpot.getRcmdPlaceImage();
+					if (rcmdSpotImage != null){
+						String imgUrl = null;
+						try {
+							imgUrl = fileHandler.uploadRcmdSpotImage(rcmdSpotImage, acmdUid, rcmdSpot.getRcmdPlaceUid());
+						} catch (IllegalStateException | IOException e) {
+							log.error("Failed to upload recommend spot image. [userId: {}, acmdUid: {}, rcmdPlaceUid: {}]", userId, acmdUid, rcmdSpot.getRcmdPlaceUid());
+						}
+						rcmdSpot.setRcmdPlaceImgUrl(imgUrl);
+					}
 					rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
 				}
 			}
@@ -128,8 +157,27 @@ public class AcmdService {
 					}
 				}
 			}
-			fileHandler.addImages(uiAcmdInfo);
-
+			
+			if ( uiAcmdInfo.getUiGallery() != null && uiAcmdInfo.getUiGallery().getImages() != null){
+				List<GalleryImage> images = uiAcmdInfo.getUiGallery().getImages();
+				
+				for ( GalleryImage image : images){
+					AcmdImagesDto acmdImagesDto = new AcmdImagesDto();
+					acmdImagesDto.setAcmdUid(acmdUid);
+					acmdImagesDto.setUserId(userId);
+					acmdImagesDto.setImgNo(image.getImgNo());
+					acmdImagesDto.setImgTitle(image.getImgTitle());
+					acmdImagesDto.setImgUid(GuidUtils.instance().createGuid());
+					String imgUrl = null;
+					try {
+						imgUrl = fileHandler.uploadGallryImage(image.getImage(), acmdUid, acmdImagesDto.getImgUid());
+					} catch (IllegalStateException | IOException e) {
+						log.error("Failed to upload gallery image. [userId: {}, acmdUid: {}, imgUid: {}]", userId, acmdUid, acmdImagesDto.getImgUid());
+					}
+					acmdImagesDto.setImgUrl(imgUrl);
+					acmdImagesDao.insertAcmdImages(acmdImagesDto);
+				}
+			}
 			return dto.getAcmdUid();
 		}
 		return "Failed to create an Accommodation.";
@@ -144,8 +192,19 @@ public class AcmdService {
 	@Transactional
 	public int update(UIAccommodation uiAcmdInfo, String userId) {
 		AcmdDto dto = new AcmdDto(uiAcmdInfo);
+		dto.setUserId(userId);
+		dto.setUpdateDttm(DateUtils.instance.getCurrentDttmAsUTC());
+		AcmdDto oldDto = acmdDao.selectByUid(dto.getAcmdUid());
+		fileHandler.deleteImage(fileHandler.getImagePathOnS3(oldDto.getImgUrl()));
+		String imgUrl = null;
+		try {
+			imgUrl = fileHandler.uploadFeaturedImage(uiAcmdInfo.getUiGeneralInfo().getFeaturedImage(), dto.getAcmdUid());
+		} catch (IllegalStateException | IOException e) {
+			log.error("Failed to upload featured image. [userId: {}, acmdUid: {}], e-msg: {}, stacktrace: {}", userId, dto.getAcmdUid(), e.toString(), e.getStackTrace());
+		}
+		dto.setImgUrl(imgUrl);
 		int result = acmdDao.updateAcmd(dto);
-
+		
 		if (result > 0) {
 
 			updateRecommendSpots(dto.getAcmdUid(), userId, uiAcmdInfo.getUiLocation().getRcmdSpots());
@@ -160,8 +219,39 @@ public class AcmdService {
 
 			updatePolicies(dto.getAcmdUid(), userId, uiAcmdInfo.getUiPolicy());
 			
+			updateGallery(dto.getAcmdUid(), userId, uiAcmdInfo.getUiGallery());
+
 		}
 		return result;
+	}
+
+	private void updateGallery(String acmdUid, String userId, UIAcmdGallery uiGallery) {
+		// 갤러리 이미지 업데이트
+		List<AcmdImagesDto> oldImages = acmdImagesDao.selectByAcmdUid(acmdUid);
+		for ( AcmdImagesDto oldImage : oldImages){
+			fileHandler.deleteImage(fileHandler.getImagePathOnS3(oldImage.getImgUrl()));
+		}
+		
+		if ( uiGallery != null && uiGallery.getImages() != null){
+			List<GalleryImage> images = uiGallery.getImages();
+			
+			for ( GalleryImage image : images){
+				AcmdImagesDto acmdImagesDto = new AcmdImagesDto();
+				acmdImagesDto.setAcmdUid(acmdUid);
+				acmdImagesDto.setUserId(userId);
+				acmdImagesDto.setImgNo(image.getImgNo());
+				acmdImagesDto.setImgTitle(image.getImgTitle());
+				acmdImagesDto.setImgUid(GuidUtils.instance().createGuid());
+				String imgUrl = null;
+				try {
+					imgUrl = fileHandler.uploadGallryImage(image.getImage(), acmdUid, acmdImagesDto.getImgUid());
+				} catch (IllegalStateException | IOException e) {
+					log.error("Failed to upload gallery image. [userId: {}, acmdUid: {}, imgUid: {}], e-msg: {}, stacktrace: {}", userId, acmdUid, acmdImagesDto.getImgUid(), e.toString(), e.getStackTrace());
+				}
+				acmdImagesDto.setImgUrl(imgUrl);
+				acmdImagesDao.insertAcmdImages(acmdImagesDto);
+			}
+		}
 	}
 
 	private void updatePolicies(String acmdUid, String userId, UIAcmdPolicy uiPolicy) {
@@ -169,11 +259,11 @@ public class AcmdService {
 		policy.setAcmdUid(acmdUid);
 		policy.setUserId(userId);
 		int updated = policiesDao.updatePolicy(policy);
-		if ( updated == 0 ) {
+		if (updated == 0) {
 			policiesDao.insertPolicy(policy);
 		}
-		
-		policyOptionsDao.deletePolicyOptionsByAcmdUid(acmdUid);
+
+		policyOptionsDao.deleteByAcmdUid(acmdUid);
 		for (PolicyOptionsDto policyOption : uiPolicy.getPolicyOptions()) {
 			policyOption.setAcmdUid(acmdUid);
 			policyOption.setUserId(userId);
@@ -182,11 +272,25 @@ public class AcmdService {
 	}
 
 	private void updateRecommendSpots(String acmdUid, String userId, List<RecommendSpotsDto> rcmdSpots) {
-		if (rcmdSpots != null && rcmdSpots.size() > 0) {
+		if (rcmdSpots != null) {
+			// 이미지 삭제 및 재등록
+			List<RecommendSpotsDto> oldRcmdSpots = rcmdSpotsDao.selectRcmdSpotsByAcmdUid(acmdUid);
+			for ( RecommendSpotsDto rcmdSpot : oldRcmdSpots){
+				// S3 버킷의 이미지 삭제
+				fileHandler.deleteImage(fileHandler.getImagePathOnS3(rcmdSpot.getRcmdPlaceImgUrl()));
+			}
 			rcmdSpotsDao.deleteRcmdSpotsByAcmdUid(acmdUid);
 			for (RecommendSpotsDto rcmdSpot : rcmdSpots) {
 				rcmdSpot.setAcmdUid(acmdUid);
 				rcmdSpot.setUserId(userId);
+				rcmdSpot.setRcmdPlaceUid(GuidUtils.instance().createGuid());
+				String imgUrl = null;
+				try {
+					imgUrl = fileHandler.uploadRcmdSpotImage(rcmdSpot.getRcmdPlaceImage(), acmdUid, rcmdSpot.getRcmdPlaceUid());
+				} catch (IllegalStateException | IOException e) {
+					log.error("Failed to upload rcmdSpotImage. [userId: {}, acmdUid: {}, rcmdSpotUid: {}], e-msg: {}, stacktrace: {}", userId, acmdUid, rcmdSpot.getRcmdPlaceUid(), e.toString(), e.getStackTrace());
+				}
+				rcmdSpot.setRcmdPlaceImgUrl(imgUrl);
 				rcmdSpotsDao.insertRcmdSpots(rcmdSpot);
 			}
 		}
@@ -214,7 +318,8 @@ public class AcmdService {
 		if (specialFclts != null) {
 			specialFacilitiesDao.deleteSpecialFacilitiesByAmcdUid(acmdUid);
 			for (SpecialFacilitiesDto specialFclt : specialFclts) {
-				specialFacilitiesDao.insertSpecialFacility(new SpecialFacilitiesDto(GuidUtils.instance().createGuid(), specialFclt.getSpecialFcltName(), specialFclt.getSpecialFcltDesc(), acmdUid, userId));
+				specialFacilitiesDao.insertSpecialFacility(
+						new SpecialFacilitiesDto(GuidUtils.instance().createGuid(), specialFclt.getSpecialFcltName(), specialFclt.getSpecialFcltDesc(), acmdUid, userId));
 			}
 		}
 	}

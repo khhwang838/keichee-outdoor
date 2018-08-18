@@ -10,7 +10,10 @@
 	
 	<update id="updateAcmd" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdDto">
 		UPDATE MO_ACCOMMODATION SET 
-			ACMD_NAME = #{acmdName}
+			UPDATE_DTTM = #{updateDttm}
+			<if test="acmdName != null and acmdName.length() > 0">
+				, ACMD_NAME = #{acmdName}
+			</if>
 			<if test="acmdDesc != null and acmdDesc.length() > 0">
 				, ACMD_DESC = #{acmdDesc}
 			</if>

@@ -5,8 +5,6 @@ package com.keichee.mustoutdoor.web.domain.acmd;
 
 import java.util.List;
 
-import com.keichee.mustoutdoor.web.domain.Image;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +12,6 @@ import lombok.Setter;
 @Setter
 public class UIAcmdGallery {
 	
-	private List<Image> images;
+	private List<GalleryImage> images;
 	
 }

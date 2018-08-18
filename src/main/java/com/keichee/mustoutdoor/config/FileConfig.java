@@ -3,57 +3,36 @@ package com.keichee.mustoutdoor.config;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Properties;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@Getter
+@Setter
 public class FileConfig {
-	
-	@Autowired
-	private ConfigWatcher watcher;
-	
-	private static final FileConfig instance = new FileConfig();
-			
-	private String uploadDestFeatured;
 
+	private String uploadDestFeatured;
+	private String uploadDestRcmdSpots;
+	private String uploadDestGallery;
+
+	public static FileConfig instance = new FileConfig();
+	
 	public FileConfig() {
-		String fileConfigLocation = System.getProperty("file.config");
-		
+		load();
+	}
+	public void load(){
+		String fileConfigLocation = System.getProperty("files.config");
 		Properties props = new Properties();
 		try {
 			props.load(new FileInputStream(new File(fileConfigLocation)));
+			uploadDestFeatured = props.getProperty("upload.dir.image.featured");
+			uploadDestRcmdSpots = props.getProperty("upload.dir.image.rcmdspots");
+			uploadDestGallery = props.getProperty("upload.dir.image.gallery");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to load 'files.config'. e-msg: {}", e.toString());
 		}
-		
-		uploadDestFeatured = props.getProperty("upload.dir.image.fetured");
-	
-		Path dir = new File(uploadDestFeatured).toPath();
-		if (!Files.exists(dir))
-			try {
-				Files.createDirectories(dir);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		// TODO : watcher에 config 파일 등록
-	
 	}
-
-	public String getUploadDestFeatured() {
-		return uploadDestFeatured;
-	}
-
-	public void setUploadDestFeatured(String uploadDestFeatured) {
-		this.uploadDestFeatured = uploadDestFeatured;
-	}
-
-	public static FileConfig instance() {
-		return instance;
-	}
-
 }

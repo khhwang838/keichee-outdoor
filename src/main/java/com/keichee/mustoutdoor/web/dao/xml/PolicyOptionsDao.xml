@@ -33,15 +33,15 @@
         	and USER_ID = #{userId}
     </update>
 
-    <delete id="deletePolicyOption">
+    <delete id="deleteByUid">
 		DELETE FROM MO_PolicyOptions WHERE PLCY_OPT_UID = #{plcyOptUid}
 	</delete>
 	
-	<delete id="deletePolicyOptionsByAcmdUid">
+	<delete id="deleteByAcmdUid">
 		DELETE FROM MO_PolicyOptions WHERE ACMD_UID = #{acmdUid}
 	</delete>
 	
-	<delete id="deletePolicyOptionsByUserId">
+	<delete id="deleteByUserId">
 		DELETE FROM MO_PolicyOptions WHERE USER_ID = #{userId}
 	</delete>
 </mapper>

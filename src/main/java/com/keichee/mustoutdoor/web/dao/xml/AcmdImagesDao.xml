@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.keichee.mustoutdoor.web.dao.AcmdImagesDao">
+
+	<insert id="insertAcmdImages" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdImagesDto">
+		INSERT INTO MO_ACMDIMAGES (ACMD_UID, USER_ID, IMG_UID, IMG_URL, IMG_TITLE, IMG_NO)
+		VALUES (#{acmdUid}, #{userId}, #{imgUid}, #{imgUrl, jdbcType=VARCHAR}, #{imgTitle, jdbcType=VARCHAR}, #{imgNo})
+	</insert>
+	
+	<update id="updateAcmdImages" parameterType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdImagesDto">
+		UPDATE MO_ACMDIMAGES SET 
+			IMG_TITLE = #{imgTitle}
+			<if test="imgURL != null and imgURL.length() > 0">
+				, IMG_URL = #{imgURL}
+			</if>
+			<if test="imgNo > 0">
+				, IMG_NO = #{imgNo}
+			</if>
+		WHERE IMG_UID = #{imgUid}
+	</update>
+	
+	<select id="selectByAcmdUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdImagesDto">
+		SELECT
+			IMG_UID as imgUid
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+			, IMG_URL as imgUrl
+			, IMG_TITLE as imgTitle
+			, IMG_NO as imgNo
+		FROM MO_ACMDIMAGES
+		WHERE ACMD_UID = #{acmdUid}
+	</select>
+	
+	<select id="selectByUid" resultType="com.keichee.mustoutdoor.web.domain.acmd.dto.AcmdImagesDto">
+		SELECT
+			IMG_UID as imgUid
+			, ACMD_UID as acmdUid
+			, USER_ID as userId
+			, IMG_URL as imgUrl
+			, IMG_TITLE as imgTitle
+			, IMG_NO as imgNo
+		FROM MO_ACMDIMAGES
+		WHERE IMG_UID = #{imgUid}
+	</select>
+	
+	<delete id="deleteByUid">
+		DELETE FROM MO_ACMDIMAGES WHERE IMG_UID = #{imgUid}
+	</delete>
+
+	<delete id="deleteByAcmdUid">
+		DELETE FROM MO_ACMDIMAGES WHERE ACMD_UID = #{acmdUid}
+	</delete>
+	
+	<delete id="deleteByUserId">
+		DELETE FROM MO_ACMDIMAGES WHERE USER_ID = #{userId}
+	</delete>
+	
+</mapper>

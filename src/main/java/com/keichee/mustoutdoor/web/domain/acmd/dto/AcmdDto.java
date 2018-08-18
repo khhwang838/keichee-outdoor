@@ -35,7 +35,7 @@ public class AcmdDto {
 	private LocalDateTime updateDttm;
 	
 	public AcmdDto(UIAccommodation ui) {
-		this.acmdUid = GuidUtils.instance().createGuid();
+		this.acmdUid = ui.getAcmdUid() == null ? GuidUtils.instance().createGuid() : ui.getAcmdUid();
 		this.acmdName = ui.getUiGeneralInfo().getTitle();
 		this.acmdDesc = ui.getUiGeneralInfo().getDesc();
 		this.acmdAddr = ui.getUiLocation().getAcmdAddr();

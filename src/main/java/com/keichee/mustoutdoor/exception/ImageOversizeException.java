@@ -10,4 +10,8 @@ public class ImageOversizeException extends CustomException {
 	public ImageOversizeException() {
 		super("Image size must less than 5MB.");
 	}
+	
+	public ImageOversizeException(String fileName) {
+		super("Image size must less than 5MB. [fileName: " + fileName + "]");
+	}
 }

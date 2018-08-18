@@ -14,9 +14,9 @@ public interface PolicyOptionsDao {
 
     int updatePolicyOption(PolicyOptionsDto policyOption);
 
-    int deletePolicyOption(@Param("plcyOptUid") String plcyOptUid);
+    int deleteByUid(@Param("plcyOptUid") String plcyOptUid);
 
-    int deletePolicyOptionsByAcmdUid(@Param("acmdUid") String acmdUid);
+    int deleteByAcmdUid(@Param("acmdUid") String acmdUid);
     
-    int deletePolicyOptionsByUserId(@Param("userId") String userId);
+    int deleteByUserId(@Param("userId") String userId);
 }
