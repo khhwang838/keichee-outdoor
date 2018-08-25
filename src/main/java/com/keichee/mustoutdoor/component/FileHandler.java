@@ -142,7 +142,7 @@ public class FileHandler {
 	}
 	
 	private AmazonS3 getS3Client(){
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAIKYT5TYTBWBSQFWQ", "W6XbcGsojscW4sAzf095XyEujgligYJzf9ykqCM5");
+		AWSCredentials credentials = new BasicAWSCredentials("", "");
 		AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(clientRegion).withCredentials(new AWSStaticCredentialsProvider(credentials)).build();
 		return s3Client;
 	}
