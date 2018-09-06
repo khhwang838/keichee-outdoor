@@ -38,7 +38,8 @@ public class FileHandler {
 	private final int MAX_FILE_SIZE = 1024 * 1024; // 1 MB limit
 	private final String clientRegion = Regions.AP_NORTHEAST_2.getName();
 	private final String bucketName = "mustoutdoor";
-
+	
+	
 	public String uploadGallryImage(MultipartFile image, String acmdUid, String imgUid) throws IllegalStateException, IOException {
 		// return aws public link url
 		return uploadImage(image, ImageType.GALLERY, acmdUid, imgUid);
@@ -142,7 +143,8 @@ public class FileHandler {
 	}
 	
 	private AmazonS3 getS3Client(){
-		AWSCredentials credentials = new BasicAWSCredentials("", "");
+		// TODO : 푸시하기 전에 암호화처리
+		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 		AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(clientRegion).withCredentials(new AWSStaticCredentialsProvider(credentials)).build();
 		return s3Client;
 	}

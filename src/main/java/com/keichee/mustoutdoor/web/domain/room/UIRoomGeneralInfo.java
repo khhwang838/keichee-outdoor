@@ -1,7 +1,7 @@
 /**
  * Created on 2018. 7. 21. by Keichee
  */
-package com.keichee.mustoutdoor.web.domain.acmd;
+package com.keichee.mustoutdoor.web.domain.room;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UIAcmdGeneralInfo {
+public class UIRoomGeneralInfo {
 	
 	private String title;
 	private String desc;

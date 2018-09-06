@@ -88,16 +88,16 @@ public class AcmdService {
 		dto.setCreateDttm(DateUtils.instance.getCurrentDttmAsUTC());
 		dto.setUpdateDttm(dto.getCreateDttm());
 
-		MultipartFile featuredImage = uiAcmdInfo.getUiGeneralInfo().getFeaturedImage();
-		if (featuredImage != null) {
-			String featuredImageUrl = null;
-			try {
-				featuredImageUrl = fileHandler.uploadFeaturedImage(featuredImage, acmdUid);
-			} catch (IllegalStateException | IOException e) {
-				log.error("Failed to upload featured image. [userId: {}, acmdUid: {}]", userId, acmdUid);
-			}
-			dto.setImgUrl(featuredImageUrl);
-		}
+//		MultipartFile featuredImage = uiAcmdInfo.getUiGeneralInfo().getFeaturedImage();
+//		if (featuredImage != null) {
+//			String featuredImageUrl = null;
+//			try {
+//				featuredImageUrl = fileHandler.uploadFeaturedImage(featuredImage, acmdUid);
+//			} catch (IllegalStateException | IOException e) {
+//				log.error("Failed to upload featured image. [userId: {}, acmdUid: {}]", userId, acmdUid);
+//			}
+//			dto.setImgUrl(featuredImageUrl);
+//		}
 		int result = acmdDao.insertAcmd(dto);
 		if (result > 0) {
 			// RcmdSpots, Facilities, Themes, Special Facilities, Extra Options, Policies, Policy Options
@@ -195,14 +195,14 @@ public class AcmdService {
 		dto.setUserId(userId);
 		dto.setUpdateDttm(DateUtils.instance.getCurrentDttmAsUTC());
 		AcmdDto oldDto = acmdDao.selectByUid(dto.getAcmdUid());
-		fileHandler.deleteImage(fileHandler.getImagePathOnS3(oldDto.getImgUrl()));
-		String imgUrl = null;
-		try {
-			imgUrl = fileHandler.uploadFeaturedImage(uiAcmdInfo.getUiGeneralInfo().getFeaturedImage(), dto.getAcmdUid());
-		} catch (IllegalStateException | IOException e) {
-			log.error("Failed to upload featured image. [userId: {}, acmdUid: {}], e-msg: {}, stacktrace: {}", userId, dto.getAcmdUid(), e.toString(), e.getStackTrace());
-		}
-		dto.setImgUrl(imgUrl);
+//		fileHandler.deleteImage(fileHandler.getImagePathOnS3(oldDto.getImgUrl()));
+//		String imgUrl = null;
+//		try {
+//			imgUrl = fileHandler.uploadFeaturedImage(uiAcmdInfo.getUiGeneralInfo().getFeaturedImage(), dto.getAcmdUid());
+//		} catch (IllegalStateException | IOException e) {
+//			log.error("Failed to upload featured image. [userId: {}, acmdUid: {}], e-msg: {}, stacktrace: {}", userId, dto.getAcmdUid(), e.toString(), e.getStackTrace());
+//		}
+//		dto.setImgUrl(imgUrl);
 		int result = acmdDao.updateAcmd(dto);
 		
 		if (result > 0) {
